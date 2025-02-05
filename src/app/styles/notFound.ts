@@ -9,7 +9,7 @@ const NotFoundContainer = styled(Box)(({ theme }) => ({
   alignItems: 'center',
   justifyContent: 'center',
   '& > h1': {
-    ...theme.fonts['primary-xl'],
+    ...theme.fonts['h3-title'],
     color: theme.palette.base[900],
     '& > span': {
       font: 'inherit',

@@ -20,21 +20,21 @@ function isOnClient() {
   }
 }
 
-api.interceptors.request.use(
-  async (config) => {
-    const session = await getSession();
+// api.interceptors.request.use(
+//   async (config) => {
+//     const session = await getSession();
 
-    if (isOnClient() && session?.userData.access_token) {
-      if (!config.headers.Authorization) {
-        config.headers.Authorization = `Bearer ${session?.userData.access_token}`;
-        return config;
-      }
+//     if (isOnClient() && session?.userData.access_token) {
+//       if (!config.headers.Authorization) {
+//         config.headers.Authorization = `Bearer ${session?.userData.access_token}`;
+//         return config;
+//       }
 
-      delete config.headers.Authorization;
-    }
-    return config;
-  },
-  (err) => Promise.reject(err),
-);
+//       delete config.headers.Authorization;
+//     }
+//     return config;
+//   },
+//   (err) => Promise.reject(err),
+// );
 
 export default api;

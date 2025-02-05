@@ -9,7 +9,7 @@ const PaginatedContainer = styled(Box)(({ theme }) => ({
   '& > span': {
     marginLeft: 'auto',
     marginRight: 'auto',
-    ...theme.fonts['secondary-md'],
+    ...theme.fonts['label'],
     color: theme.palette.primary[400],
   },
 }));

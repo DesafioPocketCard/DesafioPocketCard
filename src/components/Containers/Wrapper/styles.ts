@@ -17,10 +17,10 @@ const Container = styled(Box)(({ theme }) => ({
       display: 'flex',
       justifyContent: 'space-between',
       '& > h1': {
-        ...theme.fonts['primary-xl'],
+        ...theme.fonts['h3-title'],
         color: theme.palette.base.A200,
         [theme.breakpoints.down('sm')]: {
-          ...theme.fonts['primary-lg'],
+          ...theme.fonts['h4-subtitle'],
         },
       },
       '& .aside-items': {

@@ -4,10 +4,10 @@ import { TableCell, TableRow, styled, tableCellClasses } from "@mui/material";
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
         color: theme.palette.primary,
-        fontSize: theme.fonts['primary-md'],
+        fontSize: theme.fonts['h5-body-large'],
     },
     [`&.${tableCellClasses.body}`]: {
-        fontSize: theme.fonts['primary-md'],
+        fontSize: theme.fonts['h5-body-large'],
         color: theme.palette.primary,
     },
     [`&.${tableCellClasses.root}`]: {
