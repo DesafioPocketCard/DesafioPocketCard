@@ -1,0 +1,33 @@
+/* Resets */
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+
+*::-webkit-scrollbar {
+  width: 16px;
+  height: 16px;
+  background: #ffffff;
+}
+
+*::-webkit-scrollbar-thumb {
+  border-left: 3.2px solid #ffffff;
+  border-right: 3.2px solid #ffffff;
+  background: #6143b3;
+  border-radius: 6.4px;
+}
+
+ul,
+li,
+ol {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+body {
+  min-height: 100vh;
+}
