@@ -15,7 +15,7 @@ const ErrorBoundaryContainer = styled(Box)(({ theme }) => ({
     alignItems: 'center',
     gap: '8px',
     '& > h1': {
-      ...theme.fonts['primary-xl'],
+      ...theme.fonts['h3-title'],
       color: theme.palette.base[900],
     },
     '& > svg ': {
@@ -24,7 +24,7 @@ const ErrorBoundaryContainer = styled(Box)(({ theme }) => ({
     },
   },
   '& > p': {
-    ...theme.fonts['primary-md'],
+    ...theme.fonts['label'],
     color: theme.palette.base[600],
     marginBottom: '12px',
   },
