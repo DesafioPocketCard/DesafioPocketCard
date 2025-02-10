@@ -1,15 +1,17 @@
-'use client';
+"use client";
 
-import { Autocomplete, CircularProgress, TextField } from '@mui/material';
-import React, { SyntheticEvent, useEffect, useMemo, useState } from 'react';
-import { Controller } from 'react-hook-form';
-import { useQuery } from '@tanstack/react-query';
-import accessObjectByString from '@/utils/accessObjectByString';
-import useDebounceCallBack from '@/hooks/useDebounceCallBack';
-import { IFilters, IOption, IPaginatedAutocompleteField } from './types';
-import ListBox from './ListBox';
+import { Autocomplete, CircularProgress, TextField } from "@mui/material";
+import React, { SyntheticEvent, useEffect, useMemo, useState } from "react";
+import { Controller } from "react-hook-form";
+import { useQuery } from "@tanstack/react-query";
+import accessObjectByString from "@/utils/accessObjectByString";
+import useDebounceCallBack from "@/hooks/useDebounceCallBack";
+import { IFilters, IOption, IPaginatedAutocompleteField } from "./types";
+import ListBox from "./ListBox";
 
-export default function PaginatedAutocompleteField<T extends Record<string, any>>({
+export default function PaginatedAutocompleteField<
+  T extends Record<string, any>,
+>({
   control,
   name,
   label,
@@ -17,8 +19,8 @@ export default function PaginatedAutocompleteField<T extends Record<string, any>
   required,
   disabled,
   multiple = false,
-  listKey = 'items',
-  optionLabelKey = 'label',
+  listKey = "items",
+  optionLabelKey = "label",
   optionCompareKey,
   service,
   refetchService,
@@ -91,14 +93,18 @@ export default function PaginatedAutocompleteField<T extends Record<string, any>
   }, [serviceQuery.isError, serviceQuery.isSuccess, serviceQuery.data]);
 
   const debouncedSearch = useDebounceCallBack(({ target }: SyntheticEvent) => {
-    if (target instanceof HTMLInputElement || target instanceof HTMLTextAreaElement) {
+    if (
+      target instanceof HTMLInputElement ||
+      target instanceof HTMLTextAreaElement
+    ) {
       setFilters({ text: target.value, page: 1 });
     }
   }, 500);
 
   const debouncedScroll = useDebounceCallBack(({ target }: SyntheticEvent) => {
     if (target instanceof HTMLUListElement) {
-      const isEndScroll = target.scrollTop + target.clientHeight >= target.scrollHeight - 2;
+      const isEndScroll =
+        target.scrollTop + target.clientHeight >= target.scrollHeight - 2;
       const enableToPaginate =
         totalPage > filters.page &&
         !serviceQuery.isFetching &&
@@ -130,7 +136,9 @@ export default function PaginatedAutocompleteField<T extends Record<string, any>
           disabled={disabled}
           options={options}
           filterOptions={(options) => options}
-          getOptionLabel={(option: IOption) => accessObjectByString(option, optionLabelKey)}
+          getOptionLabel={(option: IOption) =>
+            accessObjectByString(option, optionLabelKey)
+          }
           isOptionEqualToValue={(option: IOption, value: IOption) =>
             accessObjectByString(option, optionIdentifier) ===
             accessObjectByString(value, optionIdentifier)
@@ -139,22 +147,22 @@ export default function PaginatedAutocompleteField<T extends Record<string, any>
             popper: {
               modifiers: [
                 {
-                  name: 'flip',
+                  name: "flip",
                   enabled: true,
                   options: {
                     altBoundary: true,
-                    rootBoundary: 'document',
+                    rootBoundary: "document",
                     padding: 8,
                   },
                 },
                 {
-                  name: 'preventOverflow',
+                  name: "preventOverflow",
                   enabled: true,
                   options: {
                     altAxis: true,
                     altBoundary: true,
                     tether: true,
-                    rootBoundary: 'document',
+                    rootBoundary: "document",
                     padding: 8,
                   },
                 },
@@ -179,7 +187,9 @@ export default function PaginatedAutocompleteField<T extends Record<string, any>
                 ...params.InputProps,
                 endAdornment: (
                   <>
-                    {serviceQuery.isFetching && <CircularProgress color="inherit" size={20} />}
+                    {serviceQuery.isFetching && (
+                      <CircularProgress color="inherit" size={20} />
+                    )}
                     {params.InputProps.endAdornment}
                   </>
                 ),
@@ -188,7 +198,7 @@ export default function PaginatedAutocompleteField<T extends Record<string, any>
             />
           )}
           ListboxProps={{
-            style: { maxHeight: '200px' },
+            style: { maxHeight: "200px" },
             onScroll: debouncedScroll,
           }}
           onChange={(_, value) => {

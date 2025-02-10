@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
-import { useRef } from 'react';
+import { useRef } from "react";
 
 export default function useDebounceCallBack<T extends (...args: any[]) => any>(
   fn: T,

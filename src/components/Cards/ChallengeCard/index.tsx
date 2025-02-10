@@ -18,7 +18,13 @@ export default function ChallengeCard({
 }: IChallengeCardProps) {
   return (
     <CardContainer component="li">
-      <Image alt="Desafio" src={photo} unoptimized width={100} height={100}></Image>
+      <Image
+        alt="Desafio"
+        src={photo}
+        unoptimized
+        width={100}
+        height={100}
+      ></Image>
       <Typography component="span">{title}</Typography>
       <Typography component="span">
         Expira em:{" "}

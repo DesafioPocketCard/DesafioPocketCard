@@ -1,20 +1,20 @@
 /* eslint-disable no-param-reassign */
-import axios from 'axios';
-import querySerializer from '@/utils/querySerializer';
-import { getSession } from 'next-auth/react';
+import axios from "axios";
+import querySerializer from "@/utils/querySerializer";
+import { getSession } from "next-auth/react";
 
 const api = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
   paramsSerializer: querySerializer,
   headers: {
     "ngrok-skip-browser-warning": true,
-    platform: 'web',
+    platform: "web",
   },
 });
 
 function isOnClient() {
   try {
-    return typeof window !== 'undefined';
+    return typeof window !== "undefined";
   } catch {
     return false;
   }

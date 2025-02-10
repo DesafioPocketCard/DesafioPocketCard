@@ -1,5 +1,5 @@
-import { Typography } from '@mui/material';
-import { NotFoundContainer } from './styles/notFound';
+import { Typography } from "@mui/material";
+import { NotFoundContainer } from "./styles/notFound";
 
 export default function PageNotFound() {
   return (

@@ -1,5 +1,5 @@
-import { withAuth } from 'next-auth/middleware';
-import { NextResponse } from 'next/server';
+import { withAuth } from "next-auth/middleware";
+import { NextResponse } from "next/server";
 
 function middleware() {
   return NextResponse.next();
@@ -7,14 +7,14 @@ function middleware() {
 
 export default withAuth(middleware, {
   pages: {
-    signIn: '/signin',
-    error: '/error',
-    newUser: '/signin',
-    signOut: '/signin',
+    signIn: "/signin",
+    error: "/error",
+    newUser: "/signin",
+    signOut: "/signin",
   },
   callbacks: {
     authorized: ({ token, req }) => {
-      const unRequiredPaths = ['/signin', '/error'];
+      const unRequiredPaths = ["/signin", "/error"];
       const isLoggedIn = !!token;
       const requiredAuth = !unRequiredPaths.includes(req.nextUrl.pathname);
 
@@ -24,5 +24,5 @@ export default withAuth(middleware, {
 });
 
 export const config = {
-  matcher: ['/((?!api|_next/static|_next/image|.*\\.png$).*)'],
+  matcher: ["/((?!api|_next/static|_next/image|.*\\.png$).*)"],
 };

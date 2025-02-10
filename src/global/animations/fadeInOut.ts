@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { keyframes } from '@mui/material';
+import { keyframes } from "@mui/material";
 
 const fadeInOut = keyframes`
   0% {

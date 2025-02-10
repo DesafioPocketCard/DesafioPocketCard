@@ -19,7 +19,10 @@ interface UsePaginationResult {
   handlePageChange: (pageNumber: number) => void;
 }
 
-export default function usePagination({ initialData, itemsPerPage = 5 }: UsePaginationProps): UsePaginationResult {
+export default function usePagination({
+  initialData,
+  itemsPerPage = 5,
+}: UsePaginationProps): UsePaginationResult {
   const [currentPage, setCurrentPage] = useState<number>(1);
 
   const totalPages: number = Math.ceil(initialData.length / itemsPerPage);

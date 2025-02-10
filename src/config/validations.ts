@@ -1,4 +1,8 @@
-function validateCheckDigit(document: string, length: number, baseWeight: number): boolean {
+function validateCheckDigit(
+  document: string,
+  length: number,
+  baseWeight: number,
+): boolean {
   const digit = parseInt(document.charAt(length));
   const numbers = document.substring(0, length);
 
@@ -17,25 +21,31 @@ function validateCheckDigit(document: string, length: number, baseWeight: number
 function validateCNPJ(cnpj: string): boolean {
   const repeatedRegex = /^(\d)\1+$/;
   const cleanerRegex = /[^\d]+/g;
-  const cleanedCNPJ = cnpj.replace(cleanerRegex, '');
+  const cleanedCNPJ = cnpj.replace(cleanerRegex, "");
 
   if (cleanedCNPJ.length !== 14) return false;
 
   if (repeatedRegex.test(cleanedCNPJ)) return false;
 
-  return validateCheckDigit(cleanedCNPJ, 12, 5) && validateCheckDigit(cleanedCNPJ, 13, 6);
+  return (
+    validateCheckDigit(cleanedCNPJ, 12, 5) &&
+    validateCheckDigit(cleanedCNPJ, 13, 6)
+  );
 }
 
 function validateCPF(cnpj: string): boolean {
   const repeatedRegex = /^(\d)\1+$/;
   const cleanerRegex = /[^\d]+/g;
-  const cleanedCPF = cnpj.replace(cleanerRegex, '');
+  const cleanedCPF = cnpj.replace(cleanerRegex, "");
 
   if (cleanedCPF.length !== 11) return false;
 
   if (repeatedRegex.test(cleanedCPF)) return false;
 
-  return validateCheckDigit(cleanedCPF, 9, 10) && validateCheckDigit(cleanedCPF, 10, 11);
+  return (
+    validateCheckDigit(cleanedCPF, 9, 10) &&
+    validateCheckDigit(cleanedCPF, 10, 11)
+  );
 }
 
 function validateCEP(cep: string) {

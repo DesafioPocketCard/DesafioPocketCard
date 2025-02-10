@@ -60,7 +60,7 @@ export default function SiginForm() {
     } else {
       notify(
         "Desculpe, mas seu dispositivo é incompatível com essa versão.",
-        "error"
+        "error",
       );
     }
   }

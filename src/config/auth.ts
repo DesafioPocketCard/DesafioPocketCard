@@ -11,26 +11,31 @@ const credentials = CredentialsProvider<Record<string, any>>({
   async authorize(credentials: unknown) {
     const { email, senha } = credentials as ISigInCredentials;
     try {
-      const tokenResponse: { data: { success: boolean, token: string, expires_in: number } } = await api.post("/getToken", { chave: process.env.API_KEY })
+      const tokenResponse: {
+        data: { success: boolean; token: string; expires_in: number };
+      } = await api.post("/getToken", { chave: process.env.API_KEY });
 
       if (!tokenResponse.data.success) {
-        throw new Error('Falha ao obter autorização');
+        throw new Error("Falha ao obter autorização");
       }
 
-      const response = await api.post(`${process.env.NEXT_PUBLIC_API_URL}/validateLogin`, {
-        email,
-        senha,
-        token: tokenResponse.data.token
-      });
+      const response = await api.post(
+        `${process.env.NEXT_PUBLIC_API_URL}/validateLogin`,
+        {
+          email,
+          senha,
+          token: tokenResponse.data.token,
+        },
+      );
 
       if (response.data.success) {
         return response.data;
       }
 
-      throw new Error('Login não autorizado');
+      throw new Error("Login não autorizado");
     } catch (error: any) {
       console.error(error);
-      throw new Error(error.response?.data?.message || 'An error occurred');
+      throw new Error(error.response?.data?.message || "An error occurred");
     }
   },
 });

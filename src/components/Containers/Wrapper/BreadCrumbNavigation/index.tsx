@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
-import Link from 'next/link';
-import { Breadcrumbs, Typography } from '@mui/material';
-import { usePathname } from 'next/navigation';
-import { ArrowRight } from '@mui/icons-material';
+import { useEffect, useState } from "react";
+import Link from "next/link";
+import { Breadcrumbs, Typography } from "@mui/material";
+import { usePathname } from "next/navigation";
+import { ArrowRight } from "@mui/icons-material";
 
 export default function BreadcrumbsNavigation() {
   const pathname = usePathname();
@@ -18,12 +18,18 @@ export default function BreadcrumbsNavigation() {
     return null;
   }
 
-  const pathSegments: string[] = pathname.split('/').filter((segment) => segment);
+  const pathSegments: string[] = pathname
+    .split("/")
+    .filter((segment) => segment);
 
-  const createLink = (index: number): string => `/${pathSegments.slice(0, index + 1).join('/')}`;
+  const createLink = (index: number): string =>
+    `/${pathSegments.slice(0, index + 1).join("/")}`;
 
   return (
-    <Breadcrumbs aria-label="breadcrumb" sx={{ display: 'flex', alignItems: 'center' }}>
+    <Breadcrumbs
+      aria-label="breadcrumb"
+      sx={{ display: "flex", alignItems: "center" }}
+    >
       <ArrowRight fontSize="small" sx={{ mt: 0.5 }} />
       {pathSegments
         .map((segment: string, index: number) => {

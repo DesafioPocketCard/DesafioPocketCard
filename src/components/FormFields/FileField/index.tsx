@@ -1,8 +1,14 @@
-import React from 'react';
-import { Box, Button, FormHelperText, TextField, Typography } from '@mui/material';
-import { Controller } from 'react-hook-form';
-import { CloudUpload } from '@mui/icons-material';
-import { IFileField } from './types';
+import React from "react";
+import {
+  Box,
+  Button,
+  FormHelperText,
+  TextField,
+  Typography,
+} from "@mui/material";
+import { Controller } from "react-hook-form";
+import { CloudUpload } from "@mui/icons-material";
+import { IFileField } from "./types";
 
 export default function FileField({
   control,
@@ -28,11 +34,11 @@ export default function FileField({
             id={name}
             type="file"
             inputProps={{
-              accept: acceptedFileTypes.join(', '),
+              accept: acceptedFileTypes.join(", "),
               multiple,
             }}
             sx={{
-              display: 'none',
+              display: "none",
             }}
             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
               const { files } = event.target;
@@ -52,25 +58,27 @@ export default function FileField({
               }
             }}
           />
-          <Box component="label" htmlFor={name} sx={{ borderRadius: '50%' }}>
+          <Box component="label" htmlFor={name} sx={{ borderRadius: "50%" }}>
             <Button
               component="span"
               sx={{
-                height: '48px',
-                userSelect: 'none',
-                width: '100%',
-                display: 'flex',
+                height: "48px",
+                userSelect: "none",
+                width: "100%",
+                display: "flex",
                 gap: 1,
-                alignItems: 'center',
+                alignItems: "center",
               }}
-              color={fieldState.invalid ? 'error' : 'primary'}
-              variant={field.value ? 'contained' : 'outlined'}
+              color={fieldState.invalid ? "error" : "primary"}
+              variant={field.value ? "contained" : "outlined"}
             >
               {customIcon || <CloudUpload />}
               <Box component="span">{label}</Box>
             </Button>
           </Box>
-          <FormHelperText error={fieldState.invalid}>{fieldState.error?.message}</FormHelperText>
+          <FormHelperText error={fieldState.invalid}>
+            {fieldState.error?.message}
+          </FormHelperText>
           {field.value && !hiddeFileName && (
             <div>
               {multiple ? (
@@ -79,9 +87,9 @@ export default function FileField({
                     <Typography
                       key={file.name}
                       sx={{
-                        overflow: 'hidden',
-                        textOverflow: 'ellipsis',
-                        paddingTop: '4px',
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        paddingTop: "4px",
                       }}
                     >
                       {file.name}
@@ -91,9 +99,9 @@ export default function FileField({
               ) : (
                 <Typography
                   sx={{
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                    paddingTop: '4px',
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    paddingTop: "4px",
                   }}
                 >
                   {field.value.name}

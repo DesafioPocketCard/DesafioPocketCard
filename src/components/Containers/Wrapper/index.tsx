@@ -1,8 +1,8 @@
-import React from 'react';
-import { Box, Typography } from '@mui/material';
-import { IWrapper } from './types';
-import { Container } from './styles';
-import BreadcrumbsNavigation from './BreadCrumbNavigation';
+import React from "react";
+import { Box, Typography } from "@mui/material";
+import { IWrapper } from "./types";
+import { Container } from "./styles";
+import BreadcrumbsNavigation from "./BreadCrumbNavigation";
 
 function BoxContainer({ title, asideItems, children, ...props }: IWrapper) {
   return (

@@ -1,3 +1,3 @@
-import Notifier from './Notifier';
+import Notifier from "./Notifier";
 
 export { Notifier };

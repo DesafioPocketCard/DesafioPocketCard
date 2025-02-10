@@ -1,5 +1,4 @@
-import React from 'react';
-import { theme } from '@/config';
+import React, { use } from "react";
 import {
   Paper,
   TableContainer,
@@ -13,13 +12,14 @@ import {
   Tooltip,
   IconButton,
   TablePagination,
-} from '@mui/material';
-import Loading from '@/helpers/Loading';
-import accessObjectByString from '@/utils/accessObjectByString';
-import { QuestionMark } from '@mui/icons-material';
-import { format, parseISO } from 'date-fns';
-import { ITableProps } from './types';
-import { StyledTableCell, StyledTableRow } from './styles';
+  useTheme,
+} from "@mui/material";
+import Loading from "@/helpers/Loading";
+import accessObjectByString from "@/utils/accessObjectByString";
+import { QuestionMark } from "@mui/icons-material";
+import { format, parseISO } from "date-fns";
+import { ITableProps } from "./types";
+import { StyledTableCell, StyledTableRow } from "./styles";
 
 export default function Table<T>({
   title,
@@ -35,8 +35,14 @@ export default function Table<T>({
   onChangePage,
   handleRowStatus = () => undefined,
 }: ITableProps<T>) {
+  const theme = useTheme();
   return (
-    <Box position="relative" borderRadius="12px" overflow="hidden" sx={{ width: '100%' }}>
+    <Box
+      position="relative"
+      borderRadius="12px"
+      overflow="hidden"
+      sx={{ width: "100%" }}
+    >
       <Loading isLoading={loading} size="sm" />
       <Typography variant="h5" component="h2" fontWeight="bold" mb={2}>
         {title}
@@ -49,7 +55,7 @@ export default function Table<T>({
                 <StyledTableCell
                   variant="head"
                   key={column?.field}
-                  align={column.alignHead ? column.alignHead : 'left'}
+                  align={column.alignHead ? column.alignHead : "left"}
                 >
                   <Typography fontWeight="bold" color="primary.light">
                     {column.label}
@@ -68,68 +74,96 @@ export default function Table<T>({
           <TableBody>
             {!data?.length && !loading ? (
               <StyledTableRow key="TableRow-empty">
-                <StyledTableCell colSpan={columns.length + 1} key="emptyMessage" align="center">
+                <StyledTableCell
+                  colSpan={columns.length + 1}
+                  key="emptyMessage"
+                  align="center"
+                >
                   <Typography component="span" color="primary">
-                    {emptyMessage || 'Nenhum dado encontrado'}
+                    {emptyMessage || "Nenhum dado encontrado"}
                   </Typography>
                 </StyledTableCell>
               </StyledTableRow>
             ) : (
               data?.map((row, rowIndex) => (
-                <StyledTableRow key={`TableRow-${rowIndex}`} className={handleRowStatus(row)}>
+                <StyledTableRow
+                  key={`TableRow-${rowIndex}`}
+                  className={handleRowStatus(row)}
+                >
                   {columns.map((column) => {
                     switch (column.type) {
-                      case 'string':
+                      case "string":
                         return (
                           <TableCell
                             key={column.field}
-                            align={column.alignRow ? column.alignRow : 'left'}
+                            align={column.alignRow ? column.alignRow : "left"}
                           >
                             {column.format
                               ? column.format(
-                                  accessObjectByString(row as Record<string, any>, column.field),
+                                  accessObjectByString(
+                                    row as Record<string, any>,
+                                    column.field,
+                                  ),
                                   row,
                                 )
-                              : accessObjectByString(row as Record<string, any>, column.field)}
+                              : accessObjectByString(
+                                  row as Record<string, any>,
+                                  column.field,
+                                )}
                           </TableCell>
                         );
-                      case 'select':
+                      case "select":
                         return (
                           <TableCell
                             key={column.field}
-                            align={column.alignRow ? column.alignRow : 'left'}
+                            align={column.alignRow ? column.alignRow : "left"}
                           >
                             {column.format
                               ? column.format(
-                                  accessObjectByString(row as Record<string, any>, column.field),
+                                  accessObjectByString(
+                                    row as Record<string, any>,
+                                    column.field,
+                                  ),
                                   row,
                                 )
-                              : accessObjectByString(row as Record<string, any>, column.field)}
+                              : accessObjectByString(
+                                  row as Record<string, any>,
+                                  column.field,
+                                )}
                           </TableCell>
                         );
-                      case 'number':
+                      case "number":
                         return (
                           <TableCell
                             key={column.field}
-                            align={column.alignRow ? column.alignRow : 'left'}
+                            align={column.alignRow ? column.alignRow : "left"}
                           >
                             {column.format
                               ? column.format(
-                                  accessObjectByString(row as Record<string, any>, column.field),
+                                  accessObjectByString(
+                                    row as Record<string, any>,
+                                    column.field,
+                                  ),
                                   row,
                                 )
-                              : accessObjectByString(row as Record<string, any>, column.field)}
+                              : accessObjectByString(
+                                  row as Record<string, any>,
+                                  column.field,
+                                )}
                           </TableCell>
                         );
-                      case 'date':
+                      case "date":
                         return (
                           <TableCell
                             key={column.field}
-                            align={column.alignRow ? column.alignRow : 'left'}
+                            align={column.alignRow ? column.alignRow : "left"}
                           >
                             {column.format
                               ? column.format(
-                                  accessObjectByString(row as Record<string, any>, column.field),
+                                  accessObjectByString(
+                                    row as Record<string, any>,
+                                    column.field,
+                                  ),
                                   row,
                                 )
                               : null}
@@ -138,8 +172,11 @@ export default function Table<T>({
                               column.field,
                             ) instanceof Date
                               ? format(
-                                  accessObjectByString(row as Record<string, any>, column.field),
-                                  'dd/MM/yyyy',
+                                  accessObjectByString(
+                                    row as Record<string, any>,
+                                    column.field,
+                                  ),
+                                  "dd/MM/yyyy",
                                 )
                               : (() => {
                                   const dateValue = accessObjectByString(
@@ -147,21 +184,27 @@ export default function Table<T>({
                                     column.field,
                                   );
                                   if (dateValue) {
-                                    return format(parseISO(dateValue), 'dd/MM/yyyy');
+                                    return format(
+                                      parseISO(dateValue),
+                                      "dd/MM/yyyy",
+                                    );
                                   }
-                                  return 'Não informado';
+                                  return "Não informado";
                                 })()}
                           </TableCell>
                         );
-                      case 'date-hour':
+                      case "date-hour":
                         return (
                           <TableCell
                             key={column.field}
-                            align={column.alignRow ? column.alignRow : 'left'}
+                            align={column.alignRow ? column.alignRow : "left"}
                           >
                             {column.format
                               ? column.format(
-                                  accessObjectByString(row as Record<string, any>, column.field),
+                                  accessObjectByString(
+                                    row as Record<string, any>,
+                                    column.field,
+                                  ),
                                   row,
                                 )
                               : null}
@@ -170,8 +213,11 @@ export default function Table<T>({
                               column.field,
                             ) instanceof Date
                               ? format(
-                                  accessObjectByString(row as Record<string, any>, column.field),
-                                  'dd/MM/yyyy HH:mm',
+                                  accessObjectByString(
+                                    row as Record<string, any>,
+                                    column.field,
+                                  ),
+                                  "dd/MM/yyyy HH:mm",
                                 )
                               : (() => {
                                   const dateValue = accessObjectByString(
@@ -179,26 +225,35 @@ export default function Table<T>({
                                     column.field,
                                   );
                                   if (dateValue) {
-                                    return format(parseISO(dateValue), 'dd/MM/yyyy HH:mm');
+                                    return format(
+                                      parseISO(dateValue),
+                                      "dd/MM/yyyy HH:mm",
+                                    );
                                   }
-                                  return 'Não informado';
+                                  return "Não informado";
                                 })()}
                           </TableCell>
                         );
-                      case 'boolean':
+                      case "boolean":
                         return (
                           <TableCell
                             key={column.field}
-                            align={column.alignRow ? column.alignRow : 'left'}
+                            align={column.alignRow ? column.alignRow : "left"}
                           >
                             {column.format
                               ? column.format(
-                                  accessObjectByString(row as Record<string, any>, column.field),
+                                  accessObjectByString(
+                                    row as Record<string, any>,
+                                    column.field,
+                                  ),
                                   row,
                                 )
-                              : accessObjectByString(row as Record<string, any>, column.field)
-                                ? 'Sim'
-                                : 'Não'}
+                              : accessObjectByString(
+                                    row as Record<string, any>,
+                                    column.field,
+                                  )
+                                ? "Sim"
+                                : "Não"}
                           </TableCell>
                         );
                       default:
@@ -208,11 +263,17 @@ export default function Table<T>({
                   {!hideActions && (
                     <TableCell align="center">
                       {actions?.map((action, index) => (
-                        <Tooltip title={action.label || 'Ação'} key={`action-${index}`}>
+                        <Tooltip
+                          title={action.label || "Ação"}
+                          key={`action-${index}`}
+                        >
                           <Box component="span">
                             <IconButton
                               color="primary"
-                              disabled={action.disabled && action.disabled(row, rowIndex)}
+                              disabled={
+                                action.disabled &&
+                                action.disabled(row, rowIndex)
+                              }
                               onClick={() => action.onClick(row, rowIndex)}
                             >
                               {action.icon ? action.icon : <QuestionMark />}
@@ -231,9 +292,9 @@ export default function Table<T>({
       {!hidePagination && pagination && onChangePage && (
         <Box
           sx={{
-            width: '100%',
-            display: 'flex',
-            justifyContent: 'flex-end',
+            width: "100%",
+            display: "flex",
+            justifyContent: "flex-end",
           }}
         >
           <TablePagination
@@ -256,9 +317,13 @@ export default function Table<T>({
               });
             }}
             labelRowsPerPage={
-              pagination.labelRowsPerPage ? pagination.labelRowsPerPage : 'Itens por página'
+              pagination.labelRowsPerPage
+                ? pagination.labelRowsPerPage
+                : "Itens por página"
             }
-            labelDisplayedRows={({ from, to, count }) => `${from} - ${to} de ${count}`}
+            labelDisplayedRows={({ from, to, count }) =>
+              `${from} - ${to} de ${count}`
+            }
           />
         </Box>
       )}

@@ -1,5 +1,5 @@
-import { BoxProps } from '@mui/material';
-import { ReactNode } from 'react';
+import { BoxProps } from "@mui/material";
+import { ReactNode } from "react";
 
 interface IWrapper extends BoxProps {
   title?: string;

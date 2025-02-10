@@ -10,6 +10,4 @@ interface IUser {
   email: string;
 }
 
-
-
 export type { ISigInCredentials, IUser };

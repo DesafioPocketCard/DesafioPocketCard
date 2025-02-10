@@ -2,11 +2,10 @@
 
 import RadialWrapper from "@/components/Containers/RadialWrapper";
 import { Header } from "@/components/Layout";
-import { Box, IconButton, Typography } from "@mui/material";
+import { Box, Typography, useTheme } from "@mui/material";
 import React from "react";
-import { ArrowBackIos, LocationOnOutlined } from "@mui/icons-material";
+import { LocationOnOutlined } from "@mui/icons-material";
 import { useRouter } from "next/navigation";
-import { theme } from "@/config";
 import { GridContainer } from "../../goals/[id]/styles";
 import { GridCard } from "@/components/Cards";
 import Image from "next/image";
@@ -24,6 +23,7 @@ interface IProps {
 
 export default function GoalsDetail({ params }: IProps) {
   const router = useRouter();
+  const theme = useTheme();
 
   const goals = [
     {

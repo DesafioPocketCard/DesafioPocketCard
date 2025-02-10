@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
-import { FocusEventHandler } from 'react';
-import { Control, FieldValues } from 'react-hook-form';
+import { FocusEventHandler } from "react";
+import { Control, FieldValues } from "react-hook-form";
 
 export interface IOption {
   [key: string]: any;

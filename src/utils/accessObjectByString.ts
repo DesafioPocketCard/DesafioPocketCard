@@ -3,7 +3,7 @@ export default function accessObjectByString(
   inputString: string,
 ): any | undefined {
   if (object instanceof Object && inputString) {
-    const splitedString = inputString.split('.');
+    const splitedString = inputString.split(".");
 
     const attribute = splitedString.reduce((previous, current) => {
       if (previous) return previous[current];

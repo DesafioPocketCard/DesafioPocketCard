@@ -1,8 +1,8 @@
 /* eslint-disable no-unused-vars */
-import React from 'react';
-import { Mask } from '@/types/Regex';
-import { Control } from 'react-hook-form';
-import { TextFieldProps } from '@mui/material';
+import React from "react";
+import { Mask } from "@/types/Regex";
+import { Control } from "react-hook-form";
+import { TextFieldProps } from "@mui/material";
 
 export type ITextField = {
   control: Control<any, any>;

@@ -1,18 +1,18 @@
-'use client';
+"use client";
 
-import TabContext from '@mui/lab/TabContext';
-import TabPanel from '@mui/lab/TabPanel';
-import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
-import accessObjectByString from '@/utils/accessObjectByString';
-import { useState } from 'react';
-import { ITabs } from './types';
-import { TabContainer, TabItem } from './styles';
+import TabContext from "@mui/lab/TabContext";
+import TabPanel from "@mui/lab/TabPanel";
+import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
+import accessObjectByString from "@/utils/accessObjectByString";
+import { useState } from "react";
+import { ITabs } from "./types";
+import { TabContainer, TabItem } from "./styles";
 
 function Tabs<T extends Record<string, any>>({
   options,
   optionLabelKey,
   showContent = true,
-  orientation = 'horizontal',
+  orientation = "horizontal",
   variant,
   scrollButtons,
   onChange,
@@ -41,7 +41,7 @@ function Tabs<T extends Record<string, any>>({
             <TabContainer
               key={`${label} - ${index}`}
               orientation={orientation}
-              style={{ position: 'relative' }}
+              style={{ position: "relative" }}
             >
               <TabItem
                 label={label}
@@ -58,10 +58,10 @@ function Tabs<T extends Record<string, any>>({
                 <ArrowDropUpIcon
                   fontSize="large"
                   style={{
-                    position: 'absolute',
-                    bottom: '-15px',
-                    left: '50%',
-                    transform: 'translateX(-50%)',
+                    position: "absolute",
+                    bottom: "-15px",
+                    left: "50%",
+                    transform: "translateX(-50%)",
                   }}
                 />
               )}
@@ -88,7 +88,7 @@ function Tabs<T extends Record<string, any>>({
             key={`${tabOption} - ${index}`}
             value={index.toString()}
             sx={{
-              '&.MuiTabPanel-root': {
+              "&.MuiTabPanel-root": {
                 p: 0,
               },
             }}

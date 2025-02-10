@@ -1,9 +1,15 @@
-'use client';
+"use client";
 
-import { ExpandMoreOutlined } from '@mui/icons-material';
-import { Accordion, AccordionDetails, AccordionSummary, Box, useTheme } from '@mui/material';
-import React, { useState } from 'react';
-import { IAccordion } from './types';
+import { ExpandMoreOutlined } from "@mui/icons-material";
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  Box,
+  useTheme,
+} from "@mui/material";
+import React, { useState } from "react";
+import { IAccordion } from "./types";
 
 function TAccordion({ configs, defaultOpen, kerning = true }: IAccordion) {
   const theme = useTheme();
@@ -21,22 +27,24 @@ function TAccordion({ configs, defaultOpen, kerning = true }: IAccordion) {
           onChange={handleChangePanel(index)}
         >
           <AccordionSummary
-            expandIcon={<ExpandMoreOutlined style={{ color: '#f9f9f9' }} />}
+            expandIcon={<ExpandMoreOutlined style={{ color: "#f9f9f9" }} />}
             aria-controls={`TAccordion-${index}`}
             id={`TAccordion-${index}`}
             sx={{
               background: config?.bgColor || theme.palette.primary.main,
-              borderRadius: '5px',
-              color: '#f9f9f9',
-              letterSpacing: kerning ? '2px' : '',
-              borderBottom: '1px solid #f9f9f9',
-              fontFamily: 'General Sans',
+              borderRadius: "5px",
+              color: "#f9f9f9",
+              letterSpacing: kerning ? "2px" : "",
+              borderBottom: "1px solid #f9f9f9",
+              fontFamily: "General Sans",
             }}
           >
-            {config.title || ''}
+            {config.title || ""}
           </AccordionSummary>
-          <AccordionDetails sx={{ paddingTop: '20px', fontFamily: 'General Sans' }}>
-            {config.body || ''}
+          <AccordionDetails
+            sx={{ paddingTop: "20px", fontFamily: "General Sans" }}
+          >
+            {config.body || ""}
           </AccordionDetails>
         </Accordion>
       ))}

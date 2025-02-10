@@ -1,14 +1,23 @@
-'use client';
+"use client";
 
-import { SyntheticEvent, useContext, useEffect, useState } from 'react';
-import { Alert, Snackbar, SnackbarCloseReason, Stack } from '@mui/material';
-import { NotifierContext } from '@/contexts/NotifierContext';
-import { INotifierActionKind, INotifierProps } from '@/helpers/Notifier/types';
-import { createPortal } from 'react-dom';
+import { SyntheticEvent, useContext, useEffect, useState } from "react";
+import { Alert, Snackbar, SnackbarCloseReason, Stack } from "@mui/material";
+import { NotifierContext } from "@/contexts/NotifierContext";
+import { INotifierActionKind, INotifierProps } from "@/helpers/Notifier/types";
+import { createPortal } from "react-dom";
 
-function Notifier({ show, close, severity, message, timeToClose = 2000 }: INotifierProps) {
-  const handleClose = (event: Event | SyntheticEvent<any, Event>, reason: SnackbarCloseReason) => {
-    if (reason === 'clickaway') {
+function Notifier({
+  show,
+  close,
+  severity,
+  message,
+  timeToClose = 2000,
+}: INotifierProps) {
+  const handleClose = (
+    event: Event | SyntheticEvent<any, Event>,
+    reason: SnackbarCloseReason,
+  ) => {
+    if (reason === "clickaway") {
       return;
     }
 
@@ -16,17 +25,19 @@ function Notifier({ show, close, severity, message, timeToClose = 2000 }: INotif
   };
 
   return (
-    <Stack spacing={2} sx={{ width: '100%' }}>
+    <Stack spacing={2} sx={{ width: "100%" }}>
       <Snackbar
         open={show}
         autoHideDuration={timeToClose}
-        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
         onClose={handleClose}
       >
         <Alert
-          onClose={handleClose as (event: SyntheticEvent<Element, Event>) => void}
+          onClose={
+            handleClose as (event: SyntheticEvent<Element, Event>) => void
+          }
           severity={severity}
-          sx={{ width: '100%' }}
+          sx={{ width: "100%" }}
         >
           {message}
         </Alert>
@@ -46,7 +57,8 @@ function GlobalNotifier() {
   };
 
   useEffect(() => {
-    const portalElement: HTMLBodyElement | null = document.querySelector('body');
+    const portalElement: HTMLBodyElement | null =
+      document.querySelector("body");
     setPortal(portalElement);
   }, []);
 

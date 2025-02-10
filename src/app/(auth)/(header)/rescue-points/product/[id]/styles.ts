@@ -46,30 +46,28 @@ const ProfileInfo = styled(Box)(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
   gap: theme.spacing(2),
-  '& > h1': {
+  "& > h1": {
     ...theme.fonts["h3-title"],
     fontWeight: "bold",
     color: theme.palette.secondary[800],
   },
-  '& .description': {
+  "& .description": {
     ...theme.fonts["pf-body"],
     color: theme.palette.secondary[500],
-    display: 'flex',
-    flexDirection: 'column',
+    display: "flex",
+    flexDirection: "column",
     gap: theme.spacing(1),
-    '& > div > li': {
+    "& > div > li": {
       ...theme.fonts["pf-body"],
       color: theme.palette.secondary[500],
       listStyle: "disc",
     },
   },
-  '& .rescue-points': {
+  "& .rescue-points": {
     ...theme.fonts["h5-body-large"],
     color: theme.palette.secondary[500],
     textAlign: "right",
   },
-
 }));
 
-
-export { ProfileImageContainer, ProfileInfo, };
+export { ProfileImageContainer, ProfileInfo };

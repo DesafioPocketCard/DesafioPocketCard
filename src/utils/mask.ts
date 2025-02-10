@@ -9,53 +9,53 @@ import type {
   MaskArray,
   CustomMask,
   FormatNumberOptions,
-} from '@/types/Regex';
+} from "@/types/Regex";
 
 interface AddSignPrefixAndSuffixProps {
-  sign?: '+' | '-' | '';
+  sign?: "+" | "-" | "";
   prefix?: string;
   suffix?: string;
-  signPosition: 'beforePrefix' | 'afterPrefix';
+  signPosition: "beforePrefix" | "afterPrefix";
 }
 
 export const addSignPrefixAndSuffix = (
   value: any,
-  options: AddSignPrefixAndSuffixProps
+  options: AddSignPrefixAndSuffixProps,
 ) => {
   const { prefix, sign, suffix, signPosition } = options;
 
   switch (signPosition) {
-    case 'beforePrefix':
+    case "beforePrefix":
       return `${sign}${prefix}${value}${suffix}`;
-    case 'afterPrefix':
+    case "afterPrefix":
       return `${prefix}${sign}${value}${suffix}`;
     default:
       // handle unexpected signPosition value
-      throw new Error('Unexpected signPosition value');
+      throw new Error("Unexpected signPosition value");
   }
 };
 
 export const formatCurrency = (
   input: number,
-  options?: FormatNumberOptions
+  options?: FormatNumberOptions,
 ) => {
   const {
     precision,
-    separator = ',',
-    delimiter = '.',
-    prefix = '',
-    suffix = '',
+    separator = ",",
+    delimiter = ".",
+    prefix = "",
+    suffix = "",
     ignoreNegative,
     showPositiveSign,
-    signPosition = 'afterPrefix',
+    signPosition = "afterPrefix",
   } = options || {};
 
   const negative = ignoreNegative ? false : input < 0;
-  const sign = negative ? '-' : showPositiveSign ? '+' : '';
+  const sign = negative ? "-" : showPositiveSign ? "+" : "";
 
   const string = Math.abs(input).toFixed(precision);
 
-  const parts = string.split('.');
+  const parts = string.split(".");
   const buffer = [];
 
   let number = parts[0];
@@ -64,7 +64,7 @@ export const formatCurrency = (
     number = number.substr(0, number.length - 3);
   }
 
-  let formattedNumber = '';
+  let formattedNumber = "";
   formattedNumber = buffer.join(delimiter);
 
   const decimals = parts[1];
@@ -81,24 +81,24 @@ export const formatCurrency = (
 };
 
 export function formatWithMask(
-  props: FormatWithMaskProps
+  props: FormatWithMaskProps,
 ): FormatWithMaskResult {
-  const { text, mask, obfuscationCharacter = '*' } = props;
+  const { text, mask, obfuscationCharacter = "*" } = props;
 
   // make sure it'll not break with null or undefined inputs
-  if (!text) return { masked: '', unmasked: '', obfuscated: '' };
+  if (!text) return { masked: "", unmasked: "", obfuscated: "" };
   if (!mask)
     return {
-      masked: text || '',
-      unmasked: text || '',
-      obfuscated: text || '',
+      masked: text || "",
+      unmasked: text || "",
+      obfuscated: text || "",
     };
 
-  const maskArray = typeof mask === 'function' ? mask(text) : mask;
+  const maskArray = typeof mask === "function" ? mask(text) : mask;
 
-  let masked = '';
-  let obfuscated = '';
-  let unmasked = '';
+  let masked = "";
+  let obfuscated = "";
+  let unmasked = "";
 
   let maskCharIndex = 0;
   let valueCharIndex = 0;
@@ -131,7 +131,7 @@ export function formatWithMask(
     const unmaskedValueChar = text[valueCharIndex];
 
     // it's a regex maskChar: let's advance on value index and validate the value within the regex
-    if (typeof maskChar === 'object') {
+    if (typeof maskChar === "object") {
       // advance on value index
       valueCharIndex += 1;
 
@@ -166,28 +166,28 @@ export function formatWithMask(
 
 export function cleanUpMask(
   valueToClean: CleanUpMask,
-  customCleanUp?: CustomMask
+  customCleanUp?: CustomMask,
 ) {
   if (customCleanUp) {
-    return valueToClean.replace(customCleanUp, '');
+    return valueToClean.replace(customCleanUp, "");
   }
 
-  return valueToClean.replace(/\W/g, '');
+  return valueToClean.replace(/\W/g, "");
 }
 
 export function createNumberMask(props?: CreateNumberMaskProps): Mask {
   const {
-    delimiter = '.',
+    delimiter = ".",
     precision = 2,
     prefix = [],
     suffix = [],
-    separator = ',',
+    separator = ",",
   } = props || {};
 
   return (value?: string) => {
-    const numericValue = value?.replace(/\D+/g, '') || '';
+    const numericValue = value?.replace(/\D+/g, "") || "";
 
-    const mask: MaskArray = numericValue.split('').map(() => /\d/);
+    const mask: MaskArray = numericValue.split("").map(() => /\d/);
 
     const shouldAddSeparatorOnMask = precision > 0 && !!separator;
 

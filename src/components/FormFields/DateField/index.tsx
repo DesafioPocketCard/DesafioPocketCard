@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import React, { useMemo } from 'react';
-import { Controller } from 'react-hook-form';
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFnsV3';
+import React, { useMemo } from "react";
+import { Controller } from "react-hook-form";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFnsV3";
 import {
   DatePicker,
   DateTimePicker,
@@ -11,13 +11,13 @@ import {
   StaticDateTimePicker,
   StaticTimePicker,
   TimePicker,
-} from '@mui/x-date-pickers';
-import { ptBR } from 'date-fns/locale';
-import { IDateField } from './types';
+} from "@mui/x-date-pickers";
+import { ptBR } from "date-fns/locale";
+import { IDateField } from "./types";
 
 export default function DateField({
   control,
-  type = 'date',
+  type = "date",
   name,
   label,
   required,
@@ -41,11 +41,11 @@ export default function DateField({
   const DateComponent = useMemo(() => {
     const types: any = {
       date: DatePicker,
-      'static-date': StaticDatePicker,
+      "static-date": StaticDatePicker,
       time: TimePicker,
-      'static-time': StaticTimePicker,
-      'date-time': DateTimePicker,
-      'static-date-time': StaticDateTimePicker,
+      "static-time": StaticTimePicker,
+      "date-time": DateTimePicker,
+      "static-date-time": StaticDateTimePicker,
     };
 
     return types[type];
@@ -54,17 +54,17 @@ export default function DateField({
   const customViews = useMemo(() => {
     if (Array.isArray(views)) return views;
 
-    const dateViews = ['year', 'month', 'day'];
-    const timeViews = ['hours', 'minutes', 'seconds'];
+    const dateViews = ["year", "month", "day"];
+    const timeViews = ["hours", "minutes", "seconds"];
     const allViews = dateViews.concat(timeViews);
 
     const types: any = {
       date: dateViews,
-      'static-date': dateViews,
+      "static-date": dateViews,
       time: timeViews,
-      'static-time': timeViews,
-      'date-time': allViews,
-      'static-date-time': allViews,
+      "static-time": timeViews,
+      "date-time": allViews,
+      "static-date-time": allViews,
     };
 
     return types[type];
@@ -117,7 +117,7 @@ export default function DateField({
                 helperText: fieldState.error?.message,
                 required,
                 fullWidth: true,
-                size: 'small',
+                size: "small",
                 InputLabelProps: {
                   shrink: true,
                   ...inputProps?.InputLabelProps,

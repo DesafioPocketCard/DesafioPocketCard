@@ -60,32 +60,32 @@ export const CardContainer = styled(Box)<{
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: theme.palette.secondary[50],
-    position: 'relative',
+    position: "relative",
     "& .points-container": {
-      position: 'absolute',
+      position: "absolute",
       bottom: 2,
       right: 2,
-      borderRadius: '8px',
+      borderRadius: "8px",
       backgroundColor: theme.palette.primary[500],
-      padding: '4px 8px',
-      '& > span': {
-        ...theme.fonts['label'],
+      padding: "4px 8px",
+      "& > span": {
+        ...theme.fonts["label"],
         color: theme.palette.secondary[50],
-        fontWeight: 'bold'
-      }
+        fontWeight: "bold",
+      },
     },
     "& .label-top-container": {
-      position: 'absolute',
+      position: "absolute",
       top: 2,
       left: 2,
-      borderRadius: '8px',
+      borderRadius: "8px",
       backgroundColor: theme.palette.warning[600],
-      padding: '4px 8px',
-      '& > span': {
-        ...theme.fonts['label'],
+      padding: "4px 8px",
+      "& > span": {
+        ...theme.fonts["label"],
         color: theme.palette.secondary[50],
-        fontWeight: 'bold'
-      }
-    }
+        fontWeight: "bold",
+      },
+    },
   },
 }));

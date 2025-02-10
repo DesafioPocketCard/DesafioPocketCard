@@ -1,6 +1,12 @@
 "use client";
 
-import { ListItem, ListItemButton, ListItemIcon, ListItemText, MenuItem } from "@mui/material";
+import {
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  MenuItem,
+} from "@mui/material";
 import { IDialogMenuProps } from "./types";
 import { MenuList } from "./styles";
 import DefaultDialog from "../DefaultDialog";
@@ -13,7 +19,12 @@ export default function DialogMenu({
   ...props
 }: IDialogMenuProps) {
   return (
-    <DefaultDialog open={open} handleClose={handleClose} {...props} component="nav">
+    <DefaultDialog
+      open={open}
+      handleClose={handleClose}
+      {...props}
+      component="nav"
+    >
       {headerComponent}
       <MenuList>
         {options.map(({ icon, label, handler }) => (

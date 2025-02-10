@@ -1,9 +1,15 @@
-'use client';
+"use client";
 
-import { FormControl, FormControlLabel, FormHelperText, Switch, useTheme } from '@mui/material';
-import React from 'react';
-import { Controller } from 'react-hook-form';
-import { ISwitchField } from './types';
+import {
+  FormControl,
+  FormControlLabel,
+  FormHelperText,
+  Switch,
+  useTheme,
+} from "@mui/material";
+import React from "react";
+import { Controller } from "react-hook-form";
+import { ISwitchField } from "./types";
 
 export default function SwitchField({
   control,
@@ -30,11 +36,15 @@ export default function SwitchField({
             checked={field.value}
             label={label}
             disabled={disabled}
-            control={<Switch  {...switchProps}/>}
+            control={<Switch {...switchProps} />}
             sx={{
-              fontSize: '0.9rem',
-             // eslint-disable-next-line no-nested-ternary
-             color: fieldState.error ? theme.palette.error.main : disabled ? theme.palette.primary.light : theme.palette.primary.main,
+              fontSize: "0.9rem",
+              // eslint-disable-next-line no-nested-ternary
+              color: fieldState.error
+                ? theme.palette.error.main
+                : disabled
+                  ? theme.palette.primary.light
+                  : theme.palette.primary.main,
             }}
             onChange={(event) => {
               if (event.target instanceof HTMLInputElement) {

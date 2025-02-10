@@ -39,8 +39,7 @@ const LogoContainer = styled(Box)(({ theme }) => ({
     border: "1px solid #F9F9F9",
     padding: theme.spacing(1),
     borderRadius: theme.spacing(3),
-    "& > img": {
-    },
+    "& > img": {},
   },
 }));
 

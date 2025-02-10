@@ -1,4 +1,4 @@
-import theme from './theme';
-import fonts from './fonts';
+import fonts from "./theme/fonts";
+import theme from "./theme";
 
-export { theme, fonts };
+export { fonts, theme };

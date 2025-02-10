@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
-import React from 'react';
-import { Control } from 'react-hook-form';
+import React from "react";
+import { Control } from "react-hook-form";
 
 export interface IAutocompleteField {
   control: Control<any, any>;
@@ -9,7 +9,7 @@ export interface IAutocompleteField {
   placeholder?: string;
   required?: boolean;
   disabled?: boolean;
-  leftIcon?:React.ReactNode;
+  leftIcon?: React.ReactNode;
   multiple?: boolean;
   options?: any[];
   optionLabelKey?: string;

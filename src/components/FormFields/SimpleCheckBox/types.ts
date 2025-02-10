@@ -1,10 +1,10 @@
-import { CheckboxProps } from '@mui/material';
-import { Control } from 'react-hook-form';
+import { CheckboxProps } from "@mui/material";
+import { Control } from "react-hook-form";
 
 export type ISimpleCheckboxProps = {
   label: string;
   name: string;
   control: Control<any, any>;
   onChange?: (values: any) => void;
-  orientation?: 'row' | 'column';
+  orientation?: "row" | "column";
 } & CheckboxProps;

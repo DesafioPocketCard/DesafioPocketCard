@@ -26,7 +26,9 @@ export default function Error({
         <ErrorOutlineRoundedIcon htmlColor={theme.palette.primary[400]} />
         <Typography component="h1">Ops...</Typography>
       </Box>
-      <Typography component="p">Algo aconteceu, mas não desista, tente novamente!</Typography>
+      <Typography component="p">
+        Algo aconteceu, mas não desista, tente novamente!
+      </Typography>
       <Button size="large" onClick={reset}>
         Tentar novamente
       </Button>

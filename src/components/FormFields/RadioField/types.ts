@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { Control } from 'react-hook-form';
+import { Control } from "react-hook-form";
 
 export interface IRadioField {
   control: Control<any, any>;
@@ -8,7 +8,7 @@ export interface IRadioField {
   required?: boolean;
   disabled?: boolean;
   options: Object[];
-  orientation?: 'row' | 'column';
+  orientation?: "row" | "column";
   optionLabelKey: string;
   optionCompareKey?: string;
   optionValueKey?: string;

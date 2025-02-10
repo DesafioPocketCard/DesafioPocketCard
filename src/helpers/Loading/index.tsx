@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
-import React, { useContext, useEffect, useState } from 'react';
-import { LoadingContext } from '@/contexts/LoadingContext';
-import { Circle, CircleContainer, Wrapper } from './styles';
-import { ILoadingProps } from './types';
+import React, { useContext, useEffect, useState } from "react";
+import { LoadingContext } from "@/contexts/LoadingContext";
+import { Circle, CircleContainer, Wrapper } from "./styles";
+import { ILoadingProps } from "./types";
 
-export default function Loading({ isLoading, size = 'lg' }: ILoadingProps) {
+export default function Loading({ isLoading, size = "lg" }: ILoadingProps) {
   const [isLoadingByContext] = useContext(LoadingContext);
   const [active, setActive] = useState(-1);
   const loading = (isLoadingByContext && !isLoading) || isLoading;
@@ -28,7 +28,7 @@ export default function Loading({ isLoading, size = 'lg' }: ILoadingProps) {
         {Array.from({ length: 4 }).map((_, index) => (
           <Circle
             key={`circle-${index}`}
-            className={`circle-${index} ${index <= active ? 'visible' : ''}`}
+            className={`circle-${index} ${index <= active ? "visible" : ""}`}
           />
         ))}
       </CircleContainer>

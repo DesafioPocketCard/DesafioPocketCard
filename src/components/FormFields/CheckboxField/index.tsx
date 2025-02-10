@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import {
   Checkbox,
@@ -8,11 +8,11 @@ import {
   FormHelperText,
   FormLabel,
   useTheme,
-} from '@mui/material';
-import React, { useCallback, useMemo } from 'react';
-import { Controller } from 'react-hook-form';
-import accessObjectByString from '@/utils/accessObjectByString';
-import { ICheckboxField } from './types';
+} from "@mui/material";
+import React, { useCallback, useMemo } from "react";
+import { Controller } from "react-hook-form";
+import accessObjectByString from "@/utils/accessObjectByString";
+import { ICheckboxField } from "./types";
 
 export default function CheckboxField({
   control,
@@ -21,8 +21,8 @@ export default function CheckboxField({
   required,
   disabled,
   options = [],
-  orientation = 'row',
-  optionLabelKey = 'label',
+  orientation = "row",
+  optionLabelKey = "label",
   optionCompareKey,
   optionValueKey,
   disableOptions,
@@ -44,7 +44,9 @@ export default function CheckboxField({
         return value;
       }
 
-      return options.find((option) => accessObjectByString(option, optionIdentifier) === value);
+      return options.find(
+        (option) => accessObjectByString(option, optionIdentifier) === value,
+      );
     },
     [optionValueKey, optionIdentifier, options],
   );
@@ -133,7 +135,7 @@ export default function CheckboxField({
           <FormLabel
             required={required}
             sx={{
-              fontSize: '0.9rem',
+              fontSize: "0.9rem",
               color: theme.palette.primary.light,
             }}
           >
@@ -143,12 +145,14 @@ export default function CheckboxField({
             {...field}
             {...props}
             sx={{
-              display: 'flex',
+              display: "flex",
               flexDirection: orientation,
-              flexWrap: 'wrap',
-              '& .MuiFormControlLabel-label': {
-                fontSize: '0.9rem',
-                color: fieldState.error ? theme.palette.error.main : theme.palette.primary.light,
+              flexWrap: "wrap",
+              "& .MuiFormControlLabel-label": {
+                fontSize: "0.9rem",
+                color: fieldState.error
+                  ? theme.palette.error.main
+                  : theme.palette.primary.light,
               },
             }}
           >
@@ -158,9 +162,14 @@ export default function CheckboxField({
                 label={accessObjectByString(option, optionLabelKey)}
                 control={
                   <Checkbox
-                    value={accessObjectByString(option, optionValueKey ?? optionIdentifier)}
+                    value={accessObjectByString(
+                      option,
+                      optionValueKey ?? optionIdentifier,
+                    )}
                     checked={verifySelectedOptions(option, field.value)}
-                    disabled={disableOptions ? disableOptions(option) : disabled}
+                    disabled={
+                      disableOptions ? disableOptions(option) : disabled
+                    }
                   />
                 }
               />

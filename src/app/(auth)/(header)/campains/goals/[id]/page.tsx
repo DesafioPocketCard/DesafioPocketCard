@@ -9,10 +9,9 @@ import {
   ProgressBar,
   ProgressLabel,
 } from "./styles";
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, useTheme } from "@mui/material";
 import { BackButton } from "@/components/Buttons";
 import { useRouter } from "next/navigation";
-import { theme } from "@/config";
 import { GridCard } from "@/components/Cards";
 import Image from "next/image";
 import handshake from "@/assets/images/handshake.png";
@@ -126,6 +125,7 @@ const goals = [
 ];
 export default function Goals({ params }: IProps) {
   const router = useRouter();
+  const theme = useTheme();
   return (
     <Box>
       <HeaderContainer>

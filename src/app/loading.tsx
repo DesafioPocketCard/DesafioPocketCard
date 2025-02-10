@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import useLoading from '@/hooks/useLoading';
-import { useEffect } from 'react';
+import useLoading from "@/hooks/useLoading";
+import { useEffect } from "react";
 
 function Loading() {
   const loading = useLoading();

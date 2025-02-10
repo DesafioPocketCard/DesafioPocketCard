@@ -1,5 +1,5 @@
 /* eslint-disable no-undef */
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState } from "react";
 
 export default function useDebounce<T>(value: T, delay = 500) {
   const [debouncedValue, setDebouncedValue] = useState<T | null>(null);

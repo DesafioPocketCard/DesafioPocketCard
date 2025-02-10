@@ -1,6 +1,6 @@
 function GET() {
   return Response.json({
-    message: 'Welcome to aer gestão.',
+    message: "Welcome to aer gestão.",
   });
 }
 

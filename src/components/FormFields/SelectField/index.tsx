@@ -1,8 +1,8 @@
-import { MenuItem, TextField } from '@mui/material';
-import React, { useMemo } from 'react';
-import { Controller } from 'react-hook-form';
-import accessObjectByString from '@/utils/accessObjectByString';
-import { ISelectField } from './types';
+import { MenuItem, TextField } from "@mui/material";
+import React, { useMemo } from "react";
+import { Controller } from "react-hook-form";
+import accessObjectByString from "@/utils/accessObjectByString";
+import { ISelectField } from "./types";
 
 export default function SelectField({
   control,
@@ -12,7 +12,7 @@ export default function SelectField({
   required,
   disabled,
   options = [],
-  optionLabelKey = 'label',
+  optionLabelKey = "label",
   optionValueKey,
   optionCompareKey,
   customOnChange,
@@ -30,7 +30,9 @@ export default function SelectField({
       return value;
     }
 
-    return options.find((option) => accessObjectByString(option, optionIdentifier) === value);
+    return options.find(
+      (option) => accessObjectByString(option, optionIdentifier) === value,
+    );
   }
 
   return (
@@ -85,7 +87,10 @@ export default function SelectField({
           {options.map((option) => (
             <MenuItem
               key={accessObjectByString(option, optionIdentifier)}
-              value={accessObjectByString(option, optionValueKey ?? optionIdentifier)}
+              value={accessObjectByString(
+                option,
+                optionValueKey ?? optionIdentifier,
+              )}
             >
               {accessObjectByString(option, optionLabelKey)}
             </MenuItem>

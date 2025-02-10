@@ -1,4 +1,4 @@
-import { CustomParamsSerializer } from 'axios';
+import { CustomParamsSerializer } from "axios";
 
 const querySerializer: CustomParamsSerializer = (query) => {
   const exceptionValues = query.nullable ? [null, 0, false] : [0, false];

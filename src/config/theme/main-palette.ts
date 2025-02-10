@@ -1,0 +1,36 @@
+const main_palette = {
+  default: {
+    main: "#6143B3",
+    light: "#EFECF7",
+    dark: "#352562",
+    contrastText: "#EFECF7",
+    "50": "#EFECF7",
+    "100": "#CEC5E7",
+    "200": "#B6A9DC",
+    "300": "#9581CC",
+    "400": "#8169C2",
+    "500": "#6143B3",
+    "600": "#583DA3",
+    "700": "#45307F",
+    "800": "#352562",
+    "900": "#291C4B",
+  } as const,
+  novocred: {
+    main: "#6143B3",
+    light: "#EFECF7",
+    dark: "#352562",
+    contrastText: "#EFECF7",
+    "50": "#EFECF7",
+    "100": "#CEC5E7",
+    "200": "#B6A9DC",
+    "300": "#9581CC",
+    "400": "#8169C2",
+    "500": "#6143B3",
+    "600": "#583DA3",
+    "700": "#45307F",
+    "800": "#352562",
+    "900": "#291C4B",
+  } as const,
+};
+
+export default main_palette;

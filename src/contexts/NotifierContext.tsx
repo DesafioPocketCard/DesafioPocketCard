@@ -1,21 +1,24 @@
 /* eslint-disable react/jsx-no-constructed-context-values */
 
-'use client';
+"use client";
 
 /* eslint-disable default-param-last */
-import React, { Dispatch, useReducer } from 'react';
-import { INotifier, INotifierAction, INotifierActionKind } from '@/helpers/Notifier/types';
+import React, { Dispatch, useReducer } from "react";
+import {
+  INotifier,
+  INotifierAction,
+  INotifierActionKind,
+} from "@/helpers/Notifier/types";
 
 export const initialState: INotifier = {
   show: false,
-  message: '',
-  severity: 'success',
+  message: "",
+  severity: "success",
 };
 
-export const NotifierContext = React.createContext<[INotifier, Dispatch<INotifierAction>]>([
-  initialState,
-  (value: INotifierAction) => null,
-]);
+export const NotifierContext = React.createContext<
+  [INotifier, Dispatch<INotifierAction>]
+>([initialState, (value: INotifierAction) => null]);
 
 const reducer = (state = initialState, { type, payload }: INotifierAction) => {
   switch (type) {
@@ -35,5 +38,9 @@ const reducer = (state = initialState, { type, payload }: INotifierAction) => {
 export function NotifierProvider({ children }: { children: React.ReactNode }) {
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  return <NotifierContext.Provider value={[state, dispatch]}>{children}</NotifierContext.Provider>;
+  return (
+    <NotifierContext.Provider value={[state, dispatch]}>
+      {children}
+    </NotifierContext.Provider>
+  );
 }

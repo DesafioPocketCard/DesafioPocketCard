@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import {
   FormControl,
@@ -8,11 +8,11 @@ import {
   Radio,
   RadioGroup,
   useTheme,
-} from '@mui/material';
-import React, { useCallback, useMemo } from 'react';
-import { Controller } from 'react-hook-form';
-import accessObjectByString from '@/utils/accessObjectByString';
-import { IRadioField } from './types';
+} from "@mui/material";
+import React, { useCallback, useMemo } from "react";
+import { Controller } from "react-hook-form";
+import accessObjectByString from "@/utils/accessObjectByString";
+import { IRadioField } from "./types";
 
 export default function RadioField({
   control,
@@ -21,8 +21,8 @@ export default function RadioField({
   required,
   disabled,
   options = [],
-  orientation = 'row',
-  optionLabelKey = 'label',
+  orientation = "row",
+  optionLabelKey = "label",
   optionCompareKey,
   optionValueKey,
   disableOptions,
@@ -45,7 +45,9 @@ export default function RadioField({
         return value;
       }
 
-      return options.find((option) => accessObjectByString(option, optionIdentifier) === value);
+      return options.find(
+        (option) => accessObjectByString(option, optionIdentifier) === value,
+      );
     },
     [optionValueKey, optionIdentifier, options],
   );
@@ -85,7 +87,7 @@ export default function RadioField({
           <FormLabel
             required={required}
             sx={{
-              fontSize: '0.9rem',
+              fontSize: "0.9rem",
               color: theme.palette.primary[400],
             }}
           >
@@ -100,12 +102,14 @@ export default function RadioField({
                 : field.value
             }
             sx={{
-              display: 'flex',
+              display: "flex",
               flexDirection: orientation,
-              flexWrap: 'wrap',
-              '& .MuiFormControlLabel-label': {
-                fontSize: '0.9rem',
-                color: fieldState.error ? theme.palette.error.main : theme.palette.base[700],
+              flexWrap: "wrap",
+              "& .MuiFormControlLabel-label": {
+                fontSize: "0.9rem",
+                color: fieldState.error
+                  ? theme.palette.error.main
+                  : theme.palette.base[700],
               },
             }}
           >
@@ -115,8 +119,13 @@ export default function RadioField({
                 label={accessObjectByString(option, optionLabelKey)}
                 control={
                   <Radio
-                    value={accessObjectByString(option, optionValueKey ?? optionIdentifier)}
-                    disabled={disableOptions ? disableOptions(option) : disabled}
+                    value={accessObjectByString(
+                      option,
+                      optionValueKey ?? optionIdentifier,
+                    )}
+                    disabled={
+                      disableOptions ? disableOptions(option) : disabled
+                    }
                   />
                 }
               />

@@ -44,34 +44,44 @@ export default function Regulation({ params }: IProps) {
 
           <Typography component="h2">Descrição da missão</Typography>
           <Typography component="p">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt perferendis animi
-            quisquam labore, quibusdam itaque nisi possimus voluptate tenetur, ab voluptatibus
-            corrupti rem iste quod quasi autem! Natus, corporis alias. Lorem ipsum dolor sit amet
-            consectetur adipisicing elit. Soluta repellat rem id! Nam quisquam non obcaecati dolorem
-            quis? At, pariatur molestias! Cumque quisquam corporis ut ipsa blanditiis vitae minus
-            enim?
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt
+            perferendis animi quisquam labore, quibusdam itaque nisi possimus
+            voluptate tenetur, ab voluptatibus corrupti rem iste quod quasi
+            autem! Natus, corporis alias. Lorem ipsum dolor sit amet consectetur
+            adipisicing elit. Soluta repellat rem id! Nam quisquam non obcaecati
+            dolorem quis? At, pariatur molestias! Cumque quisquam corporis ut
+            ipsa blanditiis vitae minus enim?
           </Typography>
           <Typography component="h2">Objetivos</Typography>
           <Typography component="p">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt perferendis animi
-            quisquam labore, quibusdam itaque nisi possimus voluptate tenetur, ab voluptatibus
-            corrupti rem iste quod quasi autem! Natus, corporis alias. Lorem ipsum dolor sit amet
-            consectetur adipisicing elit. Soluta repellat rem id! Nam quisquam non obcaecati dolorem
-            quis? At, pariatur molestias! Cumque quisquam corporis ut ipsa blanditiis vitae minus
-            enim?
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt
+            perferendis animi quisquam labore, quibusdam itaque nisi possimus
+            voluptate tenetur, ab voluptatibus corrupti rem iste quod quasi
+            autem! Natus, corporis alias. Lorem ipsum dolor sit amet consectetur
+            adipisicing elit. Soluta repellat rem id! Nam quisquam non obcaecati
+            dolorem quis? At, pariatur molestias! Cumque quisquam corporis ut
+            ipsa blanditiis vitae minus enim?
           </Typography>
           <Typography component="li">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere harum corporis quae iste
-            cupiditate corrupti deleniti, earum voluptatem exercitationem amet placeat numquam
-            minus, quisquam animi veniam delectus, porro illo ratione.
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere
+            harum corporis quae iste cupiditate corrupti deleniti, earum
+            voluptatem exercitationem amet placeat numquam minus, quisquam animi
+            veniam delectus, porro illo ratione.
           </Typography>
           <Typography component="li">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere harum corporis quae iste
-            cupiditate corrupti deleniti, earum voluptatem exercitationem amet placeat numquam
-            minus, quisquam animi veniam delectus, porro illo ratione.
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere
+            harum corporis quae iste cupiditate corrupti deleniti, earum
+            voluptatem exercitationem amet placeat numquam minus, quisquam animi
+            veniam delectus, porro illo ratione.
           </Typography>
-          <SimpleCheckBox label="Eu li e aceito os termos" control={control} name="accept" />
-          <Button onClick={() => router.push(`/campains/goals/${params.id}`)}>Prosseguir</Button>
+          <SimpleCheckBox
+            label="Eu li e aceito os termos"
+            control={control}
+            name="accept"
+          />
+          <Button onClick={() => router.push(`/campains/goals/${params.id}`)}>
+            Prosseguir
+          </Button>
         </Container>
       )}
     />

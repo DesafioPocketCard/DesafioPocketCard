@@ -11,8 +11,8 @@ const Transition = React.forwardRef(
     props: TransitionProps & {
       children: React.ReactElement<any>;
     },
-    ref: React.Ref<unknown>
-  ) => <Slide direction="up" ref={ref} {...props} />
+    ref: React.Ref<unknown>,
+  ) => <Slide direction="up" ref={ref} {...props} />,
 );
 
 function DefaultDialog({

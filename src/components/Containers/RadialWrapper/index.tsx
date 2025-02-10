@@ -9,7 +9,9 @@ export default function RadialWrapper({
 }: IRadialWrapperProps) {
   return (
     <Wrapper hasHeader={!!HeaderComponent} fillSize={fillSize}>
-      {HeaderComponent && <HeaderComponent className="radial-header-component" />}
+      {HeaderComponent && (
+        <HeaderComponent className="radial-header-component" />
+      )}
       {BodyComponent && <BodyComponent className="radial-body-component" />}
     </Wrapper>
   );

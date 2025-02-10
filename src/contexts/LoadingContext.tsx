@@ -1,8 +1,8 @@
 /* eslint-disable react/jsx-no-constructed-context-values */
 
-'use client';
+"use client";
 
-import { Dispatch, ReactNode, createContext, useState } from 'react';
+import { Dispatch, ReactNode, createContext, useState } from "react";
 
 interface ILoadingProviderProps {
   children: ReactNode;
@@ -16,7 +16,9 @@ function LoadingProvider({ children }: ILoadingProviderProps) {
   const [isLoading, setIsLoading] = useState(false);
 
   return (
-    <LoadingContext.Provider value={[isLoading, setIsLoading]}>{children}</LoadingContext.Provider>
+    <LoadingContext.Provider value={[isLoading, setIsLoading]}>
+      {children}
+    </LoadingContext.Provider>
   );
 }
 
