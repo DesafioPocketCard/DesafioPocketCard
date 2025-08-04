@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { NotificationsList, TitleContainer } from "./styles";
 import RadialWrapper from "@/components/Containers/RadialWrapper";
