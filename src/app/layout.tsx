@@ -10,6 +10,7 @@ import { Notifier } from "@/helpers";
 import { NotifierProvider } from "@/contexts/NotifierContext";
 import Loading from "@/helpers/Loading";
 import { LoadingProvider } from "@/contexts/LoadingContext";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 export const metadata: Metadata = {
   title: {
@@ -36,6 +37,7 @@ export default async function RootLayout({
                   <NotifierProvider>
                     <Notifier />
                     {children}
+                    <SpeedInsights />
                   </NotifierProvider>
                 </LoadingProvider>
               </ThemeProvider>
