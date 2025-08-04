@@ -162,7 +162,7 @@ export default function GoalsDetail({ params }: IProps) {
               <Box key={index}>
                 <GridCard
                   title={goal.title}
-                  icon={goal.icon}
+                  icon={""}
                   onClick={() =>
                     router.push(`/campains/goal-detail/${goal.id}`)
                   }

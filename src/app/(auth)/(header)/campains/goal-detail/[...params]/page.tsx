@@ -76,6 +76,7 @@ export default function GoalsDetail({ params }: IProps) {
               </Typography>
               <Typography component="p">Pontos</Typography>
               <Button
+                disabled
                 startIcon={
                   <LocationOnOutlined htmlColor="white" fontSize="small" />
                 }
