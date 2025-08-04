@@ -1,5 +1,3 @@
-"use client";
-
 import React from "react";
 import { CardContainer } from "./styles";
 import Image from "next/image";
@@ -18,13 +16,7 @@ export default function GoalsCard({
 }: IGoalsCardProps) {
   return (
     <CardContainer component="li">
-      <Image
-        alt="Desafio"
-        src={photo}
-        unoptimized
-        width={100}
-        height={100}
-      ></Image>
+      <Image alt="Desafio" src={photo} unoptimized width={100} height={100} />
       <Typography component="span">{title}</Typography>
       <Typography component="span">
         Expira em:{" "}
@@ -32,7 +24,7 @@ export default function GoalsCard({
           locale: ptBR,
         })}
       </Typography>
-      <Typography component="span">Pontos: {points}pts</Typography>
+      <Typography component="span">Pontos: {points} pts</Typography>
       <Button
         sx={{
           height: "30px",

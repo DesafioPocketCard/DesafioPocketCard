@@ -1,7 +1,7 @@
 interface IGoalsCardProps {
   title: string;
   expiration: string;
-  points: number;
+  points: string;
   photo: string;
   onClick: () => void;
 }

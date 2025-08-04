@@ -2,6 +2,7 @@ import { Box, Typography } from "@mui/material";
 import React from "react";
 import { IGridCardProps } from "./types";
 import { CardContainer, ProgressBar } from "./styles";
+import Image from "next/image";
 
 export default function GridCard({
   icon,
@@ -17,7 +18,7 @@ export default function GridCard({
       sx={sx}
       disabled={disabled}
     >
-      <Box className="icon-container">{icon}</Box>
+      <Image alt="Desafio" src={icon} unoptimized width={100} height={100} />
       <Typography component="h1">{title}</Typography>
       <ProgressBar percentage={progress}>
         <Box>

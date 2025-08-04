@@ -9,15 +9,13 @@ import {
   ProgressBar,
   ProgressLabel,
 } from "./styles";
-import { Box, Typography, useTheme } from "@mui/material";
+import { Box, CircularProgress, Typography, useTheme } from "@mui/material";
 import { BackButton } from "@/components/Buttons";
 import { useRouter } from "next/navigation";
 import { GridCard } from "@/components/Cards";
-import Image from "next/image";
-import handshake from "@/assets/images/handshake.png";
-import support from "@/assets/images/support.png";
-import officeWorker from "@/assets/images/office-worker.png";
-import booth from "@/assets/images/booth.png";
+import { useQuery } from "@tanstack/react-query";
+import GoalService from "@/services/goal.service";
+import CampaignService from "@/services/campaign.service";
 
 interface IProps {
   params: {
@@ -25,107 +23,24 @@ interface IProps {
   };
 }
 
-const goals = [
-  {
-    id: 1,
-    title: "Vendas fechadas",
-    description:
-      "Descricão da meta 1. Descricão da meta 1. Descricão da meta 1. Descricão da meta 1. ",
-    icon: <Image alt="handshake" src={handshake.src} width={40} height={40} />,
-    percentage: 72,
-  },
-  {
-    id: 2,
-    title: "Ligações clientes",
-    description:
-      "Descricão da meta 1. Descricão da meta 1. Descricão da meta 1. Descricão da meta 1. ",
-    icon: <Image alt="handshake" src={support.src} width={40} height={40} />,
-    percentage: 27,
-  },
-  {
-    id: 3,
-    title: "Visitas escritório",
-    description:
-      "Descricão da meta 1. Descricão da meta 1. Descricão da meta 1. Descricão da meta 1. ",
-    icon: (
-      <Image alt="handshake" src={officeWorker.src} width={40} height={40} />
-    ),
-    percentage: 27,
-  },
-  {
-    id: 1,
-    title: "Vendas fechadas",
-    description:
-      "Descricão da meta 1. Descricão da meta 1. Descricão da meta 1. Descricão da meta 1. ",
-    icon: <Image alt="handshake" src={handshake.src} width={40} height={40} />,
-    percentage: 72,
-  },
-  {
-    id: 3,
-    title: "Visitas stand",
-    description:
-      "Descricão da meta 1. Descricão da meta 1. Descricão da meta 1. Descricão da meta 1. ",
-    icon: <Image alt="handshake" src={booth.src} width={40} height={40} />,
-    percentage: 27,
-  },
-  {
-    id: 2,
-    title: "Ligações clientes",
-    description:
-      "Descricão da meta 1. Descricão da meta 1. Descricão da meta 1. Descricão da meta 1. ",
-    icon: <Image alt="handshake" src={support.src} width={40} height={40} />,
-    percentage: 27,
-  },
-  {
-    id: 3,
-    title: "Visitas stand",
-    description:
-      "Descricão da meta 1. Descricão da meta 1. Descricão da meta 1. Descricão da meta 1. ",
-    icon: <Image alt="handshake" src={booth.src} width={40} height={40} />,
-    percentage: 27,
-  },
-  {
-    id: 3,
-    title: "Visitas escritório",
-    description:
-      "Descricão da meta 1. Descricão da meta 1. Descricão da meta 1. Descricão da meta 1. ",
-    icon: (
-      <Image alt="handshake" src={officeWorker.src} width={40} height={40} />
-    ),
-    disabled: true,
-    percentage: 27,
-  },
-  {
-    id: 1,
-    title: "Vendas fechadas",
-    description:
-      "Descricão da meta 1. Descricão da meta 1. Descricão da meta 1. Descricão da meta 1. ",
-    icon: <Image alt="handshake" src={handshake.src} width={40} height={40} />,
-    percentage: 72,
-  },
-  {
-    id: 2,
-    title: "Ligações clientes",
-    description:
-      "Descricão da meta 1. Descricão da meta 1. Descricão da meta 1. Descricão da meta 1. ",
-    icon: <Image alt="handshake" src={support.src} width={40} height={40} />,
-    percentage: 27,
-  },
-  {
-    id: 3,
-    title: "Visitas escritório",
-    description:
-      "Descricão da meta 1. Descricão da meta 1. Descricão da meta 1. Descricão da meta 1. ",
-    icon: (
-      <Image alt="handshake" src={officeWorker.src} width={40} height={40} />
-    ),
-    percentage: 27,
-    disabled: true,
-  },
-];
 export default function Goals({ params }: IProps) {
   const router = useRouter();
   const theme = useTheme();
+
+  const { data: campaigns } = useQuery({
+    queryKey: ["campaigns"],
+    queryFn: () => CampaignService.get(),
+  });
+
+  const { data, isLoading } = useQuery({
+    queryKey: ["goals", params.id],
+    queryFn: () => GoalService.get(params.id),
+  });
+
+  const campaign = campaigns?.data.find(
+    (item) => item.id_campanha === params.id
+  );
+
   return (
     <Box>
       <HeaderContainer>
@@ -139,28 +54,36 @@ export default function Goals({ params }: IProps) {
       </HeaderContainer>
       <Divider />
       <ProgressLabel>Metas atingidas</ProgressLabel>
-      <ProgressBar percentage={50}>
+      <ProgressBar percentage={Number(campaign?.perc_realizado)}>
         <Box>
           <Box className="container" />
           <Box className="progress" />
         </Box>
-        <Typography component="h1">50%</Typography>
+        <Typography component="h1">{campaign?.perc_realizado}%</Typography>
       </ProgressBar>
 
       <Description>
         Veja abaixo quais as missões disponíveis que devem ser realizadas para
         crescimento do seu sucesso.
       </Description>
-
+      {isLoading && (
+        <Box display={"flex"} justifyContent="center" mt={4}>
+          <CircularProgress disableShrink />
+        </Box>
+      )}
       <GridContainer>
-        {goals.map((goal, index) => (
+        {data?.data.map((goal, index) => (
           <Box key={index}>
             <GridCard
-              title={goal.title}
-              icon={goal.icon}
-              onClick={() => router.push(`/campains/goal-detail/${goal.id}`)}
-              disabled={goal.disabled}
-              progress={goal.percentage}
+              title={goal.descricao_meta}
+              icon={goal.nome_arquivo}
+              onClick={() =>
+                router.push(
+                  `/campains/goal-detail/${goal.id_campanha_meta}/${params.id}`
+                )
+              }
+              disabled={goal.qtd_realizada === goal.valor_meta}
+              progress={Number(goal.perc_realizado)}
               sx={{
                 padding: "8px 20px",
                 borderBottom: "1px dashed " + theme.palette.secondary[300],

@@ -70,4 +70,17 @@ const Container = styled(Box)(({ theme }) => ({
   },
 }));
 
-export { TitleContainer, Container, HeaderContainer };
+const BoxContainerRegulation = styled(Box)(({ theme }) => ({
+  display: "flex",
+  flexDirection: "column",
+  gap: "8px",
+  "& > p": {
+    ...theme.fonts["pf-body"],
+    color: theme.palette.secondary[500],
+    "& > strong": {
+      color: theme.palette.primary[500]
+    }
+  },
+}))
+
+export { TitleContainer, Container, HeaderContainer, BoxContainerRegulation };

@@ -29,7 +29,7 @@ const credentials = CredentialsProvider<Record<string, any>>({
       );
 
       if (response.data.success) {
-        return response.data;
+        return { ...response.data, token: tokenResponse.data.token };
       }
 
       throw new Error("Login não autorizado");
@@ -54,13 +54,14 @@ const authConfig: NextAuthOptions = {
         return {
           ...token,
           user: user.user,
+          token: user.token,
         };
       }
 
       return token;
     },
     session({ session, token }) {
-      return { ...session, user: token.user };
+      return { ...session, user: token.user, token: token.token };
     },
   },
   logger: {

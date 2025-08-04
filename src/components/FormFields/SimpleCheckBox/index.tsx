@@ -27,9 +27,9 @@ export default function SimpleCheckBox({
         <CheckBoxContainer orientation={orientation}>
           <Box className="checkbox-box">
             <MUICheckBox
-              {...field}
               id={checkBoxID}
               name={name}
+              checked={field.value}
               onChange={(e) => {
                 field.onChange(e.target.checked);
                 if (onChange) onChange(e.target.checked);

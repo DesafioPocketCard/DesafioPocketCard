@@ -41,6 +41,7 @@ export const CardContainer = styled(Box)<{
   disabled?: boolean;
 }>(({ theme, disabled }) => ({
   width: "100%",
+  minHeight: "240px",
   opacity: disabled ? 0.5 : 1,
   display: "flex",
   flexDirection: "column",
@@ -51,6 +52,8 @@ export const CardContainer = styled(Box)<{
     ...theme.fonts["h6-body-strong"],
     color: theme.palette.secondary[500],
     textAlign: "center",
+    minHeight: "40px",
+    textWrap: "wrap",
   },
   "& > .icon-container": {
     borderRadius: "16px",

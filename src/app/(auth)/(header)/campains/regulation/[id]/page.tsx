@@ -2,15 +2,20 @@
 
 import RadialWrapper from "@/components/Containers/RadialWrapper";
 import { Header } from "@/components/Layout";
-import { IconButton, Typography } from "@mui/material";
+import { Box, CircularProgress, IconButton, Typography } from "@mui/material";
 import React from "react";
-import { TitleContainer } from "./styles";
+import { BoxContainerRegulation, TitleContainer } from "./styles";
 import { Container, HeaderContainer } from "./styles";
 import { ArrowBackIos } from "@mui/icons-material";
 import { useForm } from "react-hook-form";
 import SimpleCheckBox from "@/components/FormFields/SimpleCheckBox";
 import { Button } from "@/components/Buttons";
 import { useRouter } from "next/navigation";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import RegulationService from "@/services/regulation.service";
+import CampaignService from "@/services/campaign.service";
+import { z } from "zod";
+import { useNotifier } from "@/hooks";
 
 interface IProps {
   params: {
@@ -20,8 +25,48 @@ interface IProps {
 
 export default function Regulation({ params }: IProps) {
   const router = useRouter();
+  const queryClient = useQueryClient();
+  const notify = useNotifier();
 
-  const { control } = useForm();
+  const acceptRegulationMutation = useMutation({
+    mutationFn: RegulationService.acceptRegulation,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["regulation"] });
+      router.push(`/campains/goals/${params.id}`);
+    },
+    onError: () => {
+      notify(
+        "Ocorreu um erro ao aceitar o regulamento, por favor tente novamente.",
+        "error"
+      );
+    },
+  });
+
+  const { data: campaigns } = useQuery({
+    queryKey: ["campaigns"],
+    queryFn: () => CampaignService.get(),
+  });
+
+  const { data, isLoading, isFetched } = useQuery({
+    queryKey: ["regulation"],
+    queryFn: () => RegulationService.get(params.id),
+  });
+
+  const campaign = campaigns?.data.find(
+    (item) => item.id_campanha === params.id
+  );
+
+  const { control, handleSubmit, watch } = useForm({
+    defaultValues: {
+      accept: null,
+    },
+  });
+
+  const onSubmit = handleSubmit(({ accept }) => {
+    if (accept) {
+      acceptRegulationMutation.mutate(params.id);
+    }
+  });
 
   return (
     <RadialWrapper
@@ -33,55 +78,42 @@ export default function Regulation({ params }: IProps) {
             <IconButton onClick={() => router.back()}>
               <ArrowBackIos htmlColor="white" fontSize="small" />
             </IconButton>
-            <Typography component="h1">Visitas ao Stand</Typography>
-            <Typography>Meta: 200 visitas</Typography>
+            <Typography component="h1">
+              {campaign?.nome_campanha || "Carregando..."}
+            </Typography>
+            <Typography>
+              Meta: {campaign?.valor_meta && Number(campaign?.valor_meta)}{" "}
+              pontos
+            </Typography>
           </HeaderContainer>
         </TitleContainer>
       )}
       BodyComponent={(props) => (
         <Container {...props}>
           <Typography component="h1">Regulamento</Typography>
+          {isLoading && (
+            <Box display={"flex"} justifyContent="center" mt={4}>
+              <CircularProgress disableShrink />
+            </Box>
+          )}
 
-          <Typography component="h2">Descrição da missão</Typography>
-          <Typography component="p">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt
-            perferendis animi quisquam labore, quibusdam itaque nisi possimus
-            voluptate tenetur, ab voluptatibus corrupti rem iste quod quasi
-            autem! Natus, corporis alias. Lorem ipsum dolor sit amet consectetur
-            adipisicing elit. Soluta repellat rem id! Nam quisquam non obcaecati
-            dolorem quis? At, pariatur molestias! Cumque quisquam corporis ut
-            ipsa blanditiis vitae minus enim?
-          </Typography>
-          <Typography component="h2">Objetivos</Typography>
-          <Typography component="p">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt
-            perferendis animi quisquam labore, quibusdam itaque nisi possimus
-            voluptate tenetur, ab voluptatibus corrupti rem iste quod quasi
-            autem! Natus, corporis alias. Lorem ipsum dolor sit amet consectetur
-            adipisicing elit. Soluta repellat rem id! Nam quisquam non obcaecati
-            dolorem quis? At, pariatur molestias! Cumque quisquam corporis ut
-            ipsa blanditiis vitae minus enim?
-          </Typography>
-          <Typography component="li">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere
-            harum corporis quae iste cupiditate corrupti deleniti, earum
-            voluptatem exercitationem amet placeat numquam minus, quisquam animi
-            veniam delectus, porro illo ratione.
-          </Typography>
-          <Typography component="li">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere
-            harum corporis quae iste cupiditate corrupti deleniti, earum
-            voluptatem exercitationem amet placeat numquam minus, quisquam animi
-            veniam delectus, porro illo ratione.
-          </Typography>
-          <SimpleCheckBox
-            label="Eu li e aceito os termos"
-            control={control}
-            name="accept"
+          <BoxContainerRegulation
+            dangerouslySetInnerHTML={{
+              __html: data?.data[0].texto_regulamento || "",
+            }}
           />
-          <Button onClick={() => router.push(`/campains/goals/${params.id}`)}>
-            Prosseguir
-          </Button>
+          {isFetched && (
+            <>
+              <SimpleCheckBox
+                label="Eu li e aceito os termos"
+                control={control}
+                name="accept"
+              />
+              <Button disabled={!watch("accept")} onClick={onSubmit}>
+                Prosseguir
+              </Button>
+            </>
+          )}
         </Container>
       )}
     />
