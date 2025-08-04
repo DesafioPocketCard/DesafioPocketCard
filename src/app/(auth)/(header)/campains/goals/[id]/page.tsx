@@ -16,6 +16,7 @@ import { GridCard } from "@/components/Cards";
 import { useQuery } from "@tanstack/react-query";
 import GoalService from "@/services/goal.service";
 import CampaignService from "@/services/campaign.service";
+import { useSession } from "next-auth/react";
 
 interface IProps {
   params: {
@@ -26,6 +27,7 @@ interface IProps {
 export default function Goals({ params }: IProps) {
   const router = useRouter();
   const theme = useTheme();
+  const session = useSession();
 
   const { data: campaigns } = useQuery({
     queryKey: ["campaigns"],
@@ -47,9 +49,10 @@ export default function Goals({ params }: IProps) {
         <BackButton onClick={() => router.back()} />
         <Box>
           <Typography component="h1">
-            Olá, <Typography component="span">Maria Fernanda</Typography>.
+            Olá,{" "}
+            <Typography component="span">{session.data?.user.nome}</Typography>.
           </Typography>
-          <Typography>mfernanda@teste.com.br</Typography>
+          <Typography>{session.data?.user.email}</Typography>
         </Box>
       </HeaderContainer>
       <Divider />
