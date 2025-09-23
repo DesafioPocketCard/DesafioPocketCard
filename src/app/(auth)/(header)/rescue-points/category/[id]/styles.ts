@@ -90,6 +90,7 @@ const GridContainer = styled(Box)(({ theme, key }) => ({
 const Title = styled(Box)(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
+  padding: "16px 0",
   gap: theme.spacing(3),
   "& > h1": {
     ...theme.fonts["h4-subtitle"],

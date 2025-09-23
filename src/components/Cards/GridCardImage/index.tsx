@@ -2,6 +2,7 @@ import { Box, Typography } from "@mui/material";
 import React from "react";
 import { IGridCardImageProps } from "./types";
 import { CardContainer } from "./styles";
+import Image from "next/image";
 
 export default function GridCardImage({
   icon,
@@ -24,7 +25,7 @@ export default function GridCardImage({
             <Typography component="span">{labelTop}</Typography>
           </Box>
         )}
-        {icon}
+        <Image alt="not found" src={icon} unoptimized fill />
         {points && (
           <Box className="points-container">
             <Typography component="span">{points} pts</Typography>

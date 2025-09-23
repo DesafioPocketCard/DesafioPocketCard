@@ -2,12 +2,10 @@ import { Metadata } from "next";
 import React from "react";
 
 export const metadata: Metadata = {
-  title: {
-    default: "Resgate de Pontos",
-    template: "Pocketcard | %s",
-  },
+  title: "Categoria",
 };
-export default function RescuePointsLayout({
+
+export default function CategoryLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;

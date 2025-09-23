@@ -3,7 +3,7 @@ import React from "react";
 
 export interface IGridCardImageProps {
   title: string;
-  icon: React.ReactNode;
+  icon: string;
   onClick: () => void;
   disabled?: boolean;
   sx?: SxProps;
