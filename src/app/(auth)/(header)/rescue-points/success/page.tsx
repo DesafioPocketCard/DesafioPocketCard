@@ -111,7 +111,7 @@ export default function Success({ params }: IProps) {
             <Typography component="h2">Continue Resgatando</Typography>
           </Title>
           <GridContainer>
-            {rescuePoints.map((rescuePoint, index) => (
+            {/* {rescuePoints.map((rescuePoint, index) => (
               <Box key={index}>
                 <GridCardImage
                   title={rescuePoint.title}
@@ -127,7 +127,7 @@ export default function Success({ params }: IProps) {
                   labelTop={rescuePoint.new ? "Novo" : undefined}
                 />
               </Box>
-            ))}
+            ))} */}
           </GridContainer>
         </Container>
       )}
