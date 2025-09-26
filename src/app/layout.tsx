@@ -12,6 +12,7 @@ import { LoadingProvider } from "@/contexts/LoadingContext";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import DynamicThemeProvider from "@/contexts/DynamicThemeProvider";
 import ThemeInitializer from "@/components/ThemeInitializer";
+import TenantTester from "@/components/Debug/TenantTester";
 import { getServerTenant } from "@/utils/theme-server";
 
 export const metadata: Metadata = {
@@ -43,6 +44,7 @@ export default async function RootLayout({
                   <NotifierProvider>
                     <Notifier />
                     {children}
+                    <TenantTester />
                     <SpeedInsights />
                   </NotifierProvider>
                 </LoadingProvider>

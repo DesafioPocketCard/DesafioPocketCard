@@ -13,16 +13,27 @@ export const THEME_COOKIE_OPTIONS = {
 // Função para detectar tenant pelo domínio
 export const getTenantFromDomain = (hostname?: string): TenantType => {
   if (!hostname) return 'default';
-
+  
   const domain = hostname.toLowerCase();
-
+  
+  console.log('🔍 Detectando tenant para hostname:', hostname);
+  
   // Procura por padrões específicos no domínio usando as configurações
   for (const [tenantKey, config] of Object.entries(TENANT_CONFIGS)) {
-    if (config.domainPatterns.some(pattern => domain.includes(pattern))) {
+    const matchedPattern = config.domainPatterns.find(pattern => {
+      const isMatch = domain.includes(pattern.toLowerCase());
+      if (isMatch) {
+        console.log(`✅ Tenant '${tenantKey}' detectado via padrão '${pattern}'`);
+      }
+      return isMatch;
+    });
+    
+    if (matchedPattern) {
       return tenantKey as TenantType;
     }
   }
-
+  
+  console.log(`⚠️  Nenhum tenant específico encontrado para '${hostname}', usando 'default'`);
   return 'default';
 };
 

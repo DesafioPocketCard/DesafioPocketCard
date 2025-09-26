@@ -25,19 +25,19 @@ export interface TenantConfig {
 export const TENANT_CONFIGS: Record<TenantType, TenantConfig> = {
   default: {
     name: 'default',
-    domainPatterns: ['localhost', 'pocketcard'],
+    domainPatterns: ['localhost', 'pocketcard.local', 'default.pocketcard'],
     displayName: 'PocketCard',
     description: 'Tema padrão da aplicação',
   },
   novocred: {
     name: 'novocred',
-    domainPatterns: ['novocred'],
+    domainPatterns: ['novocred.pocketcard', 'www.novocred.local', 'novocred.com.br'],
     displayName: 'NovoCred',
     description: 'Tema da NovoCred',
   },
   autoline: {
     name: 'autoline',
-    domainPatterns: ['autoline'],
+    domainPatterns: ['autoline.pocketcard', 'www.autoline.local', 'autoline.com.br'],
     displayName: 'Autoline',
     description: 'Tema da Autoline',
   },
