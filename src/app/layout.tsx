@@ -44,7 +44,7 @@ export default async function RootLayout({
                   <NotifierProvider>
                     <Notifier />
                     {children}
-                    <TenantTester />
+                    {/* <TenantTester /> */}
                     <SpeedInsights />
                   </NotifierProvider>
                 </LoadingProvider>
