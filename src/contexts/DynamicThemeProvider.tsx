@@ -13,27 +13,29 @@ import {
 
 const DynamicThemeProvider = ({ children }: PropsWithChildren<{}>) => {
   const [theme, setTheme] = useState(createTheme({} as never));
-  const [tenant, setTenant] = useState("novocred");
 
-  const getTenantFromDomain = () => {
-    const domain = window.location.hostname;
+  const getTenantFromDomain = (): keyof typeof main_palette => {
+    const domain = window.location.hostname.toLowerCase();
 
-    if (domain.includes("novocred")) {
-      return "novocred";
-    }
+    const tenant = (
+      Object.keys(main_palette) as Array<keyof typeof main_palette>
+    ).find((key) => domain.includes(key));
 
-    return "default";
+    return tenant ?? "default";
   };
 
   useEffect(() => {
     const tenantFromDomain = getTenantFromDomain();
-    setTenant(tenantFromDomain);
 
     const newTheme = createTheme({
       palette: {
         mode: "light",
         primary: main_palette[tenantFromDomain],
-        ...palette,
+        secondary: palette.secondary,
+        base: palette.base,
+        success: palette.success,
+        error: palette.error,
+        warning: palette.warning,
       },
       fonts: fonts_style,
       breakpoints,

@@ -89,14 +89,14 @@ export default function Goals({ params }: IProps) {
               progress={Number(goal.perc_realizado)}
               sx={{
                 padding: "8px 20px",
-                borderBottom: "1px dashed " + theme.palette.secondary[300],
+                borderBottom: "1px dashed " + theme.palette.secondary?.["300"] || "#959595",
                 borderRight:
                   index % 2 === 0
-                    ? "1px dashed " + theme.palette.secondary[300]
+                    ? "1px dashed " + theme.palette.secondary?.["300"] || "#959595"
                     : "none",
                 borderTop:
                   index <= 1
-                    ? "1px dashed " + theme.palette.secondary[300]
+                    ? "1px dashed " + theme.palette.secondary?.["300"] || "#959595"
                     : "none",
               }}
             />

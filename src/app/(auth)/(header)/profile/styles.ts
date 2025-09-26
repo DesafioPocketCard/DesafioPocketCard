@@ -28,14 +28,14 @@ const ProfileImageContainer = styled(Box)(({ theme }) => ({
     gridColumn: "-1",
   },
   "& > h1": {
-    ...theme.fonts["h3-title"],
-    color: theme.palette.base[50],
+    ...(theme.fonts?.["h3-title"] || {}),
+    color: theme.palette.base?.["50"] || "#FFFFFF",
     gridColumn: "1/-1",
     gridRow: "3",
   },
   "& > span": {
-    ...theme.fonts["h5-body-large"],
-    color: theme.palette.base[50],
+    ...(theme.fonts?.["h5-body-large"] || {}),
+    color: theme.palette.base?.["50"] || "#FFFFFF",
     gridColumn: "1/-1",
     gridRow: "4",
   },
@@ -68,17 +68,17 @@ const Informations = styled(Box)(({ theme }) => ({
   justifyItems: "center",
   gap: "20px",
   "& > h2": {
-    ...theme.fonts["h3-title"],
-    color: theme.palette.primary[500],
+    ...(theme.fonts?.["h3-title"] || {}),
+    color: theme.palette.primary?.["500"] || theme.palette.primary.main,
   },
   "& > div:nth-child(2)": {
     marginBottom: "20px",
   },
   "& > button": {
-    ...theme.fonts["h6-body-strong"],
+    ...(theme.fonts?.["h6-body-strong"] || {}),
     borderRadius: "0",
     padding: "4px",
-    borderBottom: `1px solid ${theme.palette.primary[500]}`,
+    borderBottom: `1px solid ${theme.palette.primary?.["500"] || theme.palette.primary.main}`,
     "&:hover": {
       boxShadow: "none",
     },

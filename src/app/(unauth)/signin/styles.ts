@@ -3,8 +3,8 @@
 import { Box, styled } from "@mui/material";
 
 const Politicy = styled(Box)(({ theme }) => ({
-  ...theme.fonts["label"],
-  color: theme.palette.secondary[200],
+  ...(theme.fonts?.["label"] || {}),
+  color: theme.palette.secondary?.["200"] || "#B6B6B6",
   maxWidth: "60%",
   textAlign: "center",
   marginTop: "auto",
@@ -18,11 +18,11 @@ const FormContainer = styled(Box)(({ theme }) => ({
   gap: theme.spacing(2),
   padding: "128px 24px 24px 24px !important",
   "& > a": {
-    ...theme.fonts["label"],
-    color: theme.palette.base[900],
+    ...(theme.fonts?.["label"] || {}),
+    color: theme.palette.base?.["900"] || "#404040",
     transition: "0.3s",
     "&:hover": {
-      color: theme.palette.primary[400],
+      color: theme.palette.primary?.["400"] || theme.palette.primary.main,
     },
   },
 }));

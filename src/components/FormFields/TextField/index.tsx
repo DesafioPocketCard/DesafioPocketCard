@@ -41,9 +41,9 @@ export default function TextField({
     icon = (
       <IconButton onClick={togglePassword}>
         {showPassword ? (
-          <VisibilityOutlined htmlColor={theme.palette.primary[400]} />
+          <VisibilityOutlined htmlColor={theme.palette.primary?.["400"] || theme.palette.primary.main} />
         ) : (
-          <VisibilityOffOutlined htmlColor={theme.palette.primary[400]} />
+          <VisibilityOffOutlined htmlColor={theme.palette.primary?.["400"] || theme.palette.primary.main} />
         )}
       </IconButton>
     );

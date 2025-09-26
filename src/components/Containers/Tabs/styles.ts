@@ -13,7 +13,7 @@ const TabContainer = styled(TabList)(({ theme, orientation }) => ({
   "& .MuiTabs-indicator": { display: "none" },
   "& .MuiTabs-scrollButtons": {
     "&.Mui-disabled": { opacity: 0.3 },
-    color: theme.palette.primary[400],
+    color: theme.palette.primary?.["400"] || theme.palette.primary.main,
   },
   maxWidth: 1540,
   alignItems: "center",
@@ -22,10 +22,10 @@ const TabContainer = styled(TabList)(({ theme, orientation }) => ({
 const TabItem = styled(Tab)<TabItemProps>(
   ({ theme, revertcolorpalette, strongTabs }) => ({
     background: revertcolorpalette
-      ? theme.palette.primary[400]
-      : theme.palette.primary[50],
+      ? theme.palette.primary?.["400"] || theme.palette.primary.main
+      : theme.palette.primary?.["50"] || theme.palette.primary.main,
     color: revertcolorpalette
-      ? theme.palette.base[50]
+      ? theme.palette.base?.["50"] || "#FFFFFF"
       : theme.palette.primary.main,
     padding: revertcolorpalette ? "10px 33px" : "10px",
     fontSize: strongTabs ? "16px" : "inherit",
@@ -38,11 +38,11 @@ const TabItem = styled(Tab)<TabItemProps>(
     minHeight: 10,
     "&.Mui-selected": {
       backgroundColor: revertcolorpalette
-        ? theme.palette.primary[50]
-        : theme.palette.primary[400],
+        ? theme.palette.primary?.["50"] || theme.palette.primary.main
+        : theme.palette.primary?.["400"] || theme.palette.primary.main,
       color: revertcolorpalette
         ? theme.palette.primary.main
-        : theme.palette.base[50],
+        : theme.palette.base?.["50"] || "#FFFFFF",
       fontWeight: strongTabs ? "bold" : "normal",
       borderColor: "transparent",
     },

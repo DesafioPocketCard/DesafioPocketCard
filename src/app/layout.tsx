@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import "@/global/styles/global.css";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v14-appRouter";
-import { ThemeProvider } from "@mui/material/styles";
-import { fonts, theme } from "@/config";
+import { fonts } from "@/config";
 import React from "react";
 import { QueryClientProvider } from "@/contexts/QueryClientContext";
 import { SessionProvider } from "@/contexts/SessionProvider";
@@ -11,6 +10,7 @@ import { NotifierProvider } from "@/contexts/NotifierContext";
 import Loading from "@/helpers/Loading";
 import { LoadingProvider } from "@/contexts/LoadingContext";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import DynamicThemeProvider from "@/contexts/DynamicThemeProvider";
 
 export const metadata: Metadata = {
   title: {
@@ -31,7 +31,7 @@ export default async function RootLayout({
         <SessionProvider>
           <QueryClientProvider>
             <AppRouterCacheProvider>
-              <ThemeProvider theme={theme}>
+              <DynamicThemeProvider>
                 <LoadingProvider>
                   <Loading />
                   <NotifierProvider>
@@ -40,7 +40,7 @@ export default async function RootLayout({
                     <SpeedInsights />
                   </NotifierProvider>
                 </LoadingProvider>
-              </ThemeProvider>
+              </DynamicThemeProvider>
             </AppRouterCacheProvider>
           </QueryClientProvider>
         </SessionProvider>

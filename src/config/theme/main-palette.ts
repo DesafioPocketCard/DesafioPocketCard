@@ -31,6 +31,22 @@ const main_palette = {
     "800": "#352562",
     "900": "#291C4B",
   } as const,
+  autoline: {
+    main: "#cc3123",
+    light: "#EFECF7",
+    dark: "#44100b",
+    contrastText: "#EFECF7",
+    "50": "#fee4e2",
+    "100": "#fdcfcb",
+    "200": "#fbada6",
+    "300": "#f77d72",
+    "400": "#ed5446",
+    "500": "#cc3123",
+    "600": "#b72b1e",
+    "700": "#98261c",
+    "800": "#7e261e",
+    "900": "#44100b",
+  } as const,
 };
 
 export default main_palette;

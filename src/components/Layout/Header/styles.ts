@@ -1,7 +1,7 @@
 import { AppBar, Avatar, styled } from "@mui/material";
 
 const HeaderContainer = styled(AppBar)(({ theme }) => ({
-  backgroundColor: theme.palette.secondary[50],
+  backgroundColor: theme.palette.secondary?.["50"] || "#EFEFEF",
   display: "flex",
   flexDirection: "row",
   alignItems: "center",

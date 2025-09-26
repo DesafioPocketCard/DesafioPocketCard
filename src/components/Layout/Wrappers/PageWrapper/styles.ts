@@ -3,7 +3,7 @@
 import { Box, styled } from "@mui/material";
 
 const Wrapper = styled("div")(({ theme }) => ({
-  backgroundColor: theme.palette.base[50],
+  backgroundColor: theme.palette.base?.["50"] || "#FFFFFF",
   minHeight: "100vh",
   paddingTop: "60px",
 }));

@@ -36,7 +36,7 @@ const CircleContainer = styled(Box)<Pick<ILoadingProps, "size">>(
 );
 
 const Circle = styled(Box)(({ theme }) => ({
-  backgroundColor: theme.palette.secondary[100],
+  backgroundColor: theme.palette.secondary?.["100"] || "#CECECE",
   borderRadius: "100%",
   transition: "0.3s",
   opacity: 0,

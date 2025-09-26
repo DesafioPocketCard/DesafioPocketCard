@@ -23,7 +23,7 @@ export default function Error({
   return (
     <ErrorBoundaryContainer>
       <Box>
-        <ErrorOutlineRoundedIcon htmlColor={theme.palette.primary[400]} />
+        <ErrorOutlineRoundedIcon htmlColor={theme.palette.primary?.["400"] || theme.palette.primary.main} />
         <Typography component="h1">Ops...</Typography>
       </Box>
       <Typography component="p">

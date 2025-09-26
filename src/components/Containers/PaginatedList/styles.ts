@@ -9,8 +9,8 @@ const PaginatedContainer = styled(Box)(({ theme }) => ({
   "& > span": {
     marginLeft: "auto",
     marginRight: "auto",
-    ...theme.fonts["label"],
-    color: theme.palette.primary[400],
+    ...(theme.fonts?.["label"] || {}),
+    color: theme.palette.primary?.["400"] || theme.palette.primary.main,
   },
 }));
 

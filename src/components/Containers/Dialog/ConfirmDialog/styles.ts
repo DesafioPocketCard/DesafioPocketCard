@@ -19,7 +19,7 @@ const DialogStyled = styled(Dialog)(({ theme }) => ({
     height: "50px",
     fontFamily: "General Sans",
     fontSize: "23px",
-    color: theme.palette.base[50],
+    color: theme.palette.base?.["50"] || "#FFFFFF",
     fontWeight: "500",
     textTransform: "none",
   },

@@ -25,14 +25,14 @@ export default function ConfirmDialog({
       <DialogTitleStyled>{dialogTitle}</DialogTitleStyled>
       <DialogActions>
         <Button
-          style={{ backgroundColor: theme.palette.error[400] }}
+          style={{ backgroundColor: theme.palette.error?.["400"] || "#EF4444" }}
           onClick={() => handleClose(false)}
           color="primary"
         >
           Cancelar
         </Button>
         <Button
-          style={{ backgroundColor: theme.palette.success[400] }}
+          style={{ backgroundColor: theme.palette.success?.["400"] || "#22C55E" }}
           onClick={() => handleConfirmation()}
           color="primary"
           autoFocus

@@ -17,8 +17,8 @@ export const CheckBoxContainer = styled(Box)<
     flexDirection: orientation,
     gap: theme.spacing(1),
     "& > label": {
-      ...theme.fonts["pf-body"],
-      color: theme.palette.secondary[500],
+      ...(theme.fonts?.["pf-body"] || {}),
+      color: theme.palette.secondary?.["500"] || "#616161",
     },
   },
 }));

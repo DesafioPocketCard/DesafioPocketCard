@@ -9,17 +9,17 @@ export const CardOption = styled(Box)<{ selected: boolean }>(
     padding: theme.spacing(2),
     background: selected
       ? theme.palette.primary.dark
-      : theme.palette.secondary[50],
+      : theme.palette.secondary?.["50"] || "#EFEFEF",
     borderRadius: theme.spacing(1),
     "& > p": {
-      ...theme.fonts["pf-body"],
-      color: selected ? theme.palette.base[50] : theme.palette.secondary[500],
+      ...(theme.fonts?.["pf-body"] || {}),
+      color: selected ? theme.palette.base?.["50"] || "#FFFFFF" : theme.palette.secondary?.["500"] || "#616161",
       textWrap: "wrap",
     },
     "&:hover": {
       backgroundColor: theme.palette.primary.dark,
       "> p": {
-        color: theme.palette.base[50],
+        color: theme.palette.base?.["50"] || "#FFFFFF",
       },
     },
   }),
@@ -30,7 +30,7 @@ export const CardContainer = styled(Box)(({ theme }) => ({
   flexDirection: "column",
   gap: theme.spacing(2),
   "& > p": {
-    ...theme.fonts["h5-body-large"],
-    color: theme.palette.secondary[500],
+    ...(theme.fonts?.["h5-body-large"] || {}),
+    color: theme.palette.secondary?.["500"] || "#616161",
   },
 }));

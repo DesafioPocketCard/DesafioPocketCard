@@ -9,11 +9,11 @@ const NotFoundContainer = styled(Box)(({ theme }) => ({
   alignItems: "center",
   justifyContent: "center",
   "& > h1": {
-    ...theme.fonts["h3-title"],
-    color: theme.palette.base[900],
+    ...(theme.fonts?.["h3-title"] || {}),
+    color: theme.palette.base?.["900"] || "#404040",
     "& > span": {
       font: "inherit",
-      color: theme.palette.primary[400],
+      color: theme.palette.primary?.["400"] || theme.palette.primary.main,
     },
   },
 }));

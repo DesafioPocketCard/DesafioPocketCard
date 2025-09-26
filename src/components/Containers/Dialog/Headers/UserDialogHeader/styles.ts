@@ -5,17 +5,17 @@ const HeaderContainer = styled(Box)(({ theme }) => ({
   alignItems: "center",
   gap: "20px",
   padding: "20px 30px",
-  backgroundColor: theme.palette.secondary[50],
+  backgroundColor: theme.palette.secondary?.["50"] || "#EFEFEF",
   "& > div": {
     display: "flex",
     flexDirection: "column",
     "& > span:nth-child(1)": {
-      ...theme.fonts["h4-subtitle"],
-      color: theme.palette.primary[500],
+      ...(theme.fonts?.["h4-subtitle"] || {}),
+      color: theme.palette.primary?.["500"] || theme.palette.primary.main,
     },
     "& > span:nth-child(2)": {
-      ...theme.fonts["pf-body"],
-      color: theme.palette.secondary[500],
+      ...(theme.fonts?.["pf-body"] || {}),
+      color: theme.palette.secondary?.["500"] || "#616161",
     },
   },
 }));

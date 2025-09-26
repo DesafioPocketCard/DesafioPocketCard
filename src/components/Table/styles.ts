@@ -3,10 +3,10 @@ import { TableCell, TableRow, styled, tableCellClasses } from "@mui/material";
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     color: theme.palette.primary,
-    fontSize: theme.fonts["h5-body-large"],
+    fontSize: theme.fonts?.["h5-body-large"] || {},
   },
   [`&.${tableCellClasses.body}`]: {
-    fontSize: theme.fonts["h5-body-large"],
+    fontSize: theme.fonts?.["h5-body-large"] || {},
     color: theme.palette.primary,
   },
   [`&.${tableCellClasses.root}`]: {
@@ -18,7 +18,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
   border: "none",
   "&:nth-of-type(odd)": {
-    backgroundColor: theme.palette.base[200],
+    backgroundColor: theme.palette.base?.["200"] || "#EDEDED",
   },
   "&:last-child td, &:last-child th": {
     border: 0,
@@ -50,7 +50,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
     color: theme.palette.error.main,
   },
   "&.late": {
-    backgroundColor: theme.palette.error[100],
+    backgroundColor: theme.palette.error?.["100"] || "#FECACA",
   },
 }));
 

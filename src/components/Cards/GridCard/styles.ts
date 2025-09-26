@@ -19,20 +19,20 @@ export const ProgressBar = styled(Box)<{
     "> .container": {
       width: "100%",
       height: "100%",
-      backgroundColor: theme.palette.secondary[100],
+      backgroundColor: theme.palette.secondary?.["100"] || "#CECECE",
       borderRadius: "2px",
     },
     "> .progress": {
       width: `${percentage}%`,
       height: "90%",
       position: "absolute",
-      backgroundColor: theme.palette.primary[500],
+      backgroundColor: theme.palette.primary?.["500"] || theme.palette.primary.main,
       borderRadius: "2px",
     },
   },
   "> h1": {
-    ...theme.fonts["label"],
-    color: theme.palette.secondary[500],
+    ...(theme.fonts?.["label"] || {}),
+    color: theme.palette.secondary?.["500"] || "#616161",
     fontWeight: "bold",
   },
 }));
@@ -49,8 +49,8 @@ export const CardContainer = styled(Box)<{
   justifyContent: "center",
   gap: "8px",
   "& > h1": {
-    ...theme.fonts["h6-body-strong"],
-    color: theme.palette.secondary[500],
+    ...(theme.fonts?.["h6-body-strong"] || {}),
+    color: theme.palette.secondary?.["500"] || "#616161",
     textAlign: "center",
     minHeight: "40px",
     textWrap: "wrap",
@@ -63,6 +63,6 @@ export const CardContainer = styled(Box)<{
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: theme.palette.secondary[50],
+    backgroundColor: theme.palette.secondary?.["50"] || "#EFEFEF",
   },
 }));

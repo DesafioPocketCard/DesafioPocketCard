@@ -75,14 +75,14 @@ export default function SiginForm() {
         name="email"
         control={control}
         placeholder="Digite o email"
-        leftIcon={<MailOutline htmlColor={theme.palette.primary[400]} />}
+        leftIcon={<MailOutline htmlColor={theme.palette.primary?.["400"] || theme.palette.primary.main} />}
       />
       <TextField
         name="senha"
         control={control}
         password
         placeholder="Digite a senha"
-        leftIcon={<LockOutlined htmlColor={theme.palette.primary[400]} />}
+        leftIcon={<LockOutlined htmlColor={theme.palette.primary?.["400"] || theme.palette.primary.main} />}
       />
       <Button
         variant="contained"

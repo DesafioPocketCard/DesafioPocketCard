@@ -10,12 +10,12 @@ const HeaderContainer = styled(Box)(({ theme }) => ({
     gridColumn: "2 / -1",
   },
   "& > h1": {
-    ...theme.fonts["h3-title"],
-    color: theme.palette.secondary[500],
+    ...(theme.fonts?.["h3-title"] || {}),
+    color: theme.palette.secondary?.["500"] || "#616161",
   },
   "& > p": {
-    ...theme.fonts["h5-body-large"],
-    color: theme.palette.secondary[500],
+    ...(theme.fonts?.["h5-body-large"] || {}),
+    color: theme.palette.secondary?.["500"] || "#616161",
     margin: "12px 0 20px 0",
   },
   "& > div": {

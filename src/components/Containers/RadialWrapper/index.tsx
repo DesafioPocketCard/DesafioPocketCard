@@ -8,7 +8,7 @@ export default function RadialWrapper({
   fillSize,
 }: IRadialWrapperProps) {
   return (
-    <Wrapper hasHeader={!!HeaderComponent} fillSize={fillSize}>
+    <Wrapper $hasHeader={!!HeaderComponent} $fillSize={fillSize}>
       {HeaderComponent && (
         <HeaderComponent className="radial-header-component" />
       )}

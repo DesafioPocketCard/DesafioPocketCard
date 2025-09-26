@@ -88,7 +88,7 @@ export default function RadioField({
             required={required}
             sx={{
               fontSize: "0.9rem",
-              color: theme.palette.primary[400],
+              color: theme.palette.primary?.["400"] || theme.palette.primary.main,
             }}
           >
             {label}
@@ -109,7 +109,7 @@ export default function RadioField({
                 fontSize: "0.9rem",
                 color: fieldState.error
                   ? theme.palette.error.main
-                  : theme.palette.base[700],
+                  : theme.palette.base?.["700"] || "#707070",
               },
             }}
           >

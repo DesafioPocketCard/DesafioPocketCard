@@ -6,8 +6,8 @@ const MenuList = styled(List)(({ theme }) => ({
   "& li": {
     padding: 0,
     "& span": {
-      ...theme.fonts["h5-body-large"],
-      color: theme.palette.secondary[500],
+      ...(theme.fonts?.["h5-body-large"] || {}),
+      color: theme.palette.secondary?.["500"] || "#616161",
     },
     "& .MuiButtonBase-root": {
       display: "flex",

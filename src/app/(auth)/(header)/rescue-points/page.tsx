@@ -104,7 +104,7 @@ export default function page() {
                   sx={{
                     width: 72,
                     height: 72,
-                    border: `1px solid ${theme.palette.secondary[200]}`,
+                    border: `1px solid ${theme.palette.secondary?.["200"] || "#B6B6B6"}`,
                   }}
                   alt={rescuePoint.nome_grupo_premio}
                   key={index}

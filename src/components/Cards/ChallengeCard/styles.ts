@@ -10,13 +10,13 @@ const CardContainer = styled(Box)(({ theme }) => ({
   borderRadius: "16px",
   backgroundColor: theme.palette.secondary.light,
   "& > span:nth-child(2)": {
-    ...theme.fonts["h4-subtitle"],
-    color: theme.palette.primary[500],
+    ...(theme.fonts?.["h4-subtitle"] || {}),
+    color: theme.palette.primary?.["500"] || theme.palette.primary.main,
   },
   "& > span": {
     gridColumn: "2 / -1",
-    ...theme.fonts["pf-body"],
-    color: theme.palette.secondary[400],
+    ...(theme.fonts?.["pf-body"] || {}),
+    color: theme.palette.secondary?.["400"] || "#818181",
   },
   "& > img": {
     gridRow: "1 / 5",

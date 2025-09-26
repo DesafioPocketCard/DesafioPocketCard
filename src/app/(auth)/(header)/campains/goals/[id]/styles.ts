@@ -10,16 +10,16 @@ const HeaderContainer = styled(Box)(({ theme }) => ({
     width: "100%",
     textAlign: "center",
     "& > h1": {
-      ...theme.fonts["h4-subtitle"],
-      color: theme.palette.secondary[500],
+      ...(theme.fonts?.["h4-subtitle"] || {}),
+      color: theme.palette.secondary?.["500"] || "#616161",
       "& > span": {
-        ...theme.fonts["h4-subtitle"],
-        color: theme.palette.primary[500],
+        ...(theme.fonts?.["h4-subtitle"] || {}),
+        color: theme.palette.primary?.["500"] || theme.palette.primary.main,
       },
     },
     "& > p": {
-      ...theme.fonts["label"],
-      color: theme.palette.secondary[500],
+      ...(theme.fonts?.["label"] || {}),
+      color: theme.palette.secondary?.["500"] || "#616161",
     },
   },
 }));
@@ -37,8 +37,8 @@ const CardList = styled(Box)(({ theme }) => ({
 }));
 
 const ProgressLabel = styled(Typography)(({ theme }) => ({
-  ...theme.fonts["label"],
-  color: theme.palette.secondary[500],
+  ...(theme.fonts?.["label"] || {}),
+  color: theme.palette.secondary?.["500"] || "#616161",
   textAlign: "center",
 }));
 
@@ -58,7 +58,7 @@ const ProgressBar = styled(Box)<{ percentage: number }>(
       "> .container": {
         width: "100%",
         height: "100%",
-        backgroundColor: theme.palette.secondary[100],
+        backgroundColor: theme.palette.secondary?.["100"] || "#CECECE",
         borderRadius: "2px",
       },
       "> .progress": {
@@ -66,22 +66,22 @@ const ProgressBar = styled(Box)<{ percentage: number }>(
         margin: "0 4px 0 4px",
         height: "75%",
         position: "absolute",
-        backgroundColor: theme.palette.primary[500],
+        backgroundColor: theme.palette.primary?.["500"] || theme.palette.primary.main,
         borderRadius: "2px",
       },
     },
     "> h1": {
-      ...theme.fonts["h4-subtitle"],
-      color: theme.palette.primary[500],
+      ...(theme.fonts?.["h4-subtitle"] || {}),
+      color: theme.palette.primary?.["500"] || theme.palette.primary.main,
       fontWeight: "bold",
     },
   }),
 );
 
 const Description = styled(Typography)(({ theme }) => ({
-  ...theme.fonts["h4-subtitle"],
+  ...(theme.fonts?.["h4-subtitle"] || {}),
   textAlign: "center",
-  color: theme.palette.secondary[300],
+  color: theme.palette.secondary?.["300"] || "#959595",
   marginBottom: "20px",
 }));
 

@@ -5,13 +5,13 @@ import { Box, styled } from "@mui/material";
 const TitleContainer = styled(Box)(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
-  color: theme.palette.base[50],
+  color: theme.palette.base?.["50"] || "#FFFFFF",
   padding: "42px 12px 62px 12px !important",
   "& > p": {
-    ...theme.fonts["h3-title"],
+    ...(theme.fonts?.["h3-title"] || {}),
   },
   "& > span": {
-    ...theme.fonts["label"],
+    ...(theme.fonts?.["label"] || {}),
   },
 }));
 
@@ -25,11 +25,11 @@ const HeaderContainer = styled(Box)(({ theme }) => ({
     gridColumn: "2 / -1",
   },
   "& > h1": {
-    ...theme.fonts["h3-title"],
+    ...(theme.fonts?.["h3-title"] || {}),
     color: theme.palette.common.white,
   },
   "& > p": {
-    ...theme.fonts["h5-body-large"],
+    ...(theme.fonts?.["h5-body-large"] || {}),
     color: theme.palette.common.white,
     margin: "12px 0 -20px 0",
   },
@@ -43,27 +43,27 @@ const Container = styled(Box)(({ theme }) => ({
   gap: "12px",
   padding: "40px 28px 12px 28px !important",
   "& > h1": {
-    ...theme.fonts["h3-title"],
-    color: theme.palette.secondary[500],
+    ...(theme.fonts?.["h3-title"] || {}),
+    color: theme.palette.secondary?.["500"] || "#616161",
     marginBottom: "32px",
     width: "100%",
     textAlign: "center",
   },
   "& > h2": {
-    ...theme.fonts["h6-body-strong"],
-    color: theme.palette.primary[500],
+    ...(theme.fonts?.["h6-body-strong"] || {}),
+    color: theme.palette.primary?.["500"] || theme.palette.primary.main,
     width: "100%",
   },
   "& > p": {
-    ...theme.fonts["pf-body"],
+    ...(theme.fonts?.["pf-body"] || {}),
     width: "100%",
-    color: theme.palette.secondary[500],
+    color: theme.palette.secondary?.["500"] || "#616161",
   },
   "& > li": {
-    ...theme.fonts["pf-body"],
+    ...(theme.fonts?.["pf-body"] || {}),
     width: "100%",
     listStyle: "disc",
-    color: theme.palette.secondary[500],
+    color: theme.palette.secondary?.["500"] || "#616161",
   },
   "& > button": {
     width: "100%",
@@ -75,10 +75,10 @@ const BoxContainerRegulation = styled(Box)(({ theme }) => ({
   flexDirection: "column",
   gap: "8px",
   "& > p": {
-    ...theme.fonts["pf-body"],
-    color: theme.palette.secondary[500],
+    ...(theme.fonts?.["pf-body"] || {}),
+    color: theme.palette.secondary?.["500"] || "#616161",
     "& > strong": {
-      color: theme.palette.primary[500]
+      color: theme.palette.primary?.["500"] || theme.palette.primary.main
     }
   },
 }))

@@ -8,8 +8,8 @@ const TagContainer = styled(Box)(({ theme }) => ({
   alignItems: "center",
   gap: "12px",
   "& > span:nth-child(2)": {
-    ...theme.fonts["h5-body-large"],
-    color: theme.palette.secondary[500],
+    ...(theme.fonts?.["h5-body-large"] || {}),
+    color: theme.palette.secondary?.["500"] || "#616161",
     textAlign: "center",
   },
 }));

@@ -8,13 +8,13 @@ const TitleContainer = styled(Box)(({ theme }) => ({
   justifyItems: "center",
   padding: "56px 12px 32px 12px !important",
   "& > span": {
-    color: theme.palette.base[50],
+    color: theme.palette.base?.["50"] || "#FFFFFF",
   },
   "& > span:nth-child(2)": {
-    ...theme.fonts["h5-body-large"],
+    ...(theme.fonts?.["h5-body-large"] || {}),
   },
   "& > span:nth-child(3)": {
-    ...theme.fonts["h3-title"],
+    ...(theme.fonts?.["h3-title"] || {}),
   },
 }));
 

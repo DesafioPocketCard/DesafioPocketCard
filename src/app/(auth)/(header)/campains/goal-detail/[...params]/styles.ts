@@ -5,13 +5,13 @@ import { Box, Grid, Typography, styled } from "@mui/material";
 const TitleContainer = styled(Box)(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
-  color: theme.palette.base[50],
+  color: theme.palette.base?.["50"] || "#FFFFFF",
   padding: "42px 12px 62px 12px !important",
   "& > p": {
-    ...theme.fonts["h3-title"],
+    ...(theme.fonts?.["h3-title"] || {}),
   },
   "& > span": {
-    ...theme.fonts["label"],
+    ...(theme.fonts?.["label"] || {}),
   },
 }));
 
@@ -25,11 +25,11 @@ const HeaderContainer = styled(Box)(({ theme }) => ({
     gridColumn: "2 / -1",
   },
   "& > h1": {
-    ...theme.fonts["h3-title"],
+    ...(theme.fonts?.["h3-title"] || {}),
     color: theme.palette.common.white,
   },
   "& > p": {
-    ...theme.fonts["h5-body-large"],
+    ...(theme.fonts?.["h5-body-large"] || {}),
     color: theme.palette.common.white,
     margin: "12px 0 -20px 0",
   },
@@ -43,27 +43,27 @@ const Container = styled(Box)(({ theme }) => ({
   gap: "12px",
   padding: "40px 28px 12px 28px !important",
   "& > h1": {
-    ...theme.fonts["h3-title"],
-    color: theme.palette.secondary[500],
+    ...(theme.fonts?.["h3-title"] || {}),
+    color: theme.palette.secondary?.["500"] || "#616161",
     marginBottom: "32px",
     width: "100%",
     textAlign: "center",
   },
   "& > h2": {
-    ...theme.fonts["h6-body-strong"],
-    color: theme.palette.primary[500],
+    ...(theme.fonts?.["h6-body-strong"] || {}),
+    color: theme.palette.primary?.["500"] || theme.palette.primary.main,
     width: "100%",
   },
   "& > p": {
-    ...theme.fonts["pf-body"],
+    ...(theme.fonts?.["pf-body"] || {}),
     width: "100%",
-    color: theme.palette.secondary[500],
+    color: theme.palette.secondary?.["500"] || "#616161",
   },
   "& > li": {
-    ...theme.fonts["pf-body"],
+    ...(theme.fonts?.["pf-body"] || {}),
     width: "100%",
     listStyle: "disc",
-    color: theme.palette.secondary[500],
+    color: theme.palette.secondary?.["500"] || "#616161",
   },
   "& > button": {
     width: "100%",
@@ -71,7 +71,7 @@ const Container = styled(Box)(({ theme }) => ({
 }));
 
 const MainCard = styled(Grid)(({ theme }) => ({
-  backgroundColor: theme.palette.secondary[50],
+  backgroundColor: theme.palette.secondary?.["50"] || "#EFEFEF",
   alignSelf: "center",
   width: "100%",
   borderRadius: "16px",
@@ -82,22 +82,22 @@ const MainCard = styled(Grid)(({ theme }) => ({
     gap: theme.spacing(1),
     alignItems: "center",
     "& > h1": {
-      ...theme.fonts["h3-title"],
-      color: theme.palette.secondary[500],
+      ...(theme.fonts?.["h3-title"] || {}),
+      color: theme.palette.secondary?.["500"] || "#616161",
       textAlign: "center",
     },
     "& > p": {
-      ...theme.fonts["h6-body-strong"],
-      color: theme.palette.secondary[200],
+      ...(theme.fonts?.["h6-body-strong"] || {}),
+      color: theme.palette.secondary?.["200"] || "#B6B6B6",
       textAlign: "center",
       textTransform: "uppercase",
     },
     "& > button": {
       width: "100%",
-      backgroundColor: theme.palette.primary[500],
+      backgroundColor: theme.palette.primary?.["500"] || theme.palette.primary.main,
       color: "white",
       padding: "4px 0px",
-      ...theme.fonts["label"],
+      ...(theme.fonts?.["label"] || {}),
     },
   },
 }));
@@ -120,14 +120,14 @@ const ProgressBar = styled(Box)<{
     width: `${percentage}%`,
     height: "80%",
     position: "absolute",
-    backgroundColor: theme.palette.primary[500],
+    backgroundColor: theme.palette.primary?.["500"] || theme.palette.primary.main,
     borderRadius: "2px",
   },
 }));
 
 const Title = styled(Typography)(({ theme }) => ({
-  ...theme.fonts["h3-title"],
-  color: theme.palette.secondary[500],
+  ...(theme.fonts?.["h3-title"] || {}),
+  color: theme.palette.secondary?.["500"] || "#616161",
   textAlign: "center",
 }));
 

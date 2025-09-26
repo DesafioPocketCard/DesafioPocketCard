@@ -10,12 +10,12 @@ const CardContainer = styled(Box)(({ theme }) => ({
   backgroundColor: theme.palette.secondary.light,
   borderRadius: "16px",
   "& > p": {
-    ...theme.fonts["h5-body-large"],
-    color: theme.palette.secondary[500],
+    ...(theme.fonts?.["h5-body-large"] || {}),
+    color: theme.palette.secondary?.["500"] || "#616161",
     "& > span": {
-      ...theme.fonts["h4-subtitle"],
+      ...(theme.fonts?.["h4-subtitle"] || {}),
       textTransform: "uppercase",
-      color: theme.palette.primary[500],
+      color: theme.palette.primary?.["500"] || theme.palette.primary.main,
     },
   },
   "& > button": {
