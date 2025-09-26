@@ -7,8 +7,7 @@ import { Menu, TitleContainer } from "./styles";
 import { useSession } from "next-auth/react";
 import { signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import Image from "next/image";
-import logo from "@/assets/icons/logo.svg";
+import Logo from "@/components/UI/Logo";
 
 export default function Home() {
   const session = useSession();
@@ -18,7 +17,7 @@ export default function Home() {
     <RadialWrapper
       HeaderComponent={(props) => (
         <TitleContainer {...props}>
-          <Image src={logo} alt="logo" width={130} height={73} />
+          <Logo logoType="horizontal-w" alt="logo" width={130} />
           <Typography>{session.data?.user.nome}</Typography>
           <Typography component="span">{session.data?.user.email}</Typography>
         </TitleContainer>

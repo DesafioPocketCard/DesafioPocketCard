@@ -11,6 +11,8 @@ import Loading from "@/helpers/Loading";
 import { LoadingProvider } from "@/contexts/LoadingContext";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import DynamicThemeProvider from "@/contexts/DynamicThemeProvider";
+import ThemeInitializer from "@/components/ThemeInitializer";
+import { getServerTenant } from "@/utils/theme-server";
 
 export const metadata: Metadata = {
   title: {
@@ -25,6 +27,9 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // Obter o tenant do servidor para sincronização
+  const serverTenant = getServerTenant();
+
   return (
     <html lang="pt-BR" className={fonts}>
       <body>
@@ -32,6 +37,7 @@ export default async function RootLayout({
           <QueryClientProvider>
             <AppRouterCacheProvider>
               <DynamicThemeProvider>
+                <ThemeInitializer serverTenant={serverTenant} />
                 <LoadingProvider>
                   <Loading />
                   <NotifierProvider>

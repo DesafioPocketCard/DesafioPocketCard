@@ -4,8 +4,8 @@ import { Box, IconButton } from "@mui/material";
 import { useState } from "react";
 import { signOut } from "next-auth/react";
 import { HeaderContainer, Profile } from "./styles";
-import logo from "@/assets/icons/logo-roxo.svg";
 import addicon from "@/assets/icons/fi-rr-add.svg";
+import Logo from "@/components/UI/Logo";
 import notification from "@/assets/icons/notification.svg";
 import user from "@/assets/icons/user.svg";
 import target from "@/assets/icons/target.svg";
@@ -78,12 +78,12 @@ export default function Header() {
 
   return (
     <HeaderContainer>
-      <Image
+      <Logo
+        logoType="horizontal-b"
         alt="Pocketcard"
-        src={logo}
-        width={156 * 0.9}
-        height={40.08 * 0.9}
+        sizeFactor={0.9}
         onClick={() => navigate("/")}
+        style={{ cursor: 'pointer' }}
       />
       <Box component="div">
         <IconButton>

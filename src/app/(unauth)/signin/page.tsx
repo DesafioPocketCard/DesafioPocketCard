@@ -4,8 +4,7 @@ import Link from "next/link";
 import { FormContainer, Politicy, LogoContainer } from "./styles";
 import { SiginForm } from "./components";
 import RadialWrapper from "@/components/Containers/RadialWrapper";
-import splashLogo from "@/assets/icons/pocketCardLogoRounded.svg";
-import Image from "next/image";
+import Logo from "@/components/UI/Logo";
 import { Box } from "@mui/material";
 
 export const metadata: Metadata = {
@@ -26,7 +25,7 @@ export default function Sigin() {
               borderRadius: 12,
             }}
           >
-            <Image src={splashLogo} alt="logo" width={180} height={180} />
+            <Logo logoType="180x180" alt="logo" />
           </Box>
         </LogoContainer>
       )}
