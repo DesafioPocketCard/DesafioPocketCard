@@ -8,7 +8,7 @@ const TitleContainer = styled(Box)(({ theme }) => ({
   justifyContent: "center",
   alignItems: "center",
   color: theme.palette.base?.["50"] || "#FFFFFF",
-  padding: "42px 12px 62px 12px !important",
+  padding: "52px 12px 64px 12px !important",
   "& > img": {
     marginBottom: "32px",
   },

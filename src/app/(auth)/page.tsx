@@ -7,7 +7,6 @@ import { Menu, TitleContainer } from "./styles";
 import { useSession } from "next-auth/react";
 import { signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import Logo from "@/components/UI/Logo";
 
 export default function Home() {
   const session = useSession();
@@ -15,9 +14,9 @@ export default function Home() {
 
   return (
     <RadialWrapper
+      fillSize
       HeaderComponent={(props) => (
         <TitleContainer {...props}>
-          <Logo logoType="horizontal-w" alt="logo" width={130} />
           <Typography>{session.data?.user.nome}</Typography>
           <Typography component="span">{session.data?.user.email}</Typography>
         </TitleContainer>
@@ -28,9 +27,9 @@ export default function Home() {
           <Button variant="outlined" onClick={() => router.push("/campains")}>
             Campanhas
           </Button>
-          <Button variant="outlined" onClick={() => router.push("/challenges")}>
+          {/* <Button variant="outlined" onClick={() => router.push("/challenges")}>
             Desafios
-          </Button>
+          </Button> */}
           <Typography>
             Não é {session.data?.user.nome}?
             <Typography component="a" onClick={() => signOut()}>

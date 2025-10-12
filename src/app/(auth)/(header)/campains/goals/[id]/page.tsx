@@ -46,7 +46,7 @@ export default function Goals({ params }: IProps) {
   return (
     <Box>
       <HeaderContainer>
-        <BackButton onClick={() => router.back()} />
+        <BackButton onClick={() => router.push("/campains")} />
         <Box>
           <Typography component="h1">
             Olá,{" "}
@@ -89,14 +89,17 @@ export default function Goals({ params }: IProps) {
               progress={Number(goal.perc_realizado)}
               sx={{
                 padding: "8px 20px",
-                borderBottom: "1px dashed " + theme.palette.secondary?.["300"] || "#959595",
+                borderBottom:
+                  "1px dashed " + theme.palette.secondary?.["300"] || "#959595",
                 borderRight:
                   index % 2 === 0
-                    ? "1px dashed " + theme.palette.secondary?.["300"] || "#959595"
+                    ? "1px dashed " + theme.palette.secondary?.["300"] ||
+                      "#959595"
                     : "none",
                 borderTop:
                   index <= 1
-                    ? "1px dashed " + theme.palette.secondary?.["300"] || "#959595"
+                    ? "1px dashed " + theme.palette.secondary?.["300"] ||
+                      "#959595"
                     : "none",
               }}
             />

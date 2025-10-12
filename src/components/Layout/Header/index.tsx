@@ -44,7 +44,7 @@ export default function Header() {
       handler: () => navigate("/notifications"),
     },
     {
-      label: "Minhas metas",
+      label: "Minhas campanhas",
       icon: <Image alt="meta" src={target} width={24} height={24} />,
     },
     {
@@ -53,18 +53,18 @@ export default function Header() {
       handler: () => navigate("/challenges"),
     },
     {
-      label: "Histórico de atividaddes",
+      label: "Histórico de atividades",
       icon: <Image alt="lista" src={list} width={24} height={24} />,
     },
     {
-      label: "Resgate de pontos",
+      label: "Resgate de prêmios",
       icon: <Image alt="presente" src={gift} width={24} height={24} />,
       handler: () => navigate("/rescue-points"),
     },
-    {
-      label: "Configurações",
-      icon: <Image alt="configuração" src={settings} width={24} height={24} />,
-    },
+    // {
+    //   label: "Configurações",
+    //   icon: <Image alt="configuração" src={settings} width={24} height={24} />,
+    // },
     {
       label: "Regulamentos",
       icon: <Image alt="arquivo" src={filetext} width={24} height={24} />,
@@ -83,7 +83,7 @@ export default function Header() {
         alt="Pocketcard"
         sizeFactor={0.9}
         onClick={() => navigate("/")}
-        style={{ cursor: 'pointer' }}
+        style={{ cursor: "pointer" }}
       />
       <Box component="div">
         <IconButton>

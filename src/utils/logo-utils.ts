@@ -3,7 +3,8 @@ import type { TenantType } from '@/types/tenant';
 // Importações estáticas das logos
 // Default
 import defaultLogo180 from '@/assets/icons/logos/default/180x180.svg';
-import defaultLogoHorizontal from '@/assets/icons/logos/default/horizontal-w.svg';
+import defaultLogoHorizontalW from '@/assets/icons/logos/default/horizontal-w.svg';
+import defaultLogoHorizontalB from '@/assets/icons/logos/default/horizontal-b.svg';
 
 // NovoCred
 import novocredLogo180 from '@/assets/icons/logos/novocred/180x180.svg';
@@ -43,10 +44,10 @@ export const LOGO_DIMENSIONS = {
 const LOGO_MAP = {
   default: {
     '180x180': defaultLogo180,
-    'horizontal': defaultLogoHorizontal,
-    'horizontal-b': defaultLogoHorizontal,
-    'horizontal-w': defaultLogoHorizontal,
-    'horizontal-g': defaultLogoHorizontal,
+    'horizontal': defaultLogoHorizontalB,
+    'horizontal-b': defaultLogoHorizontalB,
+    'horizontal-w': defaultLogoHorizontalW,
+    'horizontal-g': defaultLogoHorizontalW,
     '10x10-b': defaultLogo180,
     '10x10-w': defaultLogo180,
     '10x10-g': defaultLogo180,

@@ -15,5 +15,5 @@ export default function AuthenticatedLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return children;
+  return <PageWrapper>{children}</PageWrapper>;
 }
