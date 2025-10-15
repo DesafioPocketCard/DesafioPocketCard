@@ -86,10 +86,7 @@ export default function Header() {
         style={{ cursor: "pointer" }}
       />
       <Box component="div">
-        <IconButton>
-          <Image alt="adicionar" src={addicon} width={24} height={24} />
-        </IconButton>
-        <IconButton onClick={() => navigate("/notifications")}>
+        <IconButton disabled onClick={() => navigate("/notifications")}>
           <Image alt="notificação" src={notification} width={24} height={24} />
         </IconButton>
         <IconButton id="profile-button" onClick={() => setOpen(true)}>

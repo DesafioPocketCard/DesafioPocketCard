@@ -72,7 +72,7 @@ export default function GoalsDetail({ params }: IProps) {
             </Grid>
             <Grid item xs={6} component="div">
               <Typography component="h1">
-                {goal?.qtd_realizada && Number(goal?.qtd_realizada)}
+                {goal?.qtd_pontos && Number(goal?.qtd_pontos)}
               </Typography>
               <Typography component="p">Pontos</Typography>
               <Button
@@ -117,14 +117,17 @@ export default function GoalsDetail({ params }: IProps) {
                     sx={{
                       padding: "8px 20px",
                       borderBottom:
-                        "1px dashed " + theme.palette.secondary?.["300"] || "#959595",
+                        "1px dashed " + theme.palette.secondary?.["300"] ||
+                        "#959595",
                       borderRight:
                         index % 2 === 0
-                          ? "1px dashed " + theme.palette.secondary?.["300"] || "#959595"
+                          ? "1px dashed " + theme.palette.secondary?.["300"] ||
+                            "#959595"
                           : "none",
                       borderTop:
                         index <= 1
-                          ? "1px dashed " + theme.palette.secondary?.["300"] || "#959595"
+                          ? "1px dashed " + theme.palette.secondary?.["300"] ||
+                            "#959595"
                           : "none",
                     }}
                   />

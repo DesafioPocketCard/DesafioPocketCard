@@ -6,4 +6,5 @@ export interface ICampaign {
     perc_realizado: string;
     sn_regulamento_aceito: string;
     nome_arquivo: string;
+    posicao_campanha: string;
 }

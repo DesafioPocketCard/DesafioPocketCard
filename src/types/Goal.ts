@@ -5,4 +5,5 @@ export default interface IGoal {
     qtd_realizada: string;
     perc_realizado: string;
     nome_arquivo: string;
+    qtd_pontos: string;
 }

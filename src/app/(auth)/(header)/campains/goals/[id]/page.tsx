@@ -56,6 +56,17 @@ export default function Goals({ params }: IProps) {
         </Box>
       </HeaderContainer>
       <Divider />
+      <HeaderContainer>
+        <Box>
+          <Typography component="h1">{campaign?.nome_campanha}</Typography>
+          {!!campaign && campaign?.posicao_campanha !== "0" && (
+            <Typography>
+              Você é o {campaign?.posicao_campanha}º do ranking!
+            </Typography>
+          )}
+        </Box>
+      </HeaderContainer>
+
       <ProgressLabel>Metas atingidas</ProgressLabel>
       <ProgressBar percentage={Number(campaign?.perc_realizado)}>
         <Box>
