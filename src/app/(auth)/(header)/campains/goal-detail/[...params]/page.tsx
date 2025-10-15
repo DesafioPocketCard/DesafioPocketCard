@@ -75,7 +75,7 @@ export default function GoalsDetail({ params }: IProps) {
                 {goal?.qtd_pontos && Number(goal?.qtd_pontos)}
               </Typography>
               <Typography component="p">Pontos</Typography>
-              <Button
+              {/* <Button
                 disabled
                 startIcon={
                   <LocationOnOutlined htmlColor="white" fontSize="small" />
@@ -88,7 +88,7 @@ export default function GoalsDetail({ params }: IProps) {
                 }
               >
                 check-in
-              </Button>
+              </Button> */}
             </Grid>
           </MainCard>
 
