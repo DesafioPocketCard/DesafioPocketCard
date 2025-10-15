@@ -21,6 +21,13 @@ const HeaderContainer = styled(Box)(({ theme }) => ({
       ...(theme.fonts?.["label"] || {}),
       color: theme.palette.secondary?.["500"] || "#616161",
     },
+    "& > strong": {
+      ...(theme.fonts?.["h6-body-strong"] || {}),
+      color: theme.palette.secondary?.["500"] || "#616161",
+      "& > span": {
+        color: theme.palette.primary?.["300"] || theme.palette.primary.main,
+      },
+    },
   },
 }));
 

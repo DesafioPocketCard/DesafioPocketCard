@@ -60,8 +60,12 @@ export default function Goals({ params }: IProps) {
         <Box>
           <Typography component="h1">{campaign?.nome_campanha}</Typography>
           {!!campaign && campaign?.posicao_campanha !== "0" && (
-            <Typography>
-              Você é o {campaign?.posicao_campanha}º do ranking!
+            <Typography component={"strong"}>
+              Você é o{" "}
+              <Typography component="span">
+                {campaign?.posicao_campanha}º
+              </Typography>{" "}
+              do ranking!
             </Typography>
           )}
         </Box>
