@@ -76,7 +76,7 @@ const MainCard = styled(Grid)(({ theme }) => ({
   width: "100%",
   borderRadius: "16px",
   "& > div": {
-    padding: theme.spacing(4),
+    padding: theme.spacing(3),
     display: "flex",
     flexDirection: "column",
     gap: theme.spacing(1),
@@ -92,15 +92,30 @@ const MainCard = styled(Grid)(({ theme }) => ({
       textAlign: "center",
       textTransform: "uppercase",
     },
+    "& > h4": {
+      ...(theme.fonts?.["h4-subtitle"] || {}),
+      color: theme.palette.secondary?.["200"] || "#B6B6B6",
+      textAlign: "center",
+      textTransform: "uppercase",
+      "& > span": {
+        color: theme.palette.primary?.["300"] || theme.palette.primary.main,
+      },
+    },
     "& > button": {
       width: "100%",
-      backgroundColor: theme.palette.primary?.["500"] || theme.palette.primary.main,
+      backgroundColor:
+        theme.palette.primary?.["500"] || theme.palette.primary.main,
       color: "white",
       padding: "4px 0px",
       ...(theme.fonts?.["label"] || {}),
     },
   },
+  // "& > div:first-of-type": {
+  //   padding: 0,
+  //   paddingTop: theme.spacing(4),
+  // },
 }));
+
 
 const ProgressBar = styled(Box)<{
   percentage: number;

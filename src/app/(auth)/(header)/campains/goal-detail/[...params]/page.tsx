@@ -52,14 +52,20 @@ export default function GoalsDetail({ params }: IProps) {
               {goal?.descricao_meta || "Carregando..."}
             </Typography>
             <Typography>
-              Meta: {goal?.valor_meta && Number(goal?.valor_meta)}{" "}
-              {goal?.descricao_meta_app}
+              Meta: {goal?.valor_meta} {goal?.descricao_meta_app}
             </Typography>
           </HeaderContainer>
         </TitleContainer>
       )}
       BodyComponent={(props) => (
         <Container {...props}>
+          <MainCard container>
+            <Grid item xs={12}>
+              <Typography component="h4">
+                Desempenho: <span>{goal?.qtd_realizada}</span>
+              </Typography>
+            </Grid>
+          </MainCard>
           <MainCard container>
             <Grid item xs={6} component="div">
               <Typography component="h1">
@@ -75,7 +81,7 @@ export default function GoalsDetail({ params }: IProps) {
               <Typography component="h1">
                 {goal?.qtd_pontos && Number(goal?.qtd_pontos)}
               </Typography>
-              <Typography component="p">{goal?.descricao_meta_app}</Typography>
+              <Typography component="p">Pontos</Typography>
               {/* <Button
                 disabled
                 startIcon={
