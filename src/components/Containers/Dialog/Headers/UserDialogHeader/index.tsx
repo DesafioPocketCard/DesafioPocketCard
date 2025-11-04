@@ -8,7 +8,7 @@ export default function UserDialogHeader() {
 
   return (
     <HeaderContainer>
-      <Profile />
+      <Profile src={session.data?.user.foto_perfil} />
       <Box>
         <Typography component="span">{session.data?.user.nome}</Typography>
         <Typography component="span">{session.data?.user.email}</Typography>

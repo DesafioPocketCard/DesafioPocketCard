@@ -2,7 +2,7 @@
 
 import { Box, IconButton } from "@mui/material";
 import { useState } from "react";
-import { signOut } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import { HeaderContainer, Profile } from "./styles";
 import addicon from "@/assets/icons/fi-rr-add.svg";
 import Logo from "@/components/UI/Logo";
@@ -23,6 +23,7 @@ import { useRouter } from "next/navigation";
 
 export default function Header() {
   const router = useRouter();
+  const session = useSession();
   const [open, setOpen] = useState(false);
 
   function navigate(path: string) {
@@ -90,7 +91,7 @@ export default function Header() {
           <Image alt="notificação" src={notification} width={24} height={24} />
         </IconButton>
         <IconButton id="profile-button" onClick={() => setOpen(true)}>
-          <Profile />
+          <Profile src={session.data?.user.foto_perfil} />
         </IconButton>
       </Box>
       <DialogMenu

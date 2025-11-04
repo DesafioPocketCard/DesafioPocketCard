@@ -55,7 +55,7 @@ const Insights = styled(Box)({
   display: "flex",
   justifyContent: "space-between",
   alignItems: "flex-end",
-  gap: "12px",
+  gap: "8px",
   "& > hr": {
     height: "40px",
     borderColor: "rgba(0, 0, 0, 0.16)",
