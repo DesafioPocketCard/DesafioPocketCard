@@ -46,6 +46,7 @@ const authConfig: NextAuthOptions = {
     error: "/error",
     newUser: "/signin",
     signOut: "/sign",
+    verifyRequest: "/recovery"
   },
   providers: [credentials],
   callbacks: {

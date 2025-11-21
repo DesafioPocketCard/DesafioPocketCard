@@ -1,17 +1,17 @@
 import { Metadata } from "next";
 import React from "react";
-import Link from "next/link";
 import { FormContainer, Politicy, LogoContainer } from "./styles";
-import { SiginForm } from "./components";
 import RadialWrapper from "@/components/Containers/RadialWrapper";
 import Logo from "@/components/UI/Logo";
 import { Box } from "@mui/material";
+import { RecoveryFormEmail } from "./components";
+import RecoveryController from "./components/RecoveryController";
 
 export const metadata: Metadata = {
   title: "Login",
 };
 
-export default function Sigin() {
+export default function Recovery() {
   return (
     <RadialWrapper
       HeaderComponent={(props) => (
@@ -31,8 +31,7 @@ export default function Sigin() {
       )}
       BodyComponent={(props) => (
         <FormContainer {...props}>
-          <SiginForm />
-          <Link href="/recovery">Esqueceu sua senha?</Link>
+          <RecoveryController />
           <Politicy>
             Desafio Pocket Card é um produto novocred. Clique aqui e veja a
             politica de privacidade.

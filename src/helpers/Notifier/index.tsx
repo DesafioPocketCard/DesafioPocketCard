@@ -11,7 +11,7 @@ function Notifier({
   close,
   severity,
   message,
-  timeToClose = 2000,
+  timeToClose = 3000,
 }: INotifierProps) {
   const handleClose = (
     event: Event | SyntheticEvent<any, Event>,

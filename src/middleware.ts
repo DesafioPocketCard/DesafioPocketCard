@@ -11,10 +11,11 @@ export default withAuth(middleware, {
     error: "/error",
     newUser: "/signin",
     signOut: "/signin",
+    verifyRequest: "/recovery",
   },
   callbacks: {
     authorized: ({ token, req }) => {
-      const unRequiredPaths = ["/signin", "/error"];
+      const unRequiredPaths = ["/signin", "/error", "/recovery"];
       const isLoggedIn = !!token;
       const requiredAuth = !unRequiredPaths.includes(req.nextUrl.pathname);
 
