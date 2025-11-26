@@ -3,6 +3,7 @@ interface IGoalsCardProps {
   expiration: string;
   points: string;
   photo: string;
+  isRegulation?: boolean;
   onClick: () => void;
 }
 

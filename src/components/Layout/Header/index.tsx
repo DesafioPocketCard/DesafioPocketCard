@@ -1,7 +1,7 @@
 "use client";
 
 import { Box, IconButton } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { signOut, useSession } from "next-auth/react";
 import { HeaderContainer, Profile } from "./styles";
 import addicon from "@/assets/icons/fi-rr-add.svg";
@@ -48,20 +48,15 @@ export default function Header() {
       label: "Minhas campanhas",
       icon: <Image alt="meta" src={target} width={24} height={24} />,
     },
-    {
-      label: "Desafios",
-      icon: <Image alt="desafio" src={award} width={24} height={24} />,
-      handler: () => navigate("/challenges"),
-    },
-    {
-      label: "Histórico de atividades",
-      icon: <Image alt="lista" src={list} width={24} height={24} />,
-    },
-    {
-      label: "Resgate de prêmios",
-      icon: <Image alt="presente" src={gift} width={24} height={24} />,
-      handler: () => navigate("/rescue-points"),
-    },
+    // {
+    //   label: "Desafios",
+    //   icon: <Image alt="desafio" src={award} width={24} height={24} />,
+    //   handler: () => navigate("/challenges"),
+    // },
+    // {
+    //   label: "Histórico de atividades",
+    //   icon: <Image alt="lista" src={list} width={24} height={24} />,
+    // },
     // {
     //   label: "Configurações",
     //   icon: <Image alt="configuração" src={settings} width={24} height={24} />,
@@ -69,6 +64,7 @@ export default function Header() {
     {
       label: "Regulamentos",
       icon: <Image alt="arquivo" src={filetext} width={24} height={24} />,
+      handler: () => navigate("/regulations"),
     },
     {
       label: "Sair",
@@ -76,6 +72,16 @@ export default function Header() {
       handler: signOut,
     },
   ];
+
+  useEffect(() => {
+    if (session.data?.user.resgata_premio === "S") {
+      options.push({
+      label: "Resgate de prêmios",
+      icon: <Image alt="presente" src={gift} width={24} height={24} />,
+      handler: () => navigate("/rescue-points"),
+    })
+    }
+  }, [session]);
 
   return (
     <HeaderContainer>

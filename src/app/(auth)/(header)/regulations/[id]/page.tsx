@@ -7,14 +7,11 @@ import React from "react";
 import { BoxContainerRegulation, TitleContainer } from "./styles";
 import { Container, HeaderContainer } from "./styles";
 import { ArrowBackIos } from "@mui/icons-material";
-import { useForm } from "react-hook-form";
-import SimpleCheckBox from "@/components/FormFields/SimpleCheckBox";
 import { Button } from "@/components/Buttons";
 import { useRouter } from "next/navigation";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import RegulationService from "@/services/regulation.service";
 import CampaignService from "@/services/campaign.service";
-import { z } from "zod";
 import { useNotifier } from "@/hooks";
 
 interface IProps {
@@ -26,30 +23,12 @@ interface IProps {
 export default function Regulation({ params }: IProps) {
   const router = useRouter();
   const theme = useTheme();
-  
-  const queryClient = useQueryClient();
-  const notify = useNotifier();
-
-  const acceptRegulationMutation = useMutation({
-    mutationFn: RegulationService.acceptRegulation,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["regulation"] });
-      router.push(`/campains/goals/${params.id}`);
-    },
-    onError: () => {
-      notify(
-        "Ocorreu um erro ao aceitar o regulamento, por favor tente novamente.",
-        "error"
-      );
-    },
-  });
-
   const { data: campaigns } = useQuery({
     queryKey: ["campaigns"],
     queryFn: () => CampaignService.get(),
   });
 
-  const { data, isLoading, isFetched } = useQuery({
+  const { data, isLoading, } = useQuery({
     queryKey: ["regulation"],
     queryFn: () => RegulationService.get(params.id),
   });
@@ -57,18 +36,6 @@ export default function Regulation({ params }: IProps) {
   const campaign = campaigns?.data.find(
     (item) => item.id_campanha === params.id
   );
-
-  const { control, handleSubmit, watch } = useForm({
-    defaultValues: {
-      accept: null,
-    },
-  });
-
-  const onSubmit = handleSubmit(({ accept }) => {
-    if (accept) {
-      acceptRegulationMutation.mutate(params.id);
-    }
-  });
 
   return (
     <RadialWrapper
@@ -108,18 +75,10 @@ export default function Regulation({ params }: IProps) {
               __html: data?.data[0].texto_regulamento || "",
             }}
           />
-          {isFetched && (
-            <>
-              <SimpleCheckBox
-                label="Eu li e aceito os termos"
-                control={control}
-                name="accept"
-              />
-              <Button disabled={!watch("accept")} onClick={onSubmit}>
-                Prosseguir
-              </Button>
-            </>
-          )}
+          
+          <Button variant="outlined" onClick={router.back}>
+            Voltar
+          </Button>
         </Container>
       )}
     />

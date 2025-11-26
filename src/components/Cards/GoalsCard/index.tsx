@@ -13,6 +13,7 @@ export default function GoalsCard({
   points,
   photo,
   onClick,
+  isRegulation = false
 }: IGoalsCardProps) {
   return (
     <CardContainer component="li">
@@ -31,7 +32,7 @@ export default function GoalsCard({
         }}
         onClick={onClick}
       >
-        Ver metas
+        {isRegulation ? "Regulamento" : "Ver metas"}
       </Button>
     </CardContainer>
   );
