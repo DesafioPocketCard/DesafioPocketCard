@@ -28,7 +28,7 @@ npm -v
 Na raiz do projeto (`DesafioPocketCard`):
 
 ```bash
-npm install
+yarn
 ```
 
 ### 2.2. Variáveis de ambiente
@@ -54,7 +54,7 @@ NEXTAUTH_SECRET=uma-chave-secreta-forte
 ### 2.3. Rodando o projeto em desenvolvimento
 
 ```bash
-npm run dev
+yarn dev
 ```
 
 O projeto ficará disponível em `http://localhost:3000`.
@@ -64,31 +64,31 @@ O projeto ficará disponível em `http://localhost:3000`.
 - **Build de produção**
 
   ```bash
-  npm run build
+  yarn build
   ```
 
 - **Rodar em produção (após build)**
 
   ```bash
-  npm start
+  yarn start
   ```
 
 - **Lint** (ESLint + config Next.js/Airbnb)
 
   ```bash
-  npm run lint
+  yarn lint
   ```
 
 - **Checar formatação (Prettier)**
 
   ```bash
-  npm run format
+  yarn format
   ```
 
 - **Ajustar formatação automaticamente**
 
   ```bash
-  npm run format:fix
+  yarn format:fix
   ```
 
 ---
