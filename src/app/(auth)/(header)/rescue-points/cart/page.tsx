@@ -1,16 +1,19 @@
 "use client";
 
+import React from "react";
 import RadialWrapper from "@/components/Containers/RadialWrapper";
 import { Header } from "@/components/Layout";
-import { Box, Divider, IconButton, Typography } from "@mui/material";
-import React from "react";
+import { Box, Divider, IconButton, Typography, CircularProgress } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { CartCard, Container, HeaderContainer, TitleContainer } from "./styles";
 import { ArrowBackIos, Delete } from "@mui/icons-material";
-import sapato from "@/assets/images/sapato.png";
-import applewatch from "@/assets/images/apple_watch.png";
-import Image from "next/image";
 import { Button } from "@/components/Buttons";
+import Image from "next/image";
+
+// Importações novas para conectar com a API
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import CartService from "@/services/cart.service";
+import { ICartItem } from "@/types/Cart";
 
 interface IProps {
   params: {
@@ -18,23 +21,60 @@ interface IProps {
   };
 }
 
-export default function Success({ params }: IProps) {
+export default function CartScreen({ params }: IProps) {
   const router = useRouter();
+  const queryClient = useQueryClient();
 
-  const products = [
-    {
-      id: 1,
-      name: "Tênis Nike Air Max 90",
-      point: 30,
-      image: sapato,
+  // 1. Buscar dados da API (GET /api/cart)
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ["cart"],
+    queryFn: () => CartService.get(),
+  });
+
+  // 2. Configurar a ação de Remover (DELETE /api/cart)
+  const removeMutation = useMutation({
+    mutationFn: (id: number) => CartService.remove(id),
+    onSuccess: () => {
+      // Recarrega a lista automaticamente após remover
+      queryClient.invalidateQueries({ queryKey: ["cart"] });
+      alert("Item removido com sucesso!");
     },
-    {
-      id: 2,
-      name: "Apple Watch SE GPS 40mm",
-      point: 30,
-      image: applewatch,
+    onError: (error: any) => {
+      alert("Erro ao remover item: " + error.message);
+    }
+  });
+
+  // 3. Configurar a ação de Solicitar Resgate (POST /api/resgate)
+  const resgateMutation = useMutation({
+    mutationFn: () => CartService.solicitarResgate(),
+    onSuccess: (responseData) => {
+        // Sucesso! O email foi enviado. 
+        // Agora redirecionamos para a tela de digitar o código.
+        // Passamos o ID do resgate na URL para a próxima tela usar.
+        alert(responseData.message); // "Enviamos um código..."
+        router.push(`/confirm-token/${responseData.id_resgate}`);
     },
-  ];
+    onError: (error: any) => {
+        alert("Erro ao solicitar resgate: " + error.message);
+    }
+  });
+
+  // Funções de clique
+  function handleRemove(id: number) {
+      if(confirm("Tem certeza que deseja remover este item?")) {
+          removeMutation.mutate(id);
+      }
+  }
+
+  function handleSolicitarResgate() {
+      resgateMutation.mutate();
+  }
+
+  // Facilitadores para acessar os dados (vêm dentro de data.data no seu padrão)
+  const cartData = data?.data?.sacola;
+  const saldoUsuario = data?.data?.total_pontos_usuario || 0;
+  const listaItens = cartData?.itens || [];
+  const totalCart = cartData?.total_pontos_sacola || 0;
 
   return (
     <RadialWrapper
@@ -47,7 +87,8 @@ export default function Success({ params }: IProps) {
               <ArrowBackIos htmlColor="white" fontSize="small" />
             </IconButton>
             <Typography component="h1">Resgate de Pontos</Typography>
-            <Typography>Você tem: 64 pontos</Typography>
+            {/* Mostra o saldo real vindo do banco */}
+            <Typography>Você tem: {isLoading ? "..." : saldoUsuario} pontos</Typography>
           </HeaderContainer>
         </TitleContainer>
       )}
@@ -55,31 +96,72 @@ export default function Success({ params }: IProps) {
         <Container {...props}>
           <Typography component="h1">Produtos na sacola</Typography>
           <Typography component="h2">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed lorem
-            urna, imperdiet id ante u.
+            Confira os itens que você selecionou para resgate.
           </Typography>
-          {products.map((product) => (
-            <CartCard key={product.id}>
+
+          {/* Loading State */}
+          {isLoading && (
+             <Box display="flex" justifyContent="center" my={4}>
+                <CircularProgress />
+             </Box>
+          )}
+
+          {/* Lista Vazia */}
+          {!isLoading && listaItens.length === 0 && (
+              <Typography sx={{ mt: 4, textAlign: 'center' }}>Sua sacola está vazia.</Typography>
+          )}
+
+          {/* Lista de Produtos */}
+          {listaItens.map((product: ICartItem) => (
+            <CartCard key={product.id_sacola_item}>
               <Box className="image">
-                <Image src={product.image} alt={product.name} />
+                {/* Usamos width/height fixos ou layout fill pois a URL é externa */}
+                <Image 
+                    src={product.img_premio} 
+                    alt={product.nome_premio} 
+                    width={80} 
+                    height={80}
+                    style={{ objectFit: 'contain' }} 
+                />
               </Box>
               <Box className="info">
-                <Typography component="h3">{product.name}</Typography>
-                <Typography component="span">{product.point} pontos</Typography>
-                <Box className="remove">
+                <Typography component="h3">{product.nome_premio}</Typography>
+                <Typography component="span">
+                    {product.pontos_custo_unitario} pontos
+                    {product.quantidade > 1 && ` (x${product.quantidade})`}
+                </Typography>
+                
+                {/* Botão Remover */}
+                <Box 
+                    className="remove" 
+                    onClick={() => handleRemove(product.id_sacola_item)}
+                    sx={{ cursor: 'pointer' }}
+                >
                   <Delete />
                   Remover
                 </Box>
               </Box>
             </CartCard>
           ))}
+
           <Divider />
-          <Typography className="total">Total: 60 pontos</Typography>
-          <Button>Solicitar Resgate</Button>
+          
+          <Typography className="total">
+             Total: {totalCart} pontos
+          </Typography>
+
+          {/* Botão Solicitar Resgate */}
+          <Button 
+            onClick={handleSolicitarResgate} 
+            disabled={resgateMutation.isPending || listaItens.length === 0}
+          >
+            {resgateMutation.isPending ? "Processando..." : "Solicitar Resgate"}
+          </Button>
+
           <Button
             variant="outlined"
             sx={{ mt: 2 }}
-            onClick={() => router.push("/rescue-points")}
+            onClick={() => router.push("/rescue-points")} // Volta para a loja
           >
             Continuar Resgatando
           </Button>
