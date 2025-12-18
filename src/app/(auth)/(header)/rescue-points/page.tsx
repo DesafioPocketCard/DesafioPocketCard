@@ -24,9 +24,10 @@ import { useRouter } from "next/navigation";
 import { GridCardImage } from "@/components/Cards";
 import Image from "next/image";
 import shoppingbag from "@/assets/icons/shopping-bag-white.svg";
-import { useQueries } from "@tanstack/react-query";
+import { useQueries, useQuery } from "@tanstack/react-query";
 import GiftService from "@/services/gift.service";
 import GiftCategoryService from "@/services/gift_category.service";
+import CartService from "@/services/cart.service";
 import CardHorizontalWrapper from "@/components/Cards/CardHorizontalWrapper";
 import useCategory from "@/store/useCategory";
 import IGiftCategory from "@/types/GiftCategory";
@@ -35,6 +36,13 @@ export default function page() {
   const router = useRouter();
   const theme = useTheme();
   const { setCategory } = useCategory();
+
+
+    const { data, isLoading, isError } = useQuery({
+      queryKey: ["cart"],
+      queryFn: () => CartService.get(),
+    });
+
 
   const [categories, highGifts] = useQueries({
     queries: [
@@ -53,6 +61,9 @@ export default function page() {
     router.push(`/rescue-points/category/${category.id_grupo_premio}`);
   };
 
+
+  const cartData = data?.data?.sacola;
+  const saldoUsuario = data?.data?.total_pontos_usuario || 0;
   return (
     <RadialWrapper
       fillSize
@@ -64,9 +75,10 @@ export default function page() {
               <ArrowBackIos htmlColor="white" fontSize="small" />
             </IconButton>
             <Typography component="h1">Resgate de Pontos</Typography>
-            <Typography>Você tem: 64 pontos</Typography>
+           
+            <Typography>Você tem: {saldoUsuario} pontos</Typography>
             <Badge
-              badgeContent={3}
+              badgeContent={cartData?.itens.length || 0}
               className="badge"
               onClick={() => router.push(`/rescue-points/cart`)}
               color="secondary"

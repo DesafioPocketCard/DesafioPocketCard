@@ -10,7 +10,9 @@ import { Box, CircularProgress, IconButton, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/Buttons";
 import GiftService from "@/services/gift.service";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import CartService from "@/services/cart.service";
+import useNotifier from "@/hooks/useNotifier"; 
 
 type Props = {
   params: {
@@ -21,10 +23,31 @@ type Props = {
 export default function Product({ params: { id } }: Props) {
   const router = useRouter();
 
-  const { data, isLoading } = useQuery({
-    queryKey: ["gift-by-id"],
+const notify = useNotifier(); 
+  const queryClient = useQueryClient();
+
+const { data } = useQuery({
+    queryKey: ["gift-by-id", id],
     queryFn: () => GiftService.getById(id),
     enabled: !!id,
+
+    
+  });
+
+  const addMutation = useMutation({
+    mutationFn: () => CartService.adicionarItem(Number(id), 1), 
+    onSuccess: (response) => {
+      notify("Produto adicionado à sacola!", "success");
+      
+      
+      queryClient.invalidateQueries({ queryKey: ["cart"] });
+      
+     
+      router.push("/rescue-points/cart");
+    },
+    onError: (error: any) => {
+      notify(error.message || "Erro ao adicionar produto.", "error");
+    },
   });
 
   return (
@@ -32,11 +55,12 @@ export default function Product({ params: { id } }: Props) {
       fillSize
       HeaderComponent={(props) => (
         <ProfileImageContainer {...props}>
-          {data?.data[0].img_premio && (
+          {data?.data[0]?.img_premio && (
             <Image
               src={data?.data[0].img_premio}
               alt="Foto do premio"
               layout="fill"
+              objectFit="contain"
               unoptimized
             />
           )}
@@ -61,7 +85,11 @@ export default function Product({ params: { id } }: Props) {
           <Typography className="rescue-points">
             Resgate: {data?.data[0].qtde_pontos_resgate} pontos
           </Typography>
-          <Button onClick={() => router.push("/rescue-points/cart")}>
+          <Button 
+            onClick={() => addMutation.mutate()}
+            loading={addMutation.isPending} 
+            disabled={addMutation.isPending}
+          >
             Adicionar à sacola
           </Button>
         </ProfileInfo>

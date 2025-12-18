@@ -62,6 +62,11 @@ export default function Header() {
     //   icon: <Image alt="configuração" src={settings} width={24} height={24} />,
     // },
     {
+      label: "Resgate de pontos",
+      icon: <Image alt="presente" src={gift} width={24} height={24} />,
+      handler: () => navigate("/rescue-points"),
+    },
+    {
       label: "Regulamentos",
       icon: <Image alt="arquivo" src={filetext} width={24} height={24} />,
       handler: () => navigate("/regulations"),

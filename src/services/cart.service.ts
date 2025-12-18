@@ -1,9 +1,16 @@
 // src/services/Cart.service.ts
 
 import api from "@/config/api"; // O arquivo que configura o Axios
-import { IResponseBody } from "@/types/Request"; // O tipo padrão de resposta do seu projeto
+import { IResponseBody } from "@/types/Request"; 
 import { ICartResponse, IResgateResponse } from "@/types/Cart";
 import ErrorException from "@/utils/errorException";
+
+
+export interface IConfirmationResponse {
+    success: boolean;
+    message: string;
+    id_resgate: number;
+}
 
 export default class CartService {
     private static path = "/cart";
@@ -38,4 +45,29 @@ export default class CartService {
             throw ErrorException.fromUnknown(error);
         }
     }
+
+    static async confirmarResgate(id_resgate: number, token_resgate: string): Promise<IConfirmationResponse> {
+        try {
+            const response = await api.post<IConfirmationResponse>(`${this.resgatePath}/confirm`, {
+                id_resgate,
+                token_resgate
+            });
+            return response.data;
+        } catch (error) {
+            throw ErrorException.fromUnknown(error);
+        }
+    }
+    static async adicionarItem(id_premio: number, quantidade: number = 1): Promise<IResponseBody<any>> {
+    try {
+      const response = await api.post(this.path, {
+        id_premio: id_premio,
+        quantidade: quantidade
+      });
+      return response.data;
+    } catch (error) {
+      throw ErrorException.fromUnknown(error);
+    }
+  }
+
+    
 }
