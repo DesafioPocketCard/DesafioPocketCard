@@ -14,6 +14,7 @@ import Image from "next/image";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import CartService from "@/services/cart.service";
 import { ICartItem } from "@/types/Cart";
+import useNotifier from "@/hooks/useNotifier";
 
 interface IProps {
   params: {
@@ -24,53 +25,51 @@ interface IProps {
 export default function CartScreen({ params }: IProps) {
   const router = useRouter();
   const queryClient = useQueryClient();
+  const notify = useNotifier(); 
 
-  // 1. Buscar dados da API (GET /api/cart)
   const { data, isLoading, isError } = useQuery({
     queryKey: ["cart"],
     queryFn: () => CartService.get(),
   });
 
-  // 2. Configurar a ação de Remover (DELETE /api/cart)
+ 
   const removeMutation = useMutation({
     mutationFn: (id: number) => CartService.remove(id),
     onSuccess: () => {
       // Recarrega a lista automaticamente após remover
       queryClient.invalidateQueries({ queryKey: ["cart"] });
-      alert("Item removido com sucesso!");
+
+      notify("Produto removido da sacola!", "success");
     },
     onError: (error: any) => {
-      alert("Erro ao remover item: " + error.message);
+      notify(error.message || "Erro ao remover produto.", "error");
     }
   });
 
-  // 3. Configurar a ação de Solicitar Resgate (POST /api/resgate)
+ 
   const resgateMutation = useMutation({
     mutationFn: () => CartService.solicitarResgate(),
     onSuccess: (responseData) => {
-        // Sucesso! O email foi enviado. 
-        // Agora redirecionamos para a tela de digitar o código.
-        // Passamos o ID do resgate na URL para a próxima tela usar.
-        alert(responseData.message); // "Enviamos um código..."
-        router.push(`/confirm-token/${responseData.id_resgate}`);
+        notify("Resgate solicitado com sucesso!", "success");
+        router.push(`/rescue-points/confirm-token/${responseData.id_resgate}`);
     },
     onError: (error: any) => {
-        alert("Erro ao solicitar resgate: " + error.message);
+        notify(error.message || "Erro ao solicitar resgate.", "error");
     }
   });
 
   // Funções de clique
   function handleRemove(id: number) {
-      if(confirm("Tem certeza que deseja remover este item?")) {
+      
           removeMutation.mutate(id);
-      }
+      
   }
 
   function handleSolicitarResgate() {
       resgateMutation.mutate();
   }
 
-  // Facilitadores para acessar os dados (vêm dentro de data.data no seu padrão)
+  
   const cartData = data?.data?.sacola;
   const saldoUsuario = data?.data?.total_pontos_usuario || 0;
   const listaItens = cartData?.itens || [];
@@ -115,7 +114,7 @@ export default function CartScreen({ params }: IProps) {
           {listaItens.map((product: ICartItem) => (
             <CartCard key={product.id_sacola_item}>
               <Box className="image">
-                {/* Usamos width/height fixos ou layout fill pois a URL é externa */}
+                
                 <Image 
                     src={product.img_premio} 
                     alt={product.nome_premio} 
