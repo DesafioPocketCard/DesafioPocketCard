@@ -76,14 +76,18 @@ const Container = styled(Box)(({ theme }) => ({
   },
 }));
 
-const GridContainer = styled(Box)(({ theme, key }) => ({
+const GridContainer = styled(Box)(({ theme }) => ({
   display: "grid",
-  gridTemplateColumns: "1fr 1fr",
+  gridTemplateColumns: "1fr 1fr", // Duas colunas
+  gap: theme.spacing(2), // Adiciona espaçamento (16px) entre os cards
+  alignItems: "stretch", // Faz os cards terem a mesma altura na linha
+  
+  // Removemos ou ajustamos o seletor "& > div" antigo que centralizava tudo e quebrava o alinhamento
   "& > div": {
+    width: "100%", // Garante que o card ocupe o espaço da coluna
     display: "flex",
     flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
+    // justifyContent: "center", // <-- REMOVA ISSO para o card não flutuar no meio
   },
 }));
 
