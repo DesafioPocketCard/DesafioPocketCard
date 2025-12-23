@@ -37,7 +37,6 @@ export default function page() {
   const theme = useTheme();
   const { setCategory } = useCategory();
 
-
     const { data, isLoading, isError } = useQuery({
       queryKey: ["cart"],
       queryFn: () => CartService.get(),
@@ -102,11 +101,13 @@ export default function page() {
             gap: 2,
           }}
         >
+          {/* Seçao de produtos por categoria
           {categories.isLoading && (
             <Box display={"flex"} justifyContent="center" my={2}>
               <CircularProgress disableShrink />
             </Box>
           )}
+          
           {categories.data?.data && (
             <CardHorizontalWrapper
               data={categories.data?.data || []}
@@ -125,9 +126,11 @@ export default function page() {
               )}
             />
           )}
+           
           <Title>
             <Typography component="h1">Produtos em destaque</Typography>
           </Title>
+          */}
           {highGifts.isLoading && (
             <Box display={"flex"} justifyContent="center" my={2}>
               <CircularProgress disableShrink />
@@ -143,8 +146,23 @@ export default function page() {
                   router.push(`/rescue-points/product/${rescuePoint.id_premio}`)
                 }
                 sx={{
-                  padding: "8px 20px",
-                }}
+    padding: "8px 20px",
+    height: "100%", // Força o card a ocupar toda a altura da grid
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between", // Distribui o conteúdo
+    alignItems: "center",
+    // Estilo específico para o título (se o componente aceitar, senão precisa ir no componente filho)
+    "& .MuiTypography-root": { // Tentativa de pegar o título pelo CSS
+        minHeight: "16px", // Altura suficiente para 2 linhas
+        display: "-webkit-box",
+        overflow: "hidden",
+        textOverflow: "ellipsis",
+        WebkitLineClamp: 2,
+        WebkitBoxOrient: "vertical",
+        textAlign: "center"
+    }
+  }}
                 points={rescuePoint.qtde_pontos_resgate}
               />
             ))}
