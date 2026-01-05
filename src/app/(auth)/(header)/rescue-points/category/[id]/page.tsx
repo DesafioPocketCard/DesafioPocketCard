@@ -23,8 +23,9 @@ import { useRouter } from "next/navigation";
 import { GridCardImage } from "@/components/Cards";
 import Image from "next/image";
 import shoppingbag from "@/assets/icons/shopping-bag-white.svg";
-import { useQueries } from "@tanstack/react-query";
+import { useQueries, useQuery } from "@tanstack/react-query";
 import GiftService from "@/services/gift.service";
+import CartService from "@/services/cart.service";
 import IGiftCategory from "@/types/GiftCategory";
 import GiftCategoryService from "@/services/gift_category.service";
 
@@ -36,6 +37,11 @@ type Props = {
 
 export default function page({ params: { id } }: Props) {
   const router = useRouter();
+
+  const { data} = useQuery({
+    queryKey: ["cart"],
+    queryFn: () => CartService.get(),
+  });
 
   const [category, gifts] = useQueries({
     queries: [
@@ -51,6 +57,9 @@ export default function page({ params: { id } }: Props) {
     ],
   });
 
+  const cartData = data?.data?.sacola;
+  const saldoUsuario = data?.data?.total_pontos_usuario || 0;
+
   return (
     <RadialWrapper
       fillSize
@@ -62,9 +71,9 @@ export default function page({ params: { id } }: Props) {
               <ArrowBackIos htmlColor="white" fontSize="small" />
             </IconButton>
             <Typography component="h1">Resgate de Pontos</Typography>
-            <Typography>Você tem: 64 pontos</Typography>
+            <Typography>Você tem: {saldoUsuario} pontos</Typography>
             <Badge
-              badgeContent={3}
+              badgeContent={cartData?.itens.length || 0}
               className="badge"
               onClick={() => router.push(`/rescue-points/cart`)}
               color="secondary"
