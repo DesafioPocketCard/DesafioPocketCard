@@ -24,9 +24,7 @@ import { GridCardImage } from "@/components/Cards";
 import Image from "next/image";
 import shoppingbag from "@/assets/icons/shopping-bag-white.svg";
 import { useQueries, useQuery } from "@tanstack/react-query";
-import { useQueries, useQuery } from "@tanstack/react-query";
 import GiftService from "@/services/gift.service";
-import CartService from "@/services/cart.service";
 import CartService from "@/services/cart.service";
 import IGiftCategory from "@/types/GiftCategory";
 import GiftCategoryService from "@/services/gift_category.service";
@@ -40,10 +38,6 @@ type Props = {
 export default function page({ params: { id } }: Props) {
   const router = useRouter();
 
-  const { data} = useQuery({
-    queryKey: ["cart"],
-    queryFn: () => CartService.get(),
-  });
 
   const { data} = useQuery({
     queryKey: ["cart"],
@@ -67,8 +61,7 @@ export default function page({ params: { id } }: Props) {
   const cartData = data?.data?.sacola;
   const saldoUsuario = data?.data?.total_pontos_usuario || 0;
 
-  const cartData = data?.data?.sacola;
-  const saldoUsuario = data?.data?.total_pontos_usuario || 0;
+
 
   return (
     <RadialWrapper
@@ -83,7 +76,6 @@ export default function page({ params: { id } }: Props) {
             <Typography component="h1">Resgate de Prêmios</Typography>
             <Typography>Você tem: {saldoUsuario} pontos</Typography>
             <Badge
-              badgeContent={cartData?.itens.length || 0}
               badgeContent={cartData?.itens.length || 0}
               className="badge"
               onClick={() => router.push(`/rescue-points/cart`)}
