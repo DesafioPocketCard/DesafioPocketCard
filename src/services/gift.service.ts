@@ -34,4 +34,15 @@ export default class GiftService {
             throw ErrorException.fromUnknown(error);
         }
     }
+
+   static async getCategories(): Promise<IResponseBody<string[]>> {
+    const response = await api.get<IResponseBody<string[]>>("/gift/categories");
+    return response.data;
+  }
+  
+  // CORREÇÃO 2: Removido "/api" do início aqui também
+  static async getByCategory(categoryName: string): Promise<IResponseBody<any[]>> {
+    const response = await api.get<IResponseBody<any[]>>(`/gift?category=${categoryName}`);
+    return response.data;
+  }
 }

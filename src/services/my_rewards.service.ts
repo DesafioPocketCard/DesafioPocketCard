@@ -6,13 +6,17 @@ export interface IMyReward {
   nome: string;
   img_premio: string;
   data_resgate: string;
-  codigo_voucher: string | null;
   qtde_pontos_resgate: number;
+  codigo_voucher?: string;
+  serial_numero?: string;
+  url_premio?: string;
+  instrucao_premio?: string;
 }
 
 export default class MyRewardsService {
   static async getAll(): Promise<IResponseBody<IMyReward[]>> {
-    const response = await api.get<IResponseBody<IMyReward[]>>("/api/my-rewards");
+    // CORRIGIDO: Removemos o "/api" inicial
+    const response = await api.get<IResponseBody<IMyReward[]>>("/my-rewards");
     return response.data;
   }
 }

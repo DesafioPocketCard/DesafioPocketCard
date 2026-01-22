@@ -1,25 +1,40 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import RadialWrapper from "@/components/Containers/RadialWrapper";
 import {
   Container,
   GridContainer,
   HeaderContainer,
   TitleContainer,
-} from "../rescue-points/styles"; // Reaproveitando estilos da tela de resgate
+} from "../rescue-points/styles";
 import { Header } from "@/components/Layout";
-import { IconButton, Typography, Box, CircularProgress } from "@mui/material";
-import { ArrowBackIos } from "@mui/icons-material";
+import { 
+    IconButton, 
+    Typography, 
+    Box, 
+    CircularProgress,
+    Dialog,
+    DialogTitle,
+    DialogContent,
+    DialogActions,
+    Button,
+    TextField,
+    Divider
+} from "@mui/material";
+import { ArrowBackIos, ContentCopy, Close } from "@mui/icons-material";
 import { useRouter } from "next/navigation";
 import { GridCardImage } from "@/components/Cards";
 import { useQuery } from "@tanstack/react-query";
-import MyRewardsService from "@/services/my_rewards.service";
+import MyRewardsService, { IMyReward } from "@/services/my_rewards.service";
 import { format, parseISO } from "date-fns";
 import { ptBR } from "date-fns/locale";
 
 export default function MyRewardsPage() {
   const router = useRouter();
+  
+  // Estado para controlar qual prêmio foi clicado
+  const [selectedReward, setSelectedReward] = useState<IMyReward | null>(null);
 
   const { data, isLoading } = useQuery({
     queryKey: ["my-rewards"],
@@ -28,7 +43,14 @@ export default function MyRewardsPage() {
 
   const rewards = data?.data || [];
 
+  // Função para copiar o código
+  const handleCopy = (text: string) => {
+    navigator.clipboard.writeText(text);
+    alert("Código copiado!");
+  };
+
   return (
+    <>
     <RadialWrapper
       fillSize
       HeaderComponent={(props) => (
@@ -70,37 +92,121 @@ export default function MyRewardsPage() {
                 key={index}
                 title={reward.nome}
                 icon={reward.img_premio}
-                // No histórico, não clicamos para "comprar", talvez para ver detalhes do voucher
-                // Por enquanto deixei sem ação ou pode levar para uma tela de detalhes se tiver
-                onClick={() => {}} 
+                // Ao clicar, abre o modal com os dados deste prêmio
+                onClick={() => setSelectedReward(reward)} 
                 sx={{
                   padding: "8px 20px",
                   height: "100%",
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  "& .MuiTypography-root": {
-                    minHeight: "40px", // Mantendo o alinhamento que ensinei antes
-                    display: "-webkit-box",
-                    overflow: "hidden",
-                    textOverflow: "ellipsis",
-                    WebkitLineClamp: 2,
-                    WebkitBoxOrient: "vertical",
-                    textAlign: "center",
-                  },
+                  cursor: "pointer"
                 }}
-                // Aqui estou formatando a data para exibir no lugar dos pontos
-                // Ex: "20/01/2026"
-                points={format(parseISO(reward.data_resgate), "dd/MM/yyyy")}
-                
-                // Se quiser mostrar "XYZ Pontos" em vez da data, use:
-                // points={reward.qtde_pontos_resgate}
+                points={format(parseISO(reward.data_resgate), "dd/MM/yyyy", { locale: ptBR })}
               />
             ))}
           </GridContainer>
         </Container>
       )}
     />
+
+    {/* --- MODAL DE DETALHES DO VOUCHER --- */}
+    <Dialog 
+        open={!!selectedReward} 
+        onClose={() => setSelectedReward(null)}
+        fullWidth
+        maxWidth="xs"
+    >
+        <DialogTitle sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            Detalhes do Voucher
+            <IconButton onClick={() => setSelectedReward(null)}>
+                <Close />
+            </IconButton>
+        </DialogTitle>
+        
+        <DialogContent dividers>
+            {selectedReward && (
+                <Box display="flex" flexDirection="column" gap={2}>
+                    
+                    {/* Imagem e Nome */}
+                    <Box textAlign="center" mb={1}>
+                        <img 
+                            src={selectedReward.img_premio} 
+                            alt={selectedReward.nome} 
+                            style={{ width: 80, height: 80, objectFit: 'contain', borderRadius: 8 }} 
+                        />
+                        <Typography variant="subtitle1" fontWeight="bold" mt={1}>
+                            {selectedReward.nome}
+                        </Typography>
+                    </Box>
+
+                    {/* Código Principal (PIN) */}
+                    {selectedReward.codigo_voucher && (
+                        <Box>
+                            <Typography variant="caption" color="textSecondary">
+                                Código de Resgate / PIN
+                            </Typography>
+                            <Box display="flex" gap={1} alignItems="center">
+                                <TextField 
+                                    fullWidth 
+                                    value={selectedReward.codigo_voucher} 
+                                    InputProps={{ readOnly: true }} 
+                                    size="small"
+                                />
+                                <IconButton onClick={() => handleCopy(selectedReward.codigo_voucher!)}>
+                                    <ContentCopy />
+                                </IconButton>
+                            </Box>
+                        </Box>
+                    )}
+
+                    {/* Serial Number (Se houver) */}
+                    {selectedReward.serial_numero && (
+                        <Box>
+                            <Typography variant="caption" color="textSecondary">
+                                Número de Serial
+                            </Typography>
+                            <Typography variant="body2" fontWeight="bold">
+                                {selectedReward.serial_numero}
+                            </Typography>
+                        </Box>
+                    )}
+
+                    <Divider />
+
+                    {/* Instruções */}
+                    {selectedReward.instrucao_premio && (
+                        <Box>
+                            <Typography variant="caption" color="textSecondary">
+                                Como utilizar:
+                            </Typography>
+                            <Typography 
+                                variant="body2" 
+                                sx={{ whiteSpace: 'pre-wrap', fontSize: '0.85rem' }}
+                                dangerouslySetInnerHTML={{ __html: selectedReward.instrucao_premio }} 
+                            />
+                        </Box>
+                    )}
+                </Box>
+            )}
+        </DialogContent>
+        
+        <DialogActions sx={{ flexDirection: 'column', gap: 1, p: 2 }}>
+            {/* Botão de Link Externo (se houver) */}
+            {selectedReward?.url_premio && (
+                <Button 
+                    variant="contained" 
+                    color="primary" 
+                    fullWidth
+                    href={selectedReward.url_premio}
+                    target="_blank"
+                >
+                    Acessar Site de Resgate
+                </Button>
+            )}
+            
+            <Button onClick={() => setSelectedReward(null)} fullWidth color="inherit">
+                Fechar
+            </Button>
+        </DialogActions>
+    </Dialog>
+    </>
   );
 }

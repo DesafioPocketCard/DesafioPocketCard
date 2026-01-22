@@ -5,49 +5,42 @@ import React from "react";
 import {
   GridContainer,
   HeaderContainer,
-  Title,
   TitleContainer,
 } from "./styles";
 import { Header } from "@/components/Layout";
 import {
-  Avatar,
   Badge,
   Box,
   CircularProgress,
   Container,
   IconButton,
   Typography,
-  useTheme,
+  Chip,
+  // Stack removido pois vamos usar Box para ter controle total do scroll
 } from "@mui/material";
 import { ArrowBackIos } from "@mui/icons-material";
 import { useRouter } from "next/navigation";
 import { GridCardImage } from "@/components/Cards";
 import Image from "next/image";
 import shoppingbag from "@/assets/icons/shopping-bag-white.svg";
-import { useQueries, useQuery } from "@tanstack/react-query";
+import { useQueries } from "@tanstack/react-query";
 import GiftService from "@/services/gift.service";
-import GiftCategoryService from "@/services/gift_category.service";
 import CartService from "@/services/cart.service";
-import CardHorizontalWrapper from "@/components/Cards/CardHorizontalWrapper";
-import useCategory from "@/store/useCategory";
-import IGiftCategory from "@/types/GiftCategory";
+import { useTheme } from "@mui/material/styles";
 
-export default function page() {
+export default function RescuePointsPage() {
   const router = useRouter();
   const theme = useTheme();
-  const { setCategory } = useCategory();
 
-    const { data, isLoading, isError } = useQuery({
-      queryKey: ["cart"],
-      queryFn: () => CartService.get(),
-    });
-
-
-  const [categories, highGifts] = useQueries({
+  const [cartQuery, categoriesQuery, highGiftsQuery] = useQueries({
     queries: [
       {
-        queryKey: ["categories"],
-        queryFn: () => GiftCategoryService.get(),
+        queryKey: ["cart"],
+        queryFn: () => CartService.get(),
+      },
+      {
+        queryKey: ["gift-categories"],
+        queryFn: () => GiftService.getCategories(),
       },
       {
         queryKey: ["high-gifts"],
@@ -56,88 +49,135 @@ export default function page() {
     ],
   });
 
-  const handlerSetCategory = (category: IGiftCategory) => {
-    router.push(`/rescue-points/category/${category.id_grupo_premio}`);
+  const handlerSelectCategory = (categoryName: string) => {
+    router.push(`/rescue-points/type/${encodeURIComponent(categoryName.trim())}`);
   };
 
+  const cartData = cartQuery.data?.data?.sacola;
+  const saldoUsuario = cartQuery.data?.data?.total_pontos_usuario || 0;
+  
+  const categoriesList = categoriesQuery.data?.data || [];
 
-  const cartData = data?.data?.sacola;
-  const saldoUsuario = data?.data?.total_pontos_usuario || 0;
   return (
     <RadialWrapper
       fillSize
       HeaderComponent={(props) => (
         <TitleContainer {...props}>
           <Header />
-          <HeaderContainer>
-            <IconButton onClick={() => router.back()}>
-              <ArrowBackIos htmlColor="white" fontSize="small" />
-            </IconButton>
-            <Typography component="h1">Resgate de Premios</Typography>
-           
-            <Typography>Você tem: {saldoUsuario} pontos</Typography>
-            <Badge
-              badgeContent={cartData?.itens.length || 0}
-              className="badge"
-              onClick={() => router.push(`/rescue-points/cart`)}
-              color="secondary"
-            >
-              <Image
-                src={shoppingbag}
-                alt="shoppingbag"
-                width={24}
-                height={24}
-              />
-            </Badge>
+          <HeaderContainer sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', mt: 2 }}>
+            
+            {/* ESQUERDA: Voltar + Título */}
+            <Box display="flex" alignItems="center" gap={1}>
+                <IconButton onClick={() => router.back()} sx={{ padding: 0 }}>
+                  <ArrowBackIos htmlColor="white" fontSize="small" />
+                </IconButton>
+                <Typography component="h1" sx={{ color: 'white', fontWeight: 'bold', fontSize: '1.2rem' }}>
+                    Resgate
+                </Typography>
+            </Box>
+
+            {/* DIREITA: Pontos + Carrinho */}
+            <Box display="flex" alignItems="center" gap={2}>
+                <Typography sx={{ color: 'white', fontSize: '0.9rem', fontWeight: 500 }}>
+                    {saldoUsuario} pts
+                </Typography>
+                
+                <IconButton onClick={() => router.push(`/rescue-points/cart`)} sx={{ padding: 0.5 }}>
+                    <Badge
+                      badgeContent={cartData?.itens.length || 0}
+                      color="error"
+                    >
+                      <Image
+                        src={shoppingbag}
+                        alt="shoppingbag"
+                        width={24}
+                        height={24}
+                      />
+                    </Badge>
+                </IconButton>
+            </Box>
+
           </HeaderContainer>
         </TitleContainer>
       )}
+      
       BodyComponent={(props) => (
         <Container
           {...props}
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            gap: 2,
-          }}
+          sx={{ display: "flex", flexDirection: "column", gap: 2, pb: 4, overflowX: "hidden" }} // overflowX hidden no container pai evita scroll da página inteira
         >
-          {/* Seçao de produtos por categoria
-          {categories.isLoading && (
-            <Box display={"flex"} justifyContent="center" my={2}>
-              <CircularProgress disableShrink />
-            </Box>
-          )}
-          
-          {categories.data?.data && (
-            <CardHorizontalWrapper
-              data={categories.data?.data || []}
-              renderItem={(rescuePoint, index) => (
-                <Avatar
-                  src={rescuePoint.nome_arquivo}
-                  sx={{
-                    width: 72,
-                    height: 72,
-                    border: `1px solid ${theme.palette.secondary?.["200"] || "#B6B6B6"}`,
-                  }}
-                  alt={rescuePoint.nome_grupo_premio}
-                  key={index}
-                  onClick={handlerSetCategory.bind(null, rescuePoint)}
-                />
+          {/* --- LISTA DE CATEGORIAS --- */}
+          <Box mt={2}>
+              <Typography component="h2" variant="subtitle1" fontWeight="bold" mb={1}>
+                Categorias
+              </Typography>
+
+              {categoriesQuery.isLoading && <CircularProgress size={20} />}
+              
+              {!categoriesQuery.isLoading && categoriesList.length === 0 && (
+                  <Typography variant="caption" color="textSecondary">
+                      Nenhuma categoria encontrada.
+                  </Typography>
               )}
-            />
-          )}
-           
-          <Title>
-            <Typography component="h1">Produtos em destaque</Typography>
-          </Title>
-          */}
-          {highGifts.isLoading && (
-            <Box display={"flex"} justifyContent="center" my={2}>
+
+              {/* --- AQUI ESTÁ A MÁGICA DA ROLAGEM LATERAL --- */}
+              <Box sx={{ 
+                  display: 'flex', 
+                  flexDirection: 'row',
+                  gap: 1.5, // Um pouco mais de espaço entre os itens
+                  overflowX: 'auto', // Habilita o scroll
+                  pb: 1,
+                  width: '100%',
+                  whiteSpace: 'nowrap', // Garante que não quebre linha
+                  
+                  // Esconde a barra de rolagem (estética)
+                  '&::-webkit-scrollbar': { display: 'none' },
+                  msOverflowStyle: 'none',
+                  scrollbarWidth: 'none',
+                  
+                  // Comportamento suave no touch
+                  WebkitOverflowScrolling: 'touch',
+              }}>
+                {categoriesList.map((catName, index) => (
+                  <Chip 
+                    key={index} 
+                    label={catName.trim()} 
+                    onClick={() => handlerSelectCategory(catName)}
+                    color="primary" 
+                    variant="filled" 
+                    
+                    sx={{ 
+                        fontWeight: 500,
+                        backgroundColor: theme.palette.primary.main,
+                        color: 'white',
+                        
+                        // --- O SEGREDO DO LAYOUT ---
+                        flexShrink: 0, // IMPEDE o botão de encolher. Ele mantem o tamanho real e "empurra" o scroll.
+                        
+                        '&:hover': { 
+                            backgroundColor: theme.palette.primary.dark,
+                        }
+                    }}
+                  />
+                ))}
+              </Box>
+          </Box>
+
+          {/* --- PRODUTOS EM DESTAQUE --- */}
+          <Box>
+              <Typography component="h1" variant="h6" align="center" mb={2} mt={1}>
+                Produtos em destaque
+              </Typography>
+          </Box>
+
+          {highGiftsQuery.isLoading && (
+            <Box display="flex" justifyContent="center" my={2}>
               <CircularProgress disableShrink />
             </Box>
           )}
+
           <GridContainer>
-            {highGifts.data?.data.map((rescuePoint, index) => (
+            {highGiftsQuery.data?.data.map((rescuePoint, index) => (
               <GridCardImage
                 key={index}
                 title={rescuePoint.nome}
@@ -145,25 +185,8 @@ export default function page() {
                 onClick={() =>
                   router.push(`/rescue-points/product/${rescuePoint.id_premio}`)
                 }
-                sx={{
-    padding: "8px 20px",
-    height: "100%", // Força o card a ocupar toda a altura da grid
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "space-between", // Distribui o conteúdo
-    alignItems: "center",
-    // Estilo específico para o título (se o componente aceitar, senão precisa ir no componente filho)
-    "& .MuiTypography-root": { // Tentativa de pegar o título pelo CSS
-        minHeight: "16px", // Altura suficiente para 2 linhas
-        display: "-webkit-box",
-        overflow: "hidden",
-        textOverflow: "ellipsis",
-        WebkitLineClamp: 2,
-        WebkitBoxOrient: "vertical",
-        textAlign: "center"
-    }
-  }}
                 points={rescuePoint.qtde_pontos_resgate}
+                sx={{ padding: "8px 20px" }} 
               />
             ))}
           </GridContainer>
