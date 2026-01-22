@@ -38,6 +38,7 @@ type Props = {
 export default function page({ params: { id } }: Props) {
   const router = useRouter();
 
+
   const { data} = useQuery({
     queryKey: ["cart"],
     queryFn: () => CartService.get(),
@@ -60,6 +61,8 @@ export default function page({ params: { id } }: Props) {
   const cartData = data?.data?.sacola;
   const saldoUsuario = data?.data?.total_pontos_usuario || 0;
 
+
+
   return (
     <RadialWrapper
       fillSize
@@ -70,7 +73,7 @@ export default function page({ params: { id } }: Props) {
             <IconButton onClick={() => router.back()}>
               <ArrowBackIos htmlColor="white" fontSize="small" />
             </IconButton>
-            <Typography component="h1">Resgate de Pontos</Typography>
+            <Typography component="h1">Resgate de Prêmios</Typography>
             <Typography>Você tem: {saldoUsuario} pontos</Typography>
             <Badge
               badgeContent={cartData?.itens.length || 0}

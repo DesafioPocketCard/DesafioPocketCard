@@ -3,7 +3,7 @@ import React from "react";
 
 export const metadata: Metadata = {
   title: {
-    default: "Resgate de Pontos",
+    default: "Resgate de prêmios",
     template: "Pocketcard | %s",
   },
 };

@@ -61,10 +61,16 @@ export default function Header() {
     //   label: "Configurações",
     //   icon: <Image alt="configuração" src={settings} width={24} height={24} />,
     // },
+    
     {
-      label: "Resgate de pontos",
+      label: "Resgate de prêmios",
       icon: <Image alt="presente" src={gift} width={24} height={24} />,
       handler: () => navigate("/rescue-points"),
+    },
+        {
+      label: "Prêmios resgatados",
+      icon: <Image alt="presente" src={gift} width={24} height={24} />,
+      handler: () => navigate("/my-rewards"),
     },
     {
       label: "Regulamentos",
@@ -98,7 +104,7 @@ export default function Header() {
         style={{ cursor: "pointer" }}
       />
       <Box component="div">
-        <IconButton disabled onClick={() => navigate("/notifications")}>
+        <IconButton onClick={() => navigate("/notifications")}>
           <Image alt="notificação" src={notification} width={24} height={24} />
         </IconButton>
         <IconButton id="profile-button" onClick={() => setOpen(true)}>
