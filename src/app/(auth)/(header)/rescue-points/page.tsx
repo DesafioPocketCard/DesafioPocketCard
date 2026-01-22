@@ -31,6 +31,13 @@ import { useTheme } from "@mui/material/styles";
 export default function RescuePointsPage() {
   const router = useRouter();
   const theme = useTheme();
+  const { setCategory } = useCategory();
+
+    const { data, isLoading, isError } = useQuery({
+      queryKey: ["cart"],
+      queryFn: () => CartService.get(),
+    });
+
 
   const [cartQuery, categoriesQuery, highGiftsQuery] = useQueries({
     queries: [
@@ -104,74 +111,44 @@ export default function RescuePointsPage() {
       BodyComponent={(props) => (
         <Container
           {...props}
-          sx={{ display: "flex", flexDirection: "column", gap: 2, pb: 4, overflowX: "hidden" }} 
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            gap: 2,
+          }}
         >
+          {/* Seçao de produtos por categoria
+          {categories.isLoading && (
+            <Box display={"flex"} justifyContent="center" my={2}>
+              <CircularProgress disableShrink />
+            </Box>
+          )}
           
-          <Box mt={2}>
-              <Typography component="h2" variant="subtitle1" fontWeight="bold" mb={1}>
-                Categorias
-              </Typography>
-
-              {categoriesQuery.isLoading && <CircularProgress size={20} />}
-              
-              {!categoriesQuery.isLoading && categoriesList.length === 0 && (
-                  <Typography variant="caption" color="textSecondary">
-                      Nenhuma categoria encontrada.
-                  </Typography>
+          {categories.data?.data && (
+            <CardHorizontalWrapper
+              data={categories.data?.data || []}
+              renderItem={(rescuePoint, index) => (
+                <Avatar
+                  src={rescuePoint.nome_arquivo}
+                  sx={{
+                    width: 72,
+                    height: 72,
+                    border: `1px solid ${theme.palette.secondary?.["200"] || "#B6B6B6"}`,
+                  }}
+                  alt={rescuePoint.nome_grupo_premio}
+                  key={index}
+                  onClick={handlerSetCategory.bind(null, rescuePoint)}
+                />
               )}
-
-              
-              <Box sx={{ 
-                  display: 'flex', 
-                  flexDirection: 'row',
-                  gap: 1.5,
-                  overflowX: 'auto', 
-                  pb: 1,
-                  width: '100%',
-                  whiteSpace: 'nowrap', 
-                  
-                 
-                  '&::-webkit-scrollbar': { display: 'none' },
-                  msOverflowStyle: 'none',
-                  scrollbarWidth: 'none',
-                  
-                  
-                  WebkitOverflowScrolling: 'touch',
-              }}>
-                {categoriesList.map((catName, index) => (
-                  <Chip 
-                    key={index} 
-                    label={catName.trim()} 
-                    onClick={() => handlerSelectCategory(catName)}
-                    color="primary" 
-                    variant="filled" 
-                    
-                    sx={{ 
-                        fontWeight: 500,
-                        backgroundColor: theme.palette.primary.main,
-                        color: 'white',
-                        
-                      
-                        flexShrink: 0,
-                        
-                        '&:hover': { 
-                            backgroundColor: theme.palette.primary.dark,
-                        }
-                    }}
-                  />
-                ))}
-              </Box>
-          </Box>
-
-          {/* --- PRODUTOS EM DESTAQUE --- */}
-          <Box>
-              <Typography component="h1" variant="h6" align="center" mb={2} mt={1}>
-                Produtos em destaque
-              </Typography>
-          </Box>
-
-          {highGiftsQuery.isLoading && (
-            <Box display="flex" justifyContent="center" my={2}>
+            />
+          )}
+           
+          <Title>
+            <Typography component="h1">Produtos em destaque</Typography>
+          </Title>
+          */}
+          {highGifts.isLoading && (
+            <Box display={"flex"} justifyContent="center" my={2}>
               <CircularProgress disableShrink />
             </Box>
           )}
@@ -185,6 +162,24 @@ export default function RescuePointsPage() {
                 onClick={() =>
                   router.push(`/rescue-points/product/${rescuePoint.id_premio}`)
                 }
+                sx={{
+    padding: "8px 20px",
+    height: "100%", // Força o card a ocupar toda a altura da grid
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between", // Distribui o conteúdo
+    alignItems: "center",
+    // Estilo específico para o título (se o componente aceitar, senão precisa ir no componente filho)
+    "& .MuiTypography-root": { // Tentativa de pegar o título pelo CSS
+        minHeight: "16px", // Altura suficiente para 2 linhas
+        display: "-webkit-box",
+        overflow: "hidden",
+        textOverflow: "ellipsis",
+        WebkitLineClamp: 2,
+        WebkitBoxOrient: "vertical",
+        textAlign: "center"
+    }
+  }}
                 points={rescuePoint.qtde_pontos_resgate}
                 sx={{ padding: "8px 20px" }} 
               />
