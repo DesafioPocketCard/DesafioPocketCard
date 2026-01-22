@@ -63,12 +63,12 @@ export default function Header() {
     // },
     
     {
-      label: "Resgate de premios",
+      label: "Resgate de prêmios",
       icon: <Image alt="presente" src={gift} width={24} height={24} />,
       handler: () => navigate("/rescue-points"),
     },
         {
-      label: "Premios resgatados",
+      label: "Prêmios resgatados",
       icon: <Image alt="presente" src={gift} width={24} height={24} />,
       handler: () => navigate("/my-rewards"),
     },

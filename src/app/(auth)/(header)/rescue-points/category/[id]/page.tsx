@@ -70,7 +70,7 @@ export default function page({ params: { id } }: Props) {
             <IconButton onClick={() => router.back()}>
               <ArrowBackIos htmlColor="white" fontSize="small" />
             </IconButton>
-            <Typography component="h1">Resgate de Premios</Typography>
+            <Typography component="h1">Resgate de Prêmios</Typography>
             <Typography>Você tem: {saldoUsuario} pontos</Typography>
             <Badge
               badgeContent={cartData?.itens.length || 0}
