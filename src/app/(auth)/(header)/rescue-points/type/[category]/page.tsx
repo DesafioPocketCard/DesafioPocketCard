@@ -6,7 +6,7 @@ import {
   GridContainer,
   HeaderContainer,
   TitleContainer,
-} from "../../styles"; // Importando estilos da pasta pai (rescue-points)
+} from "../../styles"; 
 import { Header } from "@/components/Layout";
 import {
   Box,
@@ -31,8 +31,7 @@ export default function CategoryPage({ params }: PageProps) {
   const router = useRouter();
 
   // 1. Decodificar o nome da URL (ex: "Alimenta%C3%A7%C3%A3o" vira "Alimentação")
-  // React.use() é necessário em versões mais novas do Next para params, 
-  // mas vamos usar direto por compatibilidade com versões anteriores por enquanto.
+  
   const categoryName = decodeURIComponent(params.category);
 
   // 2. Buscar produtos dessa categoria

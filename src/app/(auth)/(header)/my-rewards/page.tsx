@@ -43,7 +43,7 @@ export default function MyRewardsPage() {
 
   const rewards = data?.data || [];
 
-  // Função para copiar o código
+
   const handleCopy = (text: string) => {
     navigator.clipboard.writeText(text);
     alert("Código copiado!");
@@ -92,7 +92,7 @@ export default function MyRewardsPage() {
                 key={index}
                 title={reward.nome}
                 icon={reward.img_premio}
-                // Ao clicar, abre o modal com os dados deste prêmio
+                
                 onClick={() => setSelectedReward(reward)} 
                 sx={{
                   padding: "8px 20px",
@@ -107,7 +107,7 @@ export default function MyRewardsPage() {
       )}
     />
 
-    {/* --- MODAL DE DETALHES DO VOUCHER --- */}
+   
     <Dialog 
         open={!!selectedReward} 
         onClose={() => setSelectedReward(null)}
@@ -137,7 +137,7 @@ export default function MyRewardsPage() {
                         </Typography>
                     </Box>
 
-                    {/* Código Principal (PIN) */}
+                    
                     {selectedReward.codigo_voucher && (
                         <Box>
                             <Typography variant="caption" color="textSecondary">
@@ -157,7 +157,7 @@ export default function MyRewardsPage() {
                         </Box>
                     )}
 
-                    {/* Serial Number (Se houver) */}
+                    
                     {selectedReward.serial_numero && (
                         <Box>
                             <Typography variant="caption" color="textSecondary">
@@ -171,7 +171,7 @@ export default function MyRewardsPage() {
 
                     <Divider />
 
-                    {/* Instruções */}
+                   
                     {selectedReward.instrucao_premio && (
                         <Box>
                             <Typography variant="caption" color="textSecondary">
@@ -189,7 +189,7 @@ export default function MyRewardsPage() {
         </DialogContent>
         
         <DialogActions sx={{ flexDirection: 'column', gap: 1, p: 2 }}>
-            {/* Botão de Link Externo (se houver) */}
+           
             {selectedReward?.url_premio && (
                 <Button 
                     variant="contained" 

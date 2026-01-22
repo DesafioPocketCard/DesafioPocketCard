@@ -16,7 +16,7 @@ import {
   IconButton,
   Typography,
   Chip,
-  // Stack removido pois vamos usar Box para ter controle total do scroll
+  
 } from "@mui/material";
 import { ArrowBackIos } from "@mui/icons-material";
 import { useRouter } from "next/navigation";
@@ -66,7 +66,7 @@ export default function RescuePointsPage() {
           <Header />
           <HeaderContainer sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', mt: 2 }}>
             
-            {/* ESQUERDA: Voltar + Título */}
+           
             <Box display="flex" alignItems="center" gap={1}>
                 <IconButton onClick={() => router.back()} sx={{ padding: 0 }}>
                   <ArrowBackIos htmlColor="white" fontSize="small" />
@@ -76,7 +76,7 @@ export default function RescuePointsPage() {
                 </Typography>
             </Box>
 
-            {/* DIREITA: Pontos + Carrinho */}
+           
             <Box display="flex" alignItems="center" gap={2}>
                 <Typography sx={{ color: 'white', fontSize: '0.9rem', fontWeight: 500 }}>
                     {saldoUsuario} pts
@@ -104,9 +104,9 @@ export default function RescuePointsPage() {
       BodyComponent={(props) => (
         <Container
           {...props}
-          sx={{ display: "flex", flexDirection: "column", gap: 2, pb: 4, overflowX: "hidden" }} // overflowX hidden no container pai evita scroll da página inteira
+          sx={{ display: "flex", flexDirection: "column", gap: 2, pb: 4, overflowX: "hidden" }} 
         >
-          {/* --- LISTA DE CATEGORIAS --- */}
+          
           <Box mt={2}>
               <Typography component="h2" variant="subtitle1" fontWeight="bold" mb={1}>
                 Categorias
@@ -120,22 +120,22 @@ export default function RescuePointsPage() {
                   </Typography>
               )}
 
-              {/* --- AQUI ESTÁ A MÁGICA DA ROLAGEM LATERAL --- */}
+              
               <Box sx={{ 
                   display: 'flex', 
                   flexDirection: 'row',
-                  gap: 1.5, // Um pouco mais de espaço entre os itens
-                  overflowX: 'auto', // Habilita o scroll
+                  gap: 1.5,
+                  overflowX: 'auto', 
                   pb: 1,
                   width: '100%',
-                  whiteSpace: 'nowrap', // Garante que não quebre linha
+                  whiteSpace: 'nowrap', 
                   
-                  // Esconde a barra de rolagem (estética)
+                 
                   '&::-webkit-scrollbar': { display: 'none' },
                   msOverflowStyle: 'none',
                   scrollbarWidth: 'none',
                   
-                  // Comportamento suave no touch
+                  
                   WebkitOverflowScrolling: 'touch',
               }}>
                 {categoriesList.map((catName, index) => (
@@ -151,8 +151,8 @@ export default function RescuePointsPage() {
                         backgroundColor: theme.palette.primary.main,
                         color: 'white',
                         
-                        // --- O SEGREDO DO LAYOUT ---
-                        flexShrink: 0, // IMPEDE o botão de encolher. Ele mantem o tamanho real e "empurra" o scroll.
+                      
+                        flexShrink: 0,
                         
                         '&:hover': { 
                             backgroundColor: theme.palette.primary.dark,

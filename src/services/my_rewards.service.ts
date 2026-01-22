@@ -15,7 +15,7 @@ export interface IMyReward {
 
 export default class MyRewardsService {
   static async getAll(): Promise<IResponseBody<IMyReward[]>> {
-    // CORRIGIDO: Removemos o "/api" inicial
+    
     const response = await api.get<IResponseBody<IMyReward[]>>("/my-rewards");
     return response.data;
   }

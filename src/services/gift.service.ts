@@ -40,7 +40,7 @@ export default class GiftService {
     return response.data;
   }
   
-  // CORREÇÃO 2: Removido "/api" do início aqui também
+ 
   static async getByCategory(categoryName: string): Promise<IResponseBody<any[]>> {
     const response = await api.get<IResponseBody<any[]>>(`/gift?category=${categoryName}`);
     return response.data;
