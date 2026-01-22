@@ -7,6 +7,6 @@ export interface IGridCardImageProps {
   onClick: () => void;
   disabled?: boolean;
   sx?: SxProps;
-  points?: number;
+  points?: number | string;
   labelTop?: string;
 }

@@ -94,7 +94,7 @@ export default function Success({ params }: IProps) {
             <IconButton onClick={() => router.push("/rescue-points")}>
               <ArrowBackIos htmlColor="white" fontSize="small" />
             </IconButton>
-            <Typography component="h1">Resgate de Pontos</Typography>
+            <Typography component="h1">Resgate de Premios</Typography>
             <Typography>Você tem: 64 pontos</Typography>
           </HeaderContainer>
         </TitleContainer>

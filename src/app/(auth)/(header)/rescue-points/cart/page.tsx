@@ -85,7 +85,7 @@ export default function CartScreen({ params }: IProps) {
             <IconButton onClick={() => router.back()}>
               <ArrowBackIos htmlColor="white" fontSize="small" />
             </IconButton>
-            <Typography component="h1">Resgate de Pontos</Typography>
+            <Typography component="h1">Resgate de Premios</Typography>
             {/* Mostra o saldo real vindo do banco */}
             <Typography>Você tem: {isLoading ? "..." : saldoUsuario} pontos</Typography>
           </HeaderContainer>
