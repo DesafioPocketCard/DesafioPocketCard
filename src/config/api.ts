@@ -1,5 +1,6 @@
 /* eslint-disable no-param-reassign */
 import axios from "axios";
+import { destroyCookie } from "nookies";
 import querySerializer from "@/utils/querySerializer";
 import { getSession, signOut } from "next-auth/react";
 
@@ -35,7 +36,7 @@ api.interceptors.request.use(
   },
   (err) => Promise.reject(err),
 );
-
+/*
 api.interceptors.response.use(
   async (response) => {
     if (response.data?.message === "Token inválido ou expirado.") {
@@ -47,5 +48,40 @@ api.interceptors.response.use(
   },
   (err) => Promise.reject(err),
 );
+*/
+
+api.interceptors.response.use(
+  (response) => {
+    // Se deu tudo certo, apenas passa a resposta para frente
+    return response;
+  },
+  (error) => {
+    // Se o erro tiver resposta do servidor
+    if (error.response) {
+      
+      // Checa se é erro de Token (401 - Unauthorized)
+      if (error.response.status === 401) {
+        
+        // 1. Limpa os dados do usuário (ajuste a chave conforme seu projeto)
+        // localStorage.removeItem('pocketcard.token');
+        // destroyCookie(null, 'pocketcard.token'); 
+
+        // 2. Redirecionamento forçado para o login
+        // Usamos window.location porque o Router do Next não funciona bem fora de componentes React
+        if (typeof window !== 'undefined') {
+            // Evita loop se já estiver no login
+            if (!window.location.pathname.includes('/login')) {
+                alert("Sua sessão expirou. Faça login novamente."); // Opcional: Alerta simples
+                window.location.href = "/login";
+            }
+        }
+      }
+    }
+    
+    // Retorna o erro para que o componente também saiba que falhou (opcional)
+    return Promise.reject(error);
+  }
+);
+
 
 export default api;
