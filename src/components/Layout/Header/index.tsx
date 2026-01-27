@@ -12,6 +12,7 @@ import target from "@/assets/icons/target.svg";
 import award from "@/assets/icons/award.svg";
 import list from "@/assets/icons/list.svg";
 import gift from "@/assets/icons/gift.svg";
+import box from "@/assets/icons/gift-box.svg";
 import settings from "@/assets/icons/settings.svg";
 import filetext from "@/assets/icons/file-text.svg";
 import logout from "@/assets/icons/log-out.svg";
