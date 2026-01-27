@@ -81,40 +81,14 @@ export default function CartScreen({ params }: IProps) {
       HeaderComponent={(props) => (
         <TitleContainer {...props}>
           <Header />
-          <HeaderContainer sx={{ 
-    display: 'flex', 
-    flexDirection: 'row', 
-    justifyContent: 'space-between', 
-    alignItems: 'flex-start', // <--- MUDEI AQUI (antes era 'center')
-    width: '100%',
-    mt: 2
-}}>
-    
-    {/* --- BLOCO ESQUERDO (Ícone + Textos) --- */}
-    <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-start', gap: 1 }}>
-        
-        {/* 1. Ícone (Seta) */}
-        {/* Adicionei 'mt: 0.5' para descer a seta um pouquinho e alinhar com o texto */}
-        <IconButton onClick={() => router.back()} sx={{ padding: 0, mt: 0.5 }}>
-            <ArrowBackIos htmlColor="white" fontSize="small" />
-        </IconButton>
-
-        {/* 2. Coluna de Textos */}
-        <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-            <Typography component="h1" sx={{ color: 'white', fontWeight: 'semibold', fontSize: '1.6rem', lineHeight: 1.2, whiteSpace: 'nowrap' }}>
-                Resgate de Prêmios
-            </Typography>
-
-            <Typography sx={{ color: 'white', fontSize: '1rem', fontWeight: 500 }}>
-                Você tem: {saldoUsuario} pontos
-            </Typography>
-        </Box>
-
-    </Box>
-
-
-
-</HeaderContainer>
+          <HeaderContainer>
+            <IconButton onClick={() => router.back()}>
+              <ArrowBackIos htmlColor="white" fontSize="small" />
+            </IconButton>
+            <Typography component="h1">Resgate de Prêmios</Typography>
+            
+            <Typography>Você tem: {isLoading ? "..." : saldoUsuario} pontos</Typography>
+          </HeaderContainer>
         </TitleContainer>
       )}
       BodyComponent={(props) => (
