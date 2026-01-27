@@ -70,9 +70,9 @@ api.interceptors.response.use(
         // Usamos window.location porque o Router do Next não funciona bem fora de componentes React
         if (typeof window !== 'undefined') {
             // Evita loop se já estiver no login
-            if (!window.location.pathname.includes('/login')) {
+            if (!window.location.pathname.includes('/signin')) {
                 alert("Sua sessão expirou. Faça login novamente."); // Opcional: Alerta simples
-                window.location.href = "/login";
+                window.location.href = "/signin";
             }
         }
       }
