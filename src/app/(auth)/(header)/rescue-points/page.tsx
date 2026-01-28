@@ -66,40 +66,56 @@ export default function RescuePointsPage() {
       HeaderComponent={(props) => (
         <TitleContainer {...props}>
           <Header />
-          <HeaderContainer sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%', mt: 2 }}>
-            
-            {/* ESQUERDA: Voltar + Título */}
-            <Box display="flex" alignItems="center" gap={1}>
-                <IconButton onClick={() => router.back()} sx={{ padding: 0 }}>
-                  <ArrowBackIos htmlColor="white" fontSize="small" />
-                </IconButton>
-                <Typography component="h1" sx={{ color: 'white', fontWeight: 'bold', fontSize: '1.2rem' }}>
-                    Resgate
-                </Typography>
-            </Box>
+<HeaderContainer sx={{ 
+    display: 'flex', 
+    flexDirection: 'row', 
+    justifyContent: 'space-between', 
+    alignItems: 'flex-start', // <--- MUDEI AQUI (antes era 'center')
+    width: '100%',
+    mt: 2
+}}>
+    
+    {/* --- BLOCO ESQUERDO (Ícone + Textos) --- */}
+    <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-start', gap: 1 }}>
+        
+        {/* 1. Ícone (Seta) */}
+        {/* Adicionei 'mt: 0.5' para descer a seta um pouquinho e alinhar com o texto */}
+        <IconButton onClick={() => router.back()} sx={{ padding: 0, mt: 0.5 }}>
+            <ArrowBackIos htmlColor="white" fontSize="small" />
+        </IconButton>
 
-            {/* DIREITA: Pontos + Carrinho */}
-            <Box display="flex" alignItems="center" gap={2}>
-                <Typography sx={{ color: 'white', fontSize: '0.9rem', fontWeight: 500 }}>
-                    {saldoUsuario} pts
-                </Typography>
-                
-                <IconButton onClick={() => router.push(`/rescue-points/cart`)} sx={{ padding: 0.5 }}>
-                    <Badge
-                      badgeContent={cartData?.itens.length || 0}
-                      color="error"
-                    >
-                      <Image
-                        src={shoppingbag}
-                        alt="shoppingbag"
-                        width={24}
-                        height={24}
-                      />
-                    </Badge>
-                </IconButton>
-            </Box>
+        {/* 2. Coluna de Textos */}
+        <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+            <Typography component="h1" sx={{ color: 'white', fontWeight: 'semibold', fontSize: '1.6rem', lineHeight: 1.2, whiteSpace: 'nowrap' }}>
+                Resgate de Prêmios
+            </Typography>
 
-          </HeaderContainer>
+            <Typography sx={{ color: 'white', fontSize: '1rem', fontWeight: 500 }}>
+                Você tem: {saldoUsuario} pontos
+            </Typography>
+        </Box>
+
+    </Box>
+
+    {/* --- BLOCO DIREITO (Sacola) --- */}
+    <Box>
+        {/* Aqui mantivemos o padding original para alinhar com o topo do bloco esquerdo */}
+        <IconButton onClick={() => router.push(`/rescue-points/cart`)} sx={{ padding: 0.5 }}>
+            <Badge
+                badgeContent={cartData?.itens.length || 0}
+                color="error"
+            >
+                <Image
+                src={shoppingbag}
+                alt="shoppingbag"
+                width={32}
+                height={32}
+                />
+            </Badge>
+        </IconButton>
+    </Box>
+
+</HeaderContainer>
         </TitleContainer>
       )}
       

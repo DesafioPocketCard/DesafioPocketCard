@@ -20,12 +20,17 @@ import {
     DialogActions,
     Button,
     TextField,
-    Divider
+    Divider,
+    Badge
 } from "@mui/material";
 import { ArrowBackIos, ContentCopy, Close } from "@mui/icons-material";
 import { useRouter } from "next/navigation";
 import { GridCardImage } from "@/components/Cards";
-import { useQuery } from "@tanstack/react-query";
+import Image from "next/image";
+import shoppingbag from "@/assets/icons/shopping-bag-white.svg"
+import { useQuery,useQueries } from "@tanstack/react-query";
+import GiftService from "@/services/gift.service";
+import CartService from "@/services/cart.service";
 import MyRewardsService, { IMyReward } from "@/services/my_rewards.service";
 import { format, parseISO } from "date-fns";
 import { ptBR } from "date-fns/locale";
@@ -43,11 +48,29 @@ export default function MyRewardsPage() {
 
   const rewards = data?.data || [];
 
+    const [cartQuery,rewardsQuery] = useQueries({
+      queries: [
+        {
+          queryKey: ["cart"],
+          queryFn: () => CartService.get(),
+        },
+        {
+          queryKey: ["my-rewards"],
+          queryFn: () => MyRewardsService.getAll(),
+        },
+ 
+      ],
+    });
+
 
   const handleCopy = (text: string) => {
     navigator.clipboard.writeText(text);
     alert("Código copiado!");
   };
+
+   const cartData = cartQuery.data?.data?.sacola;
+  const saldoUsuario = cartQuery.data?.data?.total_pontos_usuario || 0;
+  
 
   return (
     <>
@@ -56,13 +79,58 @@ export default function MyRewardsPage() {
       HeaderComponent={(props) => (
         <TitleContainer {...props}>
           <Header />
-          <HeaderContainer>
-            <IconButton onClick={() => router.back()}>
-              <ArrowBackIos htmlColor="white" fontSize="small" />
-            </IconButton>
-            <Typography component="h1">Meus Prêmios</Typography>
-            <Typography>Histórico de resgates realizados</Typography>
-          </HeaderContainer>
+
+          <HeaderContainer sx={{ 
+    display: 'flex', 
+    flexDirection: 'row', 
+    justifyContent: 'space-between', 
+    alignItems: 'flex-start', // <--- MUDEI AQUI (antes era 'center')
+    width: '100%',
+    mt: 2
+}}>
+    
+    {/* --- BLOCO ESQUERDO (Ícone + Textos) --- */}
+    <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-start', gap: 1 }}>
+        
+        {/* 1. Ícone (Seta) */}
+        {/* Adicionei 'mt: 0.5' para descer a seta um pouquinho e alinhar com o texto */}
+        <IconButton onClick={() => router.back()} sx={{ padding: 0, mt: 0.5 }}>
+            <ArrowBackIos htmlColor="white" fontSize="small" />
+        </IconButton>
+
+        {/* 2. Coluna de Textos */}
+        <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+            <Typography component="h1" sx={{ color: 'white', fontWeight: 'semibold', fontSize: '1.6rem', lineHeight: 1.2, whiteSpace: 'nowrap' }}>
+                Prêmios Resgatados
+            </Typography>
+
+            <Typography sx={{ color: 'white', fontSize: '1rem', fontWeight: 500 }}>
+                Você tem: {saldoUsuario} pontos
+            </Typography>
+                        <Typography>Histórico de resgates realizados</Typography>
+        </Box>
+
+    </Box>
+
+    {/* --- BLOCO DIREITO (Sacola) --- */}
+    <Box>
+        {/* Aqui mantivemos o padding original para alinhar com o topo do bloco esquerdo */}
+        <IconButton onClick={() => router.push(`/rescue-points/cart`)} sx={{ padding: 0.5 }}>
+            <Badge
+                badgeContent={cartData?.itens.length || 0}
+                color="error"
+            >
+                <Image
+                src={shoppingbag}
+                alt="shoppingbag"
+                width={32}
+                height={32}
+                />
+            </Badge>
+        </IconButton>
+    </Box>
+
+</HeaderContainer>
         </TitleContainer>
       )}
       BodyComponent={(props) => (
@@ -130,7 +198,7 @@ export default function MyRewardsPage() {
                         <img 
                             src={selectedReward.img_premio} 
                             alt={selectedReward.nome} 
-                            style={{ width: 80, height: 80, objectFit: 'contain', borderRadius: 8 }} 
+                            style={{ width: 120, height: 120, objectFit: 'contain', borderRadius: 8 }} 
                         />
                         <Typography variant="subtitle1" fontWeight="bold" mt={1}>
                             {selectedReward.nome}
