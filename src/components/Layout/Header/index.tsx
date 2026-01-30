@@ -70,7 +70,7 @@ export default function Header() {
     },
         {
       label: "Prêmios resgatados",
-      icon: <Image alt="presente" src={gift} width={24} height={24} />,
+      icon: <Image alt="presente" src={box} width={24} height={24} />,
       handler: () => navigate("/my-rewards"),
     },
     {

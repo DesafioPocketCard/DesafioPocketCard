@@ -8,7 +8,8 @@ const api = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
   paramsSerializer: querySerializer,
   headers: {
-    platform: "web",
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+    
   },
 });
 
@@ -70,9 +71,9 @@ api.interceptors.response.use(
         // Usamos window.location porque o Router do Next não funciona bem fora de componentes React
         if (typeof window !== 'undefined') {
             // Evita loop se já estiver no login
-            if (!window.location.pathname.includes('/login')) {
+            if (!window.location.pathname.includes('/signin')) {
                 alert("Sua sessão expirou. Faça login novamente."); // Opcional: Alerta simples
-                window.location.href = "/login";
+                window.location.href = "/signin";
             }
         }
       }
