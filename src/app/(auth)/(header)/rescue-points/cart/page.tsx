@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import RadialWrapper from "@/components/Containers/RadialWrapper";
 import { Header } from "@/components/Layout";
 import { Box, Divider, IconButton, Typography, CircularProgress } from "@mui/material";
@@ -15,6 +15,24 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import CartService from "@/services/cart.service";
 import { ICartItem } from "@/types/Cart";
 import useNotifier from "@/hooks/useNotifier";
+
+
+const ProductImage = ({ src, alt }: { src: string, alt: string }) => {
+    const [imageSrc, setImageSrc] = useState(src);
+    const placeholder = "https://placehold.co/80x80?text=Sem+Foto"; // Link de exemplo ou seu '/images/placeholder.png'
+
+    return (
+        <Image 
+            src={imageSrc} 
+            alt={alt} 
+            width={80} 
+            height={80}
+            style={{ objectFit: 'contain' }} 
+            unoptimized={true} // <--- ISSO IMPEDE O ERRO 404 DE DERRUBAR O SITE
+            onError={() => setImageSrc(placeholder)} // Troca a imagem se falhar
+        />
+    );
+};
 
 interface IProps {
   params: {
@@ -75,6 +93,7 @@ export default function CartScreen({ params }: IProps) {
   const listaItens = cartData?.itens || [];
   const totalCart = cartData?.total_pontos_sacola || 0;
 
+
   return (
     <RadialWrapper
       fillSize
@@ -115,6 +134,7 @@ export default function CartScreen({ params }: IProps) {
 
 
 </HeaderContainer>
+
         </TitleContainer>
       )}
       BodyComponent={(props) => (
@@ -140,13 +160,18 @@ export default function CartScreen({ params }: IProps) {
           {listaItens.map((product: ICartItem) => (
             <CartCard key={product.id_sacola_item}>
               <Box className="image">
-                
+                {/*
                 <Image 
                     src={product.img_premio} 
                     alt={product.nome_premio} 
                     width={80} 
                     height={80}
                     style={{ objectFit: 'contain' }} 
+                />
+                  */}
+                <ProductImage 
+                    src={product.img_premio} 
+                    alt={product.nome_premio} 
                 />
               </Box>
               <Box className="info">
