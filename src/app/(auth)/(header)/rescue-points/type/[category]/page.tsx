@@ -79,9 +79,13 @@ const saldoUsuario = cartData?.data?.total_pontos_usuario || 0;
         </IconButton>
 
         {/* 2. Coluna de Textos */}
-        <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-            <Typography component="h1" sx={{ color: 'white', fontWeight: 'semibold', fontSize: '1.6rem', lineHeight: 1.2, whiteSpace: 'nowrap' }}>
-                Categoria: {categoryName}
+        <Box sx={{ display: 'flex', flexDirection: 'column'
+
+          
+         }}>
+          <h1>Categoria:</h1>
+            <Typography component="h1" sx={{ color: 'white', fontWeight: 'semibold', fontSize: '1.5rem', lineHeight: 1.2, whiteSpace: 'nowrap' }}>
+                 {categoryName}
             </Typography>
 
             <Typography sx={{ color: 'white', fontSize: '1rem', fontWeight: 500 }}>

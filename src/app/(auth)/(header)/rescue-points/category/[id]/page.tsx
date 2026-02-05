@@ -101,6 +101,7 @@ export default function page({ params: { id } }: Props) {
         >
           <Title>
             <Typography component="h1">
+              
               {category?.data?.data[0].nome_grupo_premio}
             </Typography>
           </Title>
