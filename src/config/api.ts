@@ -4,13 +4,17 @@ import { destroyCookie } from "nookies";
 import querySerializer from "@/utils/querySerializer";
 import { getSession, signOut } from "next-auth/react";
 
+// Verifica se está rodando no servidor
+const isServer = typeof window === 'undefined';
+
 const api = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL,
-  paramsSerializer: querySerializer,
+  baseURL: "https://admin.pocketcard.com.br/api",
   headers: {
-    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-    
-  },
+    // SÓ adiciona o User-Agent fake se estiver no SERVIDOR (Node.js)
+    ...(isServer && {
+      "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+    }),
+  }
 });
 
 function isOnClient() {
