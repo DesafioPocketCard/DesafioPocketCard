@@ -1,13 +1,12 @@
-import { PageWrapper } from "@/components/Layout/Wrappers";
-import { Metadata } from "next";
 import React from "react";
+import PageWrapper from "@/components/shared/layout/page-wrapper/page-wrapper.view";
+import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: {
-    default: "Pocketcard",
-    template: "Pocketcard | %s",
+    default: "Área Logada",
+    template: "PocketCard | %s",
   },
-  description: "Um app cheio de desafios para você!",
 };
 
 export default function AuthenticatedLayout({

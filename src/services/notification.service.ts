@@ -14,8 +14,8 @@ export interface INotificationGroup {
 }
 
 export interface INotificationResponse {
-    data: INotificationGroup[];
-    total: number;
+  data: INotificationGroup[];
+  total: number;
 }
 
 export default class NotificationService {
@@ -23,7 +23,9 @@ export default class NotificationService {
 
   static async getAll(): Promise<IResponseBody<INotificationResponse>> {
     try {
-      const response = await api.get<IResponseBody<INotificationResponse>>(this.path);
+      const response = await api.get<IResponseBody<INotificationResponse>>(
+        this.path,
+      );
       return response.data;
     } catch (error) {
       throw ErrorException.fromUnknown(error);

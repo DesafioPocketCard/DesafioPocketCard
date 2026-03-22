@@ -1,18 +1,17 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import { useForm } from "react-hook-form";
-import { TextField } from "@/components/FormFields";
-import { useTheme } from "@mui/material";
+import TextField from "@/components/shared/fields/text-field/text-field.component";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/services";
 import { useMutation } from "@tanstack/react-query";
-import useNotifier from "@/hooks/useNotifier";
-import { FormContainer } from "./styles";
-import { LockOutlined, MailOutline } from "@mui/icons-material";
-import { Button } from "@/components/Buttons";
+import { NotifierContext } from "@/contexts/NotifierContext";
+import { INotifierActionKind } from "@/helpers/Notifier/types";
+import { Mail, Lock } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const siginFormSchema = z
   .object({
@@ -35,8 +34,7 @@ const isMobileDevice = (): boolean => {
 };
 
 export default function SiginForm() {
-  const theme = useTheme();
-  const notify = useNotifier();
+  const [, notify] = useContext(NotifierContext);
   const router = useRouter();
 
   const { sigIn, getToken } = useAuth();
@@ -54,43 +52,43 @@ export default function SiginForm() {
           router.push("/");
         },
         onError(error) {
-          notify(error.message, "error");
+          notify({ type: INotifierActionKind.SHOW_NOTIFICATION, payload: { message: error.message, severity: "error" } });
         },
       });
     } else {
-      notify(
-        "Desculpe, mas seu dispositivo é incompatível com essa versão.",
-        "error",
-      );
+      notify({
+        type: INotifierActionKind.SHOW_NOTIFICATION,
+        payload: {
+          message: "Desculpe, mas seu dispositivo é incompatível com essa versão.",
+          severity: "error",
+        },
+      });
     }
   }
 
   return (
-    <FormContainer
-      component="form"
-      noValidate
-      onSubmit={handleSubmit(handleSigIn)}
-    >
+    <form noValidate onSubmit={handleSubmit(handleSigIn)} className="flex flex-col gap-4">
       <TextField
         name="email"
         control={control}
         placeholder="Digite o email"
-        leftIcon={<MailOutline htmlColor={theme.palette.primary?.["400"] || theme.palette.primary.main} />}
+        leftIcon={<Mail size={20} className="text-primary-500" />}
       />
       <TextField
         name="senha"
         control={control}
-        password
+        type="password"
         placeholder="Digite a senha"
-        leftIcon={<LockOutlined htmlColor={theme.palette.primary?.["400"] || theme.palette.primary.main} />}
+        leftIcon={<Lock size={20} className="text-primary-500" />}
       />
       <Button
-        variant="contained"
         type="submit"
-        loading={sigInMutation.isPending}
+        isLoading={sigInMutation.isPending}
+        size="lg"
+        className="mt-4 w-full"
       >
         Entrar
       </Button>
-    </FormContainer>
+    </form>
   );
 }

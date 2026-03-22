@@ -1,6 +1,6 @@
 # Desafio Pocket Card
 
-Aplicação web construída com **Next.js 14 (App Router)**, **TypeScript** e **MUI** para o desafio Pocket Card.
+Aplicação web construída com **Next.js 14 (App Router)**, **TypeScript**, **Tailwind CSS** e **Shadcn UI** para o desafio Pocket Card.
 
 ---
 
@@ -135,7 +135,6 @@ O arquivo `src/app/layout.tsx` é o entrypoint de layout da aplicação e monta 
 
 - **`SessionProvider`** – gerencia a sessão de usuário via **NextAuth**.
 - **`QueryClientProvider`** – provê o cliente do **@tanstack/react-query**.
-- **`AppRouterCacheProvider`** – integração do **MUI** com o App Router do Next 14.
 - **`DynamicThemeProvider`** – aplica tema dinâmico (tenants) usando as configs de `src/config/theme`.
 - **`ThemeInitializer`** – sincroniza as informações de tema entre servidor e cliente (cookies).
 - **`LoadingProvider` + `Loading`** – controle e componente global de carregamento.
@@ -149,9 +148,9 @@ Esse layout envolve todos os children do App Router, garantindo que qualquer pag
 - **`src/config/api.ts`**: instancia um `axios` com `baseURL = process.env.NEXT_PUBLIC_API_URL`, adiciona o token da sessão automaticamente e trata expiracão de token.
 - **`src/middleware.ts`**: protege as rotas, redirecionando usuários não autenticados para `/signin`, exceto para caminhos liberados (`/signin`, `/error`, `/recovery`).
 
-### 3.3. Tema e MUI
+### 3.3. Tema, Tailwind e Shadcn UI
 
-- **`src/config/theme`**: concentra toda a configuração de tema (paleta, sombras, tipografia, breakpoints e overrides de componentes MUI).
+- **`src/config/theme`**: concentra toda a configuração de tema (paleta, sombras, tipografia, breakpoints via variáveis CSS e Tailwind).
 - **`src/config/index.ts`**: exporta as `fonts` aplicadas na tag `<html>` em `RootLayout`.
 - **`src/contexts/DynamicThemeProvider.tsx` + `src/components/ThemeInitializer.tsx`**: permitem trocar tema por tenant e manter essa escolha entre requisições.
 
@@ -178,11 +177,9 @@ Arquivo: `src/app/layout.tsx`
 Pasta: `src/app/(auth)`
 
 - **`layout.tsx`**: envolve as rotas autenticadas com `PageWrapper` (de `src/components/Layout/Wrappers`).
-
   - Responsável por fornecer uma estrutura comum (como header, container de conteúdo, etc.) para páginas após o login.
 
 - **`page.tsx`**: página principal autenticada (home logada).
-
   - Exemplo: usa `RadialWrapper` para compor a tela com um **HeaderComponent** (dados do usuário logado) e um **BodyComponent** (menu de ações como campanhas).
 
 ### 4.3. Grupo `(unauth)` – rotas públicas (login/recuperação)
@@ -214,54 +211,51 @@ Pasta: `src/app/(unauth)`
    ```
 
 3. **Implemente o componente de página**:
-
    - Exportar por default um componente React.
    - Opcionalmente, exportar `metadata` com `title` e `description`.
    - Recomenda-se reutilizar wrappers existentes (`RadialWrapper`, `PageWrapper`, containers e cards do diretório `components`).
 
 4. **Estilos opcionais**:
-
    - Crie um arquivo `styles.ts` na mesma pasta da page.
-   - Utilize `styled` do MUI para criar containers com base no tema.
+   - Utilize o Tailwind e as variáveis CSS do tema para estilizar.
 
 5. **(Se necessário) Layout específico da rota**:
-
    - Crie um `layout.tsx` na pasta da rota para envolver apenas esse grupo específico com um layout diferenciado.
 
 ---
 
-## 5. Padrão de componentes com MUI
+## 5. Padrão de componentes com Shadcn + Tailwind
 
-Os componentes seguem um padrão consistente baseado em **MUI**:
+Os componentes seguem um padrão consistente baseado no **Shadcn UI** e **Tailwind CSS**:
 
 - Cada componente fica em uma pasta própria:
 
   ```text
   src/components/<Categoria>/<NomeDoComponente>/
     index.tsx   # Componente em si
-    styles.ts   # (opcional) styled components baseados em MUI
+    styles.ts   # (opcional) utilitários como CVA ou merges do Tailwind
     types.ts    # (opcional) Tipagens de props
   ```
 
-- É comum que `types.ts` estenda as props originais do MUI para adicionar comportamentos específicos.
+- É comum que `types.ts` estenda as props de componentes nativos ou do Radix UI.
 
 ### 5.1. Exemplo: Button customizado
 
 Arquivos principais:
 
-- `src/components/Buttons/Button/types.ts` – define `IButtonProps` estendendo `ButtonProps` do MUI, com flags como `loading` e `loadingMessage`.
-- `src/components/Buttons/Button/styles.ts` – cria o `StyledButton` e o indicador de loading com `styled` do MUI, utilizando o `theme.palette`.
-- `src/components/Buttons/Button/index.tsx` – componente React que recebe as props, injeta estados de loading e renderiza o `StyledButton`.
+- `src/components/Buttons/Button/types.ts` – define opções de variant e size.
+- `src/components/Buttons/Button/styles.ts` – gerencia as classes Tailwind.
+- `src/components/Buttons/Button/index.tsx` – componente React com estado.
 
-Boas práticas ao criar novos componentes baseados no MUI:
+Boas práticas ao criar novos componentes:
 
-1. **Extenda as props do MUI sempre que possível**
-   - Ex.: `interface IMyButtonProps extends ButtonProps { ... }`.
-   - Isso mantém compatibilidade com o ecossistema MUI.
+1. **Extenda props HTML padrão ou do Radix/Shadcn UI**
+   - Ex.: `interface IMyButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> { ... }`.
+   - Isso mantém compatibilidade.
 
-2. **Centralize estilos em `styles.ts`**
-   - Use `styled(Component)` de `@mui/material`.
-   - Utilize tokens de tema (`theme.palette.primary[500]`, `theme.shadows`, `theme.breakpoints`, etc.) ao invés de cores fixas.
+2. **Centralize estilos no Tailwind com `className` / `cva`**
+   - Use `cn` ou `cva` e repasse a classe base da UI.
+   - Utilize tokens de tema/variáveis CSS ao invés de cores fixas.
 
 3. **Mantenha a lógica de renderização em `index.tsx`**
    - Evite misturar muita regra de negócio dentro dos componentes de UI.
@@ -270,12 +264,12 @@ Boas práticas ao criar novos componentes baseados no MUI:
 4. **Exporte índices agregadores quando fizer sentido**
    - Ex.: `src/components/Buttons/index.ts` reexporta `Button`, `BackButton`, etc., facilitando imports como `import { Button } from "@/components/Buttons";`.
 
-### 5.2. Exemplo: Header usando MUI
+### 5.2. Exemplo: Header
 
 O `Header` (`src/components/Layout/Header`) mostra um padrão de composição:
 
-- Usa componentes MUI (`AppBar`, `Avatar`, `IconButton`, `Box`).
-- Cria `HeaderContainer` e `Profile` em `styles.ts` usando `styled` do MUI.
+- Usa componentes customizados estruturados com Tailwind CSS.
+- Cria containers consistentes.
 - Consome contexto de sessão (`useSession`) para exibir dados do usuário.
 - Usa um diálogo genérico (`DialogMenu`) para o menu do usuário, reaproveitando componente de Container.
 
@@ -314,7 +308,7 @@ Para criar uma nova tela com esse padrão:
   - Centralizar tipos compartilhados em `src/types`.
   - Criar `types.ts` local para props específicas de componentes.
 - **Estilos**
-  - Usar o tema do MUI sempre que possível ao invés de valores hardcoded.
-  - Preferir componentes `styled` ao uso excessivo de `sx` inline quando o estilo é reaproveitado.
+  - Usar Tailwind CSS e variáveis (`theme()`) sempre que possível.
+  - Preferir classes utilitárias (`className`) em vez de estilos inline.
 
 Com essas diretrizes você consegue configurar o ambiente, entender a arquitetura atual e expandir o projeto criando novas pages, layouts e componentes de forma consistente com o que já existe.

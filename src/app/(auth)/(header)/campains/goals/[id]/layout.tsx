@@ -1,4 +1,3 @@
-import { PageWrapper } from "@/components/Layout/Wrappers";
 import { Metadata } from "next";
 import React from "react";
 

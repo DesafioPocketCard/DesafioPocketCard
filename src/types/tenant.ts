@@ -1,6 +1,6 @@
-import main_palette from '@/config/theme/main-palette';
+import main_palette from "@/config/theme/main-palette";
 
-/** 
+/**
  * Tipos de tenant disponíveis na aplicação
  */
 export type TenantType = keyof typeof main_palette;
@@ -24,21 +24,29 @@ export interface TenantConfig {
  */
 export const TENANT_CONFIGS: Record<TenantType, TenantConfig> = {
   default: {
-    name: 'default',
-    domainPatterns: ['localhost', 'pocketcard.local', 'default.pocketcard'],
-    displayName: 'PocketCard',
-    description: 'Tema padrão da aplicação',
+    name: "default",
+    domainPatterns: ["localhost", "pocketcard.local", "default.pocketcard"],
+    displayName: "PocketCard",
+    description: "Tema padrão da aplicação",
   },
   novocred: {
-    name: 'novocred',
-    domainPatterns: ['novocred.pocketcard', 'www.novocred.local', 'novocred.com.br'],
-    displayName: 'NovoCred',
-    description: 'Tema da NovoCred',
+    name: "novocred",
+    domainPatterns: [
+      "novocred.pocketcard",
+      "www.novocred.local",
+      "novocred.com.br",
+    ],
+    displayName: "NovoCred",
+    description: "Tema da NovoCred",
   },
   autoline: {
-    name: 'autoline',
-    domainPatterns: ['autoline.pocketcard', 'www.autoline.local', 'autoline.com.br'],
-    displayName: 'Autoline',
-    description: 'Tema da Autoline',
+    name: "autoline",
+    domainPatterns: [
+      "autoline.pocketcard",
+      "www.autoline.local",
+      "autoline.com.br",
+    ],
+    displayName: "Autoline",
+    description: "Tema da Autoline",
   },
 };

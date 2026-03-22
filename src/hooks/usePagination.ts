@@ -15,7 +15,7 @@ interface UsePaginationProps {
 
 interface UsePaginationResult {
   paginationInfo: PaginationInfo;
-  // eslint-disable-next-line no-unused-vars
+   
   handlePageChange: (pageNumber: number) => void;
 }
 

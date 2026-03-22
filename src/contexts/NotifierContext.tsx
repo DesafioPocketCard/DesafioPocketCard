@@ -1,8 +1,8 @@
-/* eslint-disable react/jsx-no-constructed-context-values */
+ 
 
 "use client";
 
-/* eslint-disable default-param-last */
+ 
 import React, { Dispatch, useReducer } from "react";
 import {
   INotifier,

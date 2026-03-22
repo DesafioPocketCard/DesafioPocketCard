@@ -1,3 +1,3 @@
 export default interface IRegulation {
-    texto_regulamento: string | TrustedHTML;
+  texto_regulamento: string | TrustedHTML;
 }

@@ -1,5 +1,5 @@
-/* eslint-disable no-nested-ternary */
-/* eslint-disable no-continue */
+ 
+ 
 import type {
   FormatWithMaskProps,
   FormatWithMaskResult,
@@ -103,7 +103,7 @@ export function formatWithMask(
   let maskCharIndex = 0;
   let valueCharIndex = 0;
 
-  // eslint-disable-next-line no-constant-condition
+   
   while (true) {
     // if mask is ended, break.
     if (maskCharIndex === maskArray.length) {

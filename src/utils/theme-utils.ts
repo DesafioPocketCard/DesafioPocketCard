@@ -1,46 +1,38 @@
-import { main_palette } from '@/config/theme/index';
-import type { TenantType } from '@/types/tenant';
-import { TENANT_CONFIGS } from '@/types/tenant';
+import { main_palette } from "@/config/theme/index";
+import type { TenantType } from "@/types/tenant";
+import { TENANT_CONFIGS } from "@/types/tenant";
 
-export const THEME_COOKIE_KEY = 'pocketcard_tenant_theme';
+export const THEME_COOKIE_KEY = "pocketcard_tenant_theme";
 export const THEME_COOKIE_OPTIONS = {
   maxAge: 60 * 60 * 24 * 365, // 1 ano
   httpOnly: false,
-  secure: process.env.NODE_ENV === 'production',
-  sameSite: 'lax' as const,
+  secure: process.env.NODE_ENV === "production",
+  sameSite: "lax" as const,
 };
 
 // Função para detectar tenant pelo domínio
 export const getTenantFromDomain = (hostname?: string): TenantType => {
-  if (!hostname) return 'default';
-  
+  if (!hostname) return "default";
+
   const domain = hostname.toLowerCase();
-  
-  console.log('🔍 Detectando tenant para hostname:', hostname);
-  
+
   // Procura por padrões específicos no domínio usando as configurações
   for (const [tenantKey, config] of Object.entries(TENANT_CONFIGS)) {
-    const matchedPattern = config.domainPatterns.find(pattern => {
-      const isMatch = domain.includes(pattern.toLowerCase());
-      if (isMatch) {
-        console.log(`✅ Tenant '${tenantKey}' detectado via padrão '${pattern}'`);
-      }
-      return isMatch;
+    const matchedPattern = config.domainPatterns.find((pattern) => {
+      return domain.includes(pattern.toLowerCase());
     });
-    
+
     if (matchedPattern) {
       return tenantKey as TenantType;
     }
   }
-  
-  console.log(`⚠️  Nenhum tenant específico encontrado para '${hostname}', usando 'default'`);
-  return 'default';
-};
 
+  return "default";
+};
 
 // Função para obter tenant do cliente (localStorage + domínio)
 export const getClientTenant = (): TenantType => {
-  if (typeof window === 'undefined') return 'default';
+  if (typeof window === "undefined") return "default";
 
   try {
     // Primeiro tenta localStorage
@@ -58,7 +50,7 @@ export const getClientTenant = (): TenantType => {
 
     return tenant;
   } catch (error) {
-    console.warn('Erro ao obter tenant do cliente:', error);
-    return 'default';
+    console.warn("Erro ao obter tenant do cliente:", error);
+    return "default";
   }
 };
