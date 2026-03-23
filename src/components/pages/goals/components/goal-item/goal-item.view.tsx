@@ -12,17 +12,17 @@ export function GoalItem({ goal, onClick }: Props) {
 
   return (
     <div
-      className="flex items-center gap-4 p-5 bg-white rounded-[20px] border border-gray-200 cursor-pointer transition-all hover:border-primary-200 hover:shadow-sm active:scale-[0.98]"
+      className="flex items-center gap-4 p-2 bg-white rounded-[20px] border border-gray-200 cursor-pointer transition-all hover:border-primary-200 hover:shadow-sm active:scale-[0.98]"
       onClick={onClick}
     >
         {goal.nome_arquivo ? (
           <img
             src={goal.nome_arquivo}
             alt={goal.descricao_meta}
-            className="w-16 h-16 object-contain"
+            className="w-20 h-20 object-contain"
           />
         ) : (
-          <div className="w-16 h-16 bg-gray-200 rounded-full" />
+          <div className="w-20 h-20 bg-gray-200 rounded-full" />
         )}
 
       <div className="flex-1 flex flex-col gap-3">

@@ -1,5 +1,5 @@
 import React from "react";
-import { ArrowLeft, Trophy, TrendingUp, RefreshCw } from "lucide-react";
+import { ArrowLeft, Trophy, TrendingUp, RefreshCw, ChevronRight } from "lucide-react";
 import { useGoalDetailViewModel } from "./goal-detail.view-model";
 import RadialWrapper from "@/components/shared/layout/radial-wrapper/radial-wrapper.component";
 import Button from "@/components/shared/buttons/button/button.component";
@@ -98,33 +98,41 @@ export function GoalDetailView({ currentGoal, otherGoals, isLoading, isError, ha
                 <h3 className="text-base font-bold text-gray-700 pl-2">Outras metas da campanha</h3>
                 <div className="flex flex-col gap-3">
                   {otherGoals.map((goal) => (
-                    <button
-                      key={goal.id_campanha_meta}
-                      className="bg-white p-5 rounded-2xl border border-gray-200 flex gap-4 text-left transition-all hover:bg-gray-50 active:scale-[0.98] cursor-pointer"
+                    <div
+                      className="flex items-center gap-4 p-2 bg-white rounded-[20px] border border-gray-200 cursor-pointer transition-all hover:border-primary-200 hover:shadow-sm active:scale-[0.98]"
                       onClick={() => handleGoalClick(goal.id_campanha_meta)}
                     >
                         {goal.nome_arquivo ? (
                           <img
                             src={goal.nome_arquivo}
                             alt={goal.descricao_meta}
-                            className="w-16 h-16 object-contain"
+                            className="w-20 h-20 object-contain"
                           />
                         ) : (
-                          <div className="w-16 h-16 bg-gray-200 rounded-full" />
+                          <div className="w-20 h-20 bg-gray-200 rounded-full" />
                         )}
-                      <div className="flex-1 flex flex-col gap-2">
-                        <div className="flex justify-between items-center">
-                          <span className="text-sm font-bold text-gray-700">{goal.descricao_meta}</span>
-                          <span className="text-xs font-bold text-primary-600">{goal.qtd_pontos} pts</span>
+
+                      <div className="flex-1 flex flex-col gap-3">
+                        <div className="flex flex-col gap-1">
+                          <h4 className="text-[15px] font-bold text-gray-800 leading-tight">{goal.descricao_meta}</h4>
+                          <p className="text-xs font-medium text-gray-500">
+                            {goal.qtd_realizada} de {goal.valor_meta} realizados
+                          </p>
                         </div>
-                        <div className="h-1.5 bg-gray-100 rounded-full overflow-hidden">
-                          <div
-                            className="h-full bg-primary-400 rounded-full"
-                            style={{ width: `${Math.min(Number(goal.perc_realizado), 100)}%` }}
-                          />
+
+                        <div className="flex items-center gap-3">
+                          <div className="flex-1 h-2 bg-gray-100 rounded-full overflow-hidden">
+                            <div
+                              className="h-full bg-linear-to-r from-primary-500 to-primary-400 rounded-full transition-all duration-500"
+                              style={{ width: `${Math.min(percentage, 100)}%` }}
+                            />
+                          </div>
+                          <span className="text-xs font-bold text-primary-600 whitespace-nowrap">{goal.perc_realizado}%</span>
                         </div>
                       </div>
-                    </button>
+
+                      <ChevronRight size={20} className="text-gray-300" />
+                    </div>
                   ))}
                 </div>
               </div>
