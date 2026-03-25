@@ -1,44 +1,13 @@
 import { Metadata } from "next";
 import React from "react";
-import Link from "next/link";
-import { FormContainer, Politicy, LogoContainer } from "./styles";
-import { SiginForm } from "./components";
-import RadialWrapper from "@/components/Containers/RadialWrapper";
-import Logo from "@/components/UI/Logo";
-import { Box } from "@mui/material";
+import SigninComponent from "@/components/pages/signin/signin.component";
 
 export const metadata: Metadata = {
-  title: "Login",
+  title: "Acessar Conta",
+  description:
+    "Faça login no Desafio Pocket Card para acompanhar suas metas e recompensas.",
 };
 
-export default function Sigin() {
-  return (
-    <RadialWrapper
-      HeaderComponent={(props) => (
-        <LogoContainer {...props}>
-          <Box
-            component="div"
-            sx={{
-              backgroundColor: "#ffffff55",
-              border: "1px solid #ffffff",
-              padding: 12,
-              borderRadius: 12,
-            }}
-          >
-            <Logo logoType="180x180" alt="logo" />
-          </Box>
-        </LogoContainer>
-      )}
-      BodyComponent={(props) => (
-        <FormContainer {...props}>
-          <SiginForm />
-          <Link href="/recovery">Esqueceu sua senha?</Link>
-          <Politicy>
-            Desafio Pocket Card é um produto novocred. Clique aqui e veja a
-            politica de privacidade.
-          </Politicy>
-        </FormContainer>
-      )}
-    />
-  );
+export default function Signin() {
+  return <SigninComponent />;
 }

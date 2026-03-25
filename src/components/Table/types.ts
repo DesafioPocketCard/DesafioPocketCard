@@ -1,5 +1,5 @@
-/* eslint-disable no-unused-vars */
-import { TableProps } from "@mui/material";
+
+
 import React from "react";
 
 interface IPagination {
@@ -43,7 +43,7 @@ export type RowStatus =
 export interface ITableProps<T> {
   title?: string;
   data: T[];
-  size?: TableProps["size"];
+
   columns: Array<ITableColumn<T, keyof T>>;
   actions?: ITableActions<T>[];
   hideActions?: boolean;

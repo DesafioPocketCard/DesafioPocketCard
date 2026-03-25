@@ -1,11 +1,12 @@
-import { AlertProps, SnackbarCloseReason, AlertColor } from "@mui/material";
 import { ContextAction } from "@/types/ContextAction";
 import { SyntheticEvent } from "react";
+
+export type NotifierSeverity = "success" | "info" | "warning" | "error";
 
 export type INotifier = {
   show?: boolean;
   message: string;
-  severity: AlertColor;
+  severity: NotifierSeverity;
 };
 
 export enum INotifierActionKind {
@@ -18,11 +19,6 @@ export type INotifierProps = INotifier & {
   timeToClose?: number;
 };
 
-export interface IReferencedAlertProps extends Omit<AlertProps, "onClose"> {
-  onClose: (
-    event: Event | SyntheticEvent<any, Event>,
-    reason: SnackbarCloseReason,
-  ) => void;
-}
+
 
 export type INotifierAction = ContextAction<INotifierActionKind, INotifier>;

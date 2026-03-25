@@ -1,19 +1,10 @@
 "use client";
 
-import RadialWrapper from "@/components/Containers/RadialWrapper";
-import { Header } from "@/components/Layout";
-import { Box, Divider, IconButton, Typography } from "@mui/material";
-import React from "react";
 import { useRouter } from "next/navigation";
-import Image from "next/image";
-import novocoins from "@/assets/images/20novocoins.png";
-import { Container, HeaderContainer, Title, TitleContainer } from "./styles";
-import incentivo from "@/assets/images/incentivo_face.png";
-import applewatch from "@/assets/images/apple_watch.png";
-import vale from "@/assets/images/vale_face.png";
-import { GridContainer } from "../styles";
-import { GridCardImage } from "@/components/Cards";
-import { ArrowBackIos } from "@mui/icons-material";
+import { ArrowLeft, CheckCircle2, Gift, ChevronRight } from "lucide-react";
+import RadialWrapper from "@/components/shared/layout/radial-wrapper/radial-wrapper.component";
+import Button from "@/components/shared/buttons/button/button.component";
+import { APP_ROUTES } from "@/routes/routes";
 
 interface IProps {
   params: {
@@ -22,115 +13,60 @@ interface IProps {
 }
 
 export default function Success({ params }: IProps) {
+  void params;
   const router = useRouter();
-
-  const rescuePoints = [
-    {
-      id: 1,
-      title: "Incentivo de R$ 200,00",
-      description:
-        "Descricão da meta 1. Descricão da meta 1. Descricão da meta 1. Descricão da meta 1. ",
-      icon: (
-        <Image
-          alt="incentivo"
-          src={incentivo.src}
-          width={137.39}
-          height={105.47}
-        />
-      ),
-      percentage: 100,
-      new: true,
-    },
-    {
-      id: 2,
-      title: "Apple Watch SE GPS 40mm",
-      description:
-        "Descricão da meta 1. Descricão da meta 1. Descricão da meta 1. Descricão da meta 1. ",
-      icon: (
-        <Image
-          alt="applewatch"
-          src={applewatch.src}
-          width={137.39}
-          height={105.47}
-        />
-      ),
-      percentage: 30,
-      new: true,
-    },
-    {
-      id: 2,
-      title: "Vale Prêmios R$ 200,00",
-      description:
-        "Descricão da meta 1. Descricão da meta 1. Descricão da meta 1. Descricão da meta 1. ",
-      icon: <Image alt="vale" src={vale.src} width={131.68} height={101.59} />,
-      percentage: 100,
-    },
-    {
-      id: 2,
-      title: "Vale Prêmios R$ 200,00",
-      description:
-        "Descricão da meta 1. Descricão da meta 1. Descricão da meta 1. Descricão da meta 1. ",
-      icon: <Image alt="vale" src={vale.src} width={131.68} height={101.59} />,
-      percentage: 100,
-    },
-    {
-      id: 2,
-      title: "Vale Prêmios R$ 200,00",
-      description:
-        "Descricão da meta 1. Descricão da meta 1. Descricão da meta 1. Descricão da meta 1. ",
-      icon: <Image alt="vale" src={vale.src} width={131.68} height={101.59} />,
-      percentage: 100,
-      disabled: true,
-    },
-  ];
 
   return (
     <RadialWrapper
-      fillSize
-      HeaderComponent={(props) => (
-        <TitleContainer {...props}>
-          <Header />
-          <HeaderContainer>
-            <IconButton onClick={() => router.push("/rescue-points")}>
-              <ArrowBackIos htmlColor="white" fontSize="small" />
-            </IconButton>
-            <Typography component="h1">Resgate de Prêmios</Typography>
-            <Typography>Você tem: 64 pontos</Typography>
-          </HeaderContainer>
-        </TitleContainer>
-      )}
-      BodyComponent={(props) => (
-        <Container {...props}>
-          <Title>
-            <Typography component="h1">Parabéns!</Typography>
-            <Typography>
-              Você resgatou 60 pontos. Aguarde o prazo de até 48h para
-              processarmos seu pedido.
-            </Typography>
-            <Divider />
-            <Typography component="h2">Continue Resgatando</Typography>
-          </Title>
-          <GridContainer>
-            {/* {rescuePoints.map((rescuePoint, index) => (
-              <Box key={index}>
-                <GridCardImage
-                  title={rescuePoint.title}
-                  icon={rescuePoint.icon}
-                  onClick={() =>
-                    router.push(`/rescue-points/product/${rescuePoint.title}`)
-                  }
-                  disabled={rescuePoint.disabled}
-                  sx={{
-                    padding: "8px 20px",
-                  }}
-                  points={rescuePoint.percentage}
-                  labelTop={rescuePoint.new ? "Novo" : undefined}
-                />
-              </Box>
-            ))} */}
-          </GridContainer>
-        </Container>
-      )}
-    />
+      header={
+        <div className="flex flex-col gap-4">
+          <div className="flex items-center gap-4">
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => router.push(APP_ROUTES.RESCUE_POINTS)}
+              className="bg-white/20 text-white rounded-xl"
+            >
+              <ArrowLeft size={24} />
+            </Button>
+            <h1 className="text-2xl font-bold text-white">Resgate</h1>
+          </div>
+        </div>
+      }
+    >
+      <div className="flex flex-col gap-6">
+        <div className="bg-white p-8 rounded-[32px] border border-gray-100 shadow-sm flex flex-col items-center text-center gap-4">
+          <div className="w-20 h-20 rounded-[28px] bg-success-50 text-success-600 flex items-center justify-center border border-success-200 shadow-sm">
+            <CheckCircle2 size={44} />
+          </div>
+          <div className="flex flex-col gap-2">
+            <h2 className="text-2xl font-black text-gray-900">Parabéns!</h2>
+            <p className="text-[15px] text-gray-600 leading-relaxed">
+              Seu resgate foi solicitado. Aguarde o prazo de até 48h para
+              processarmos o pedido.
+            </p>
+          </div>
+        </div>
+
+        <div className="grid gap-3">
+          <Button
+            onClick={() => router.push(APP_ROUTES.RESCUE_POINTS)}
+            size="lg"
+            leftIcon={<Gift size={20} />}
+            className="shadow-xl"
+          >
+            Continuar resgatando
+          </Button>
+          <Button
+            onClick={() => router.push(APP_ROUTES.HOME)}
+            variant="outline"
+            size="lg"
+            rightIcon={<ChevronRight size={18} />}
+          >
+            Voltar ao início
+          </Button>
+        </div>
+      </div>
+    </RadialWrapper>
   );
 }

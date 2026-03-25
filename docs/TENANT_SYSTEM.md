@@ -9,7 +9,7 @@ O sistema permite que a aplicação use temas diferentes baseados no domínio/te
 ## Tenants Disponíveis
 
 - **default**: Tema padrão (roxo)
-- **novocred**: Tema da NovoCred (roxo)  
+- **novocred**: Tema da NovoCred (roxo)
 - **autoline**: Tema da Autoline (vermelho)
 
 ## Como Funciona
@@ -67,10 +67,10 @@ function MeuComponente() {
   const { src, width, height, tenant, getLogo } = useLogo('horizontal-b');
 
   return (
-    <img 
-      src={src} 
-      alt="Logo" 
-      width={width} 
+    <img
+      src={src}
+      alt="Logo"
+      width={width}
       height={height}
       data-tenant={tenant}
     />
@@ -88,16 +88,16 @@ function MeuComponente() {
     <>
       {/* Logo horizontal padrão */}
       <Logo alt="Minha logo" />
-      
+
       {/* Logo específica com tamanho customizado */}
-      <Logo 
-        logoType="180x180" 
-        alt="Logo grande" 
+      <Logo
+        logoType="180x180"
+        alt="Logo grande"
         sizeFactor={0.5}
       />
-      
+
       {/* Logo com dimensões específicas */}
-      <Logo 
+      <Logo
         logoType="horizontal-w"
         alt="Logo branca"
         width={200}
@@ -108,18 +108,14 @@ function MeuComponente() {
 }
 ```
 
-### Theme MUI
+### Theme Tailwind / Variáveis CSS
 
 ```typescript
-import { useTheme } from '@mui/material/styles';
-
 function MeuComponente() {
-  const theme = useTheme();
-  
   return (
-    <Box sx={{ color: theme.palette.primary.main }}>
-      Usando tema do MUI
-    </Box>
+    <div className="text-tenant-main">
+      Usando variável CSS do tenant
+    </div>
   );
 }
 ```
@@ -137,7 +133,7 @@ const main_palette = {
     light: "#ABCDEF",
     dark: "#000000",
     // ... outras cores
-  }
+  },
 };
 ```
 
@@ -160,15 +156,15 @@ mkdir -p src/assets/icons/logos/novo_tenant
 // src/utils/logo-utils.ts
 
 // Importar as logos
-import novoTenantLogo180 from '@/assets/icons/logos/novo_tenant/180x180.svg';
-import novoTenantLogoHorizontal from '@/assets/icons/logos/novo_tenant/horizontal-w.svg';
+import novoTenantLogo180 from "@/assets/icons/logos/novo_tenant/180x180.svg";
+import novoTenantLogoHorizontal from "@/assets/icons/logos/novo_tenant/horizontal-w.svg";
 
 // Adicionar ao LOGO_MAP
 const LOGO_MAP = {
   // ... outros tenants
   novo_tenant: {
-    '180x180': novoTenantLogo180,
-    'horizontal': novoTenantLogoHorizontal,
+    "180x180": novoTenantLogo180,
+    horizontal: novoTenantLogoHorizontal,
     // ... outros tipos
   },
 };
@@ -181,10 +177,10 @@ const LOGO_MAP = {
 export const TENANT_CONFIGS: Record<TenantType, TenantConfig> = {
   // ... configs existentes
   novo_tenant: {
-    name: 'novo_tenant',
-    domainPatterns: ['novo-tenant', 'nt'],
-    displayName: 'Novo Tenant',
-    description: 'Descrição do novo tenant',
+    name: "novo_tenant",
+    domainPatterns: ["novo-tenant", "nt"],
+    displayName: "Novo Tenant",
+    description: "Descrição do novo tenant",
   },
 };
 ```
@@ -217,8 +213,9 @@ export const TENANT_CONFIGS: Record<TenantType, TenantConfig> = {
 **Solução**: Limpar localStorage e cookies
 
 ```javascript
-localStorage.removeItem('pocketcard_tenant_theme');
-document.cookie = 'pocketcard_tenant_theme=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+localStorage.removeItem("pocketcard_tenant_theme");
+document.cookie =
+  "pocketcard_tenant_theme=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 ```
 
 ### Problema: Erro de hidratação
@@ -231,22 +228,23 @@ document.cookie = 'pocketcard_tenant_theme=; expires=Thu, 01 Jan 1970 00:00:00 U
 
 ```javascript
 // Ver tenant atual
-console.log(localStorage.getItem('pocketcard_tenant_theme'));
+console.log(localStorage.getItem("pocketcard_tenant_theme"));
 
 // Forçar tenant específico
-localStorage.setItem('pocketcard_tenant_theme', 'autoline');
+localStorage.setItem("pocketcard_tenant_theme", "autoline");
 location.reload();
 
 // Reset para detecção automática
-localStorage.removeItem('pocketcard_tenant_theme');
+localStorage.removeItem("pocketcard_tenant_theme");
 location.reload();
 ```
 
 ### DevTools
 
 Use as React DevTools para inspecionar:
+
 - `DynamicThemeProvider` state
-- Theme object no contexto MUI
+- Variáveis CSS no DOM/Tailwind
 - Re-renders do provider
 
 ## Considerações de Segurança

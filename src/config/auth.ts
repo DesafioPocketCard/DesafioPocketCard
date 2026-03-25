@@ -46,17 +46,22 @@ const authConfig: NextAuthOptions = {
     error: "/error",
     newUser: "/signin",
     signOut: "/sign",
-    verifyRequest: "/recovery"
+    verifyRequest: "/recovery",
   },
   providers: [credentials],
   callbacks: {
-    jwt({ token, user }: any) {
+    jwt({ token, user, trigger, session }: any) {
       if (user) {
         return {
           ...token,
           user: user.user,
           token: user.token,
         };
+      }
+
+      if (trigger === "update") {
+        const nextUser = session?.user ? { ...(token.user || {}), ...session.user } : token.user;
+        return { ...token, user: nextUser };
       }
 
       return token;

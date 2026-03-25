@@ -20,7 +20,7 @@ export interface ICartResponse {
 
 // Interface para a resposta do Solicitar Resgate
 export interface IResgateResponse {
-    success: boolean;
-    message: string;
-    id_resgate: number;
+  success: boolean;
+  message: string;
+  id_resgate: number;
 }

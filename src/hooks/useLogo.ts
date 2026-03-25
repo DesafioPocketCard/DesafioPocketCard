@@ -1,21 +1,26 @@
 "use client";
 
-import { useMemo } from 'react';
-import { useTenant } from './useTenant';
-import { getLogo, getLogoDimensions, getLogoInfo, type LogoType } from '@/utils/logo-utils';
+import { useMemo } from "react";
+import { useTenant } from "./useTenant";
+import {
+  getLogo,
+  getLogoDimensions,
+  getLogoInfo,
+  type LogoType,
+} from "@/utils/logo-utils";
 
 /**
  * Hook personalizado para obter logos dinâmicas baseadas no tenant atual
  */
-export const useLogo = (logoType: LogoType = 'horizontal') => {
+export const useLogo = (logoType: LogoType = "horizontal") => {
   const { tenant, isLoading } = useTenant();
 
   const logoInfo = useMemo(() => {
     if (isLoading) {
       // Durante o carregamento, retorna logo padrão
-      return getLogoInfo('default', logoType);
+      return getLogoInfo("default", logoType);
     }
-    
+
     return getLogoInfo(tenant, logoType);
   }, [tenant, logoType, isLoading]);
 

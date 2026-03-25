@@ -1,4 +1,4 @@
-/* eslint-disable no-unused-vars */
+ 
 export type MaskItem = string | RegExp | [RegExp];
 
 export type MaskArray = Array<MaskItem>;

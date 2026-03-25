@@ -2,8 +2,8 @@
 
 import React, { useContext, useEffect, useState } from "react";
 import { LoadingContext } from "@/contexts/LoadingContext";
-import { Circle, CircleContainer, Wrapper } from "./styles";
 import { ILoadingProps } from "./types";
+import { cn } from "@/lib/utils";
 
 export default function Loading({ isLoading, size = "lg" }: ILoadingProps) {
   const [isLoadingByContext] = useContext(LoadingContext);
@@ -23,15 +23,32 @@ export default function Loading({ isLoading, size = "lg" }: ILoadingProps) {
   if (!loading) return null;
 
   return (
-    <Wrapper>
-      <CircleContainer size={size}>
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
+      <div
+        className={cn(
+          "relative flex items-center justify-center",
+          size === "sm" && "size-10",
+          size === "md" && "size-16",
+          size === "lg" && "size-20",
+        )}
+      >
         {Array.from({ length: 4 }).map((_, index) => (
-          <Circle
+          <div
             key={`circle-${index}`}
-            className={`circle-${index} ${index <= active ? "visible" : ""}`}
+            className={cn(
+              "absolute rounded-full bg-primary-500 transition-all duration-200",
+              size === "sm" && "size-2",
+              size === "md" && "size-3",
+              size === "lg" && "size-4",
+              index <= active ? "opacity-100 scale-100" : "opacity-0 scale-0",
+              index === 0 && "top-0 left-0",
+              index === 1 && "top-0 right-0",
+              index === 2 && "bottom-0 left-0",
+              index === 3 && "bottom-0 right-0",
+            )}
           />
         ))}
-      </CircleContainer>
-    </Wrapper>
+      </div>
+    </div>
   );
 }

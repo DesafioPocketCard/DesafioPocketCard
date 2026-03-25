@@ -2,7 +2,7 @@ import { CustomParamsSerializer } from "axios";
 
 const querySerializer: CustomParamsSerializer = (query) => {
   const exceptionValues = query.nullable ? [null, 0, false] : [0, false];
-  // eslint-disable-next-line no-param-reassign
+   
   delete query.nullable;
 
   const queryParams = new URLSearchParams();
