@@ -2,6 +2,7 @@
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useParams, useRouter } from "next/navigation";
+import { useState } from "react";
 import { RegulationService } from "@/resources/services/regulation/regulation.service";
 import { CampaignService } from "@/resources/services/campaign/campaign.service";
 import { CAMPAIGN_QUERY_KEYS } from "@/resources/services/campaign/campaign.query-key";
@@ -13,6 +14,7 @@ export function useRegulationDetailViewModel() {
   const params = useParams();
   const queryClient = useQueryClient();
   const id = params.id as string;
+  const [termsChecked, setTermsChecked] = useState(false);
 
   const { data: campaignsData } = useQuery({
     queryKey: CAMPAIGN_QUERY_KEYS.list(),
@@ -59,6 +61,8 @@ export function useRegulationDetailViewModel() {
     isAccepted,
     isAccepting: acceptMutation.isPending,
     handleAccept: () => acceptMutation.mutate(),
+    termsChecked,
+    setTermsChecked,
     goBack,
   };
 }
