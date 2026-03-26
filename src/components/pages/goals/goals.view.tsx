@@ -1,5 +1,5 @@
 import React from "react";
-import { ArrowLeft, RefreshCw, Target } from "lucide-react";
+import { ArrowLeft, RefreshCw, Target, Award, TrendingUp } from "lucide-react";
 import { useGoalsViewModel } from "./goals.view-model";
 import RadialWrapper from "@/components/shared/layout/radial-wrapper/radial-wrapper.component";
 import Button from "@/components/shared/buttons/button/button.component";
@@ -21,9 +21,19 @@ export function GoalsView({ campaign, goals, isLoading, isError, refetch, handle
           {campaign && (
             <div className="flex flex-col gap-2">
               <p className="text-base font-medium text-white/90">{campaign.nome_campanha}</p>
-              <div className="flex items-center gap-1.5 bg-white/15 px-3 py-1 rounded-full w-fit text-xs font-semibold text-white border border-white/20">
-                <Target size={14} />
-                <span>{goals.length} metas</span>
+              <div className="flex flex-wrap items-center gap-2">
+                <div className="flex items-center gap-1.5 bg-white/15 px-3 py-1 rounded-full w-fit text-xs font-semibold text-white border border-white/20">
+                  <Target size={14} />
+                  <span>{goals.length} metas</span>
+                </div>
+                <div className="flex items-center gap-1.5 bg-white/15 px-3 py-1 rounded-full w-fit text-xs font-semibold text-white border border-white/20">
+                  <Award size={14} />
+                  <span>Meta: {campaign.valor_meta} pts</span>
+                </div>
+                <div className="flex items-center gap-1.5 bg-white/15 px-3 py-1 rounded-full w-fit text-xs font-semibold text-white border border-white/20">
+                  <TrendingUp size={14} />
+                  <span>{campaign.perc_realizado}% realizado</span>
+                </div>
               </div>
             </div>
           )}
