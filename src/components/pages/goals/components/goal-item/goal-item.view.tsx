@@ -8,7 +8,6 @@ interface Props {
 }
 
 export function GoalItem({ goal, onClick }: Props) {
-  const percentage = parseFloat(goal.perc_realizado || "0");
 
   return (
     <div
@@ -37,7 +36,7 @@ export function GoalItem({ goal, onClick }: Props) {
           <div className="flex-1 h-2 bg-gray-100 rounded-full overflow-hidden">
             <div
               className="h-full bg-linear-to-r from-primary-500 to-primary-400 rounded-full transition-all duration-500"
-              style={{ width: `${Math.min(percentage, 100)}%` }}
+              style={{ width: `${Math.min(parseFloat(goal.perc_realizado || "0"), 100)}%`}}
             />
           </div>
           <span className="text-xs font-bold text-primary-600 whitespace-nowrap">{goal.perc_realizado}%</span>
