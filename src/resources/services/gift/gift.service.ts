@@ -67,7 +67,7 @@ export class GiftService {
   }
 
   static async getCategories(): Promise<IResponseBody<ICategory[]>> {
-    const response = await httpClient.get<IResponseBody<ICategory[]>>("/gift-group");
+    const response = await httpClient.get<IResponseBody<ICategory[]>>("/category-gift");
     return response.data;
   }
 }
