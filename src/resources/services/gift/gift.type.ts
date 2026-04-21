@@ -5,11 +5,13 @@ export interface IGift {
   descricao_premio: string;
   nome_arquivo: string;
   id_grupo_premio?: string;
+  categoria_premio?: string;
 }
 
 export interface ICategory {
   id_grupo_premio: string;
   nome_grupo_premio: string;
+  categoria_premio?: string;
   codigo_externo?: string;
   nome_arquivo?: string;
 }
