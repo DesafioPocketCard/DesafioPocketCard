@@ -22,7 +22,6 @@ export function useHeaderViewModel() {
 
   const menuOptions = [
     { label: "Meu perfil", path: APP_ROUTES.PROFILE, icon: "User" },
-    { label: "Notificações", path: APP_ROUTES.NOTIFICATIONS, icon: "Bell" },
     { label: "Campanhas", path: APP_ROUTES.CAMPAIGNS, icon: "Target" },
     {
       label: "Resgate de prêmios",

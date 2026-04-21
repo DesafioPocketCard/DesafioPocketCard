@@ -5,32 +5,61 @@ import RadialWrapper from "@/components/shared/layout/radial-wrapper/radial-wrap
 import Button from "@/components/shared/buttons/button/button.component";
 import { ProductCard } from "./components/product-card/product-card.view";
 import { cn } from "@/lib/utils";
+import { InfiniteScrollList } from "@/components/shared/infinite-scroll-list";
 
 type Props = ReturnType<typeof useRescuePointsViewModel>;
 
-export function RescuePointsView({ categories, featuredGifts, gifts, selectedCategory, setSelectedCategory, isLoading, handleProductClick, goToCart, goBack }: Props) {
+export function RescuePointsView({
+  categories,
+  featuredGifts,
+  gifts,
+  selectedCategory,
+  setSelectedCategory,
+  isLoading,
+  handleProductClick,
+  goToCart,
+  goBack,
+  handleLoadMore,
+}: Props) {
   return (
     <RadialWrapper
       header={
         <div className="flex flex-col gap-3">
           <div className="flex justify-between items-center">
             <div className="flex items-center gap-3">
-              <Button variant="ghost" size="icon" onClick={goBack} className="bg-white/20 text-white rounded-xl">
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={goBack}
+                className="bg-white/20 text-white rounded-xl"
+              >
                 <ArrowLeft size={24} />
               </Button>
-              <h1 className="text-2xl font-bold text-white">Resgate de Prêmios</h1>
+              <h1 className="text-2xl font-bold text-white">
+                Resgate de Prêmios
+              </h1>
             </div>
-            <Button variant="ghost" size="icon" onClick={goToCart} className="bg-white/20 text-white rounded-xl">
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={goToCart}
+              className="bg-white/20 text-white rounded-xl"
+            >
               <ShoppingBag size={24} />
             </Button>
           </div>
-          <p className="text-sm text-white/80">Use seus pontos para resgatar prêmios incríveis.</p>
+          <p className="text-sm text-white/80">
+            Use seus pontos para resgatar prêmios incríveis.
+          </p>
 
           <div className="overflow-x-auto -mx-2 px-2 pb-1">
             <div className="flex gap-2">
               <button
-                className={cn("px-4 py-2 rounded-full text-sm font-semibold whitespace-nowrap transition-all border",
-                  !selectedCategory ? "bg-white text-primary-700 border-white" : "bg-white/20 text-white border-white/30 hover:bg-white/30"
+                className={cn(
+                  "px-4 py-2 rounded-full text-sm font-semibold whitespace-nowrap transition-all border",
+                  !selectedCategory
+                    ? "bg-white text-primary-700 border-white"
+                    : "bg-white/20 text-white border-white/30 hover:bg-white/30",
                 )}
                 onClick={() => setSelectedCategory(null)}
               >
@@ -39,8 +68,11 @@ export function RescuePointsView({ categories, featuredGifts, gifts, selectedCat
               {categories.map((cat) => (
                 <button
                   key={cat.id_grupo_premio}
-                  className={cn("px-4 py-2 rounded-full text-sm font-semibold whitespace-nowrap transition-all border",
-                    selectedCategory === cat.id_grupo_premio ? "bg-white text-primary-700 border-white" : "bg-white/20 text-white border-white/30 hover:bg-white/30"
+                  className={cn(
+                    "px-4 py-2 rounded-full text-sm font-semibold whitespace-nowrap transition-all border",
+                    selectedCategory === cat.id_grupo_premio
+                      ? "bg-white text-primary-700 border-white"
+                      : "bg-white/20 text-white border-white/30 hover:bg-white/30",
                   )}
                   onClick={() => setSelectedCategory(cat.id_grupo_premio)}
                 >
@@ -64,22 +96,42 @@ export function RescuePointsView({ categories, featuredGifts, gifts, selectedCat
           <div className="flex flex-col gap-4">
             <div className="flex items-center gap-2">
               <Star size={20} className="text-yellow-500" />
-              <h3 className="text-lg font-bold text-gray-800">Produtos em Destaque</h3>
+              <h3 className="text-lg font-bold text-gray-800">
+                Produtos em Destaque
+              </h3>
             </div>
-            <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
-              {featuredGifts.map((product) => (
-                <ProductCard key={product.id_premio} product={product} onClick={() => handleProductClick(product.id_premio)} />
-              ))}
-            </div>
+            <InfiniteScrollList
+              data={featuredGifts}
+              renderItem={(product) => (
+                <ProductCard
+                  key={product.id_premio}
+                  product={product}
+                  onClick={() => handleProductClick(product.id_premio)}
+                />
+              )}
+              keyExtractor={(product) => product.id_premio}
+              onEndReached={handleLoadMore}
+              className="overflow-visible"
+              contentContainerClassName="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4"
+            />
           </div>
         )}
 
         {!isLoading && selectedCategory && (
-          <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
-            {gifts.map((product) => (
-              <ProductCard key={product.id_premio} product={product} onClick={() => handleProductClick(product.id_premio)} />
-            ))}
-          </div>
+          <InfiniteScrollList
+            data={gifts}
+            renderItem={(product) => (
+              <ProductCard
+                key={product.id_premio}
+                product={product}
+                onClick={() => handleProductClick(product.id_premio)}
+              />
+            )}
+            keyExtractor={(product) => product.id_premio}
+            onEndReached={handleLoadMore}
+            className="overflow-visible"
+            contentContainerClassName="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4"
+          />
         )}
 
         {!isLoading && selectedCategory && gifts.length === 0 && (

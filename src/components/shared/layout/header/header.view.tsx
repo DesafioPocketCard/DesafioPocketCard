@@ -56,14 +56,6 @@ export function HeaderView({
           </div>
 
           <div className="flex items-center gap-3 sm:gap-2">
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => navigate("/notifications")}
-              className="rounded-full text-muted-foreground hover:text-primary transition-colors h-10 w-10 sm:h-11 sm:w-11"
-            >
-              <Bell size={22} className="size-6" />
-            </Button>
             
             <button
               className="group relative p-0.5 rounded-full bg-linear-to-tr from-primary-400 via-primary-200 to-primary-600 transition-all hover:scale-110 active:scale-95 cursor-pointer"

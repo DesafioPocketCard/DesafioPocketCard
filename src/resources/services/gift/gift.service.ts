@@ -12,6 +12,7 @@ type ApiGift = {
   qtde_pontos_resgate?: string | number;
   valor_pontos?: string | number;
   descricao_premio?: string;
+  categoria_premio?: string;
 };
 
 export class GiftService {
@@ -29,7 +30,9 @@ export class GiftService {
       nome_premio: nome,
       nome_arquivo: imageUrl,
       descricao_premio: apiGift.descricao_premio ?? "",
-      valor_pontos: typeof pontos === "string" ? Number(pontos) : Number(pontos ?? 0),
+      valor_pontos:
+        typeof pontos === "string" ? Number(pontos) : Number(pontos ?? 0),
+      categoria_premio: apiGift.categoria_premio,
     };
   }
 
@@ -67,7 +70,15 @@ export class GiftService {
   }
 
   static async getCategories(): Promise<IResponseBody<ICategory[]>> {
-    const response = await httpClient.get<IResponseBody<ICategory[]>>("/category-gift");
-    return response.data;
+    const response = await httpClient.get<IResponseBody<ICategory[]>>(
+      "/gift/categories",
+    );
+    return {
+      ...response.data,
+      data: (response.data.data ?? []).map((cat) => ({
+        ...cat,
+        nome_grupo_premio: cat.nome_grupo_premio || cat.categoria_premio || "",
+      })),
+    };
   }
 }
