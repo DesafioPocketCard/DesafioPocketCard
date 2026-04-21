@@ -10,4 +10,6 @@ export interface IGift {
 export interface ICategory {
   id_grupo_premio: string;
   nome_grupo_premio: string;
+  codigo_externo?: string;
+  nome_arquivo?: string;
 }

@@ -21,7 +21,7 @@ export function GoalsView({ campaign, goals, isLoading, isError, refetch, handle
           {campaign && (
             <div className="flex flex-col gap-2">
               <p className="text-base font-medium text-white/90">{campaign.nome_campanha}</p>
-              <div className="flex flex-wrap items-center gap-2">
+              <div className="flex flex-wrap items-center gap-2 mb-2">
                 <div className="flex items-center gap-1.5 bg-white/15 px-3 py-1 rounded-full w-fit text-xs font-semibold text-white border border-white/20">
                   <Target size={14} />
                   <span>{goals.length} metas</span>
@@ -30,10 +30,20 @@ export function GoalsView({ campaign, goals, isLoading, isError, refetch, handle
                   <Award size={14} />
                   <span>Meta: {campaign.valor_meta} pts</span>
                 </div>
-                <div className="flex items-center gap-1.5 bg-white/15 px-3 py-1 rounded-full w-fit text-xs font-semibold text-white border border-white/20">
-                  <TrendingUp size={14} />
-                  <span>{campaign.perc_realizado}% realizado</span>
+              </div>
+              <div className="flex flex-col gap-1 w-full mt-1">
+                <div className="flex items-center gap-3">
+                  <div className="flex-1 h-2 bg-white/20 rounded-full overflow-hidden">
+                    <div
+                      className="h-full bg-white rounded-full transition-all duration-500"
+                      style={{ width: `${Math.min(parseFloat(campaign.perc_realizado || "0"), 100)}%` }}
+                    />
+                  </div>
+                  <span className="text-xs font-bold text-white/90 whitespace-nowrap">{campaign.perc_realizado}%</span>
                 </div>
+                <span className="text-xs text-center font-medium text-white/90 mt-1">
+                  Falta {100 - parseFloat(campaign.perc_realizado || "0")}% para finalizar as metas da campanha
+                </span>
               </div>
             </div>
           )}
