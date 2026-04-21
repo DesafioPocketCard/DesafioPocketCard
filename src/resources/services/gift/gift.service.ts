@@ -71,7 +71,7 @@ export class GiftService {
 
   static async getCategories(): Promise<IResponseBody<ICategory[]>> {
     const response = await httpClient.get<IResponseBody<ICategory[]>>(
-      "/gift/categories",
+      "/category-gift",
     );
     return {
       ...response.data,
