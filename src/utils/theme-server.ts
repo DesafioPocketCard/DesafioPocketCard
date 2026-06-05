@@ -1,4 +1,4 @@
-import { cookies } from "next/headers";
+import { cookies, headers } from "next/headers";
 import { main_palette } from "@/config/theme/index";
 import type { TenantType } from "@/types/tenant";
 import { getTenantFromDomain, THEME_COOKIE_KEY } from "./theme-utils";
@@ -17,23 +17,14 @@ export const getServerTenant = async (): Promise<TenantType> => {
       return tenantCookie.value as TenantType;
     }
 
-    // Tenta diferentes formas de obter hostname
-    let hostname: string | undefined;
+    // Lê o host real da requisição HTTP (funciona com domínios customizados na Vercel)
+    const headersList = await headers();
+    const hostname =
+      headersList.get("x-forwarded-host") ||
+      headersList.get("host") ||
+      "localhost";
 
-    // Vercel deployment
-    if (process.env.VERCEL_URL) {
-      hostname = process.env.VERCEL_URL;
-    }
-    // Production domain
-    else if (process.env.NEXT_PUBLIC_APP_URL) {
-      hostname = new URL(process.env.NEXT_PUBLIC_APP_URL).hostname;
-    }
-    // Development
-    else {
-      hostname = "localhost";
-    }
-
-    return getTenantFromDomain(hostname);
+    return getTenantFromDomain(hostname.split(":")[0]);
   } catch (error) {
     // Fallback em caso de erro
     console.warn("Erro ao obter tenant do servidor:", error);
