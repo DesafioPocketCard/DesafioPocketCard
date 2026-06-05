@@ -49,4 +49,14 @@ export const TENANT_CONFIGS: Record<TenantType, TenantConfig> = {
     displayName: "Autoline",
     description: "Tema da Autoline",
   },
+  carrilho: {
+    name: "carrilho",
+    domainPatterns: [
+      "carrilho.pocketcard",
+      "www.carrilho.local",
+      "carrilho.com.br",
+    ],
+    displayName: "Carrilho",
+    description: "Tema da Carrilho",
+  },
 };

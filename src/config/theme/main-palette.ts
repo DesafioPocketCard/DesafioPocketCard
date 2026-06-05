@@ -47,6 +47,22 @@ const main_palette = {
     "800": "#7e261e",
     "900": "#44100b",
   } as const,
+  carrilho: {
+    main: "#e82030",
+    light: "#faeef0",
+    dark: "#7a000e",
+    contrastText: "#FFFFFF",
+    "50": "#faeef0",
+    "100": "#f5d8db",
+    "200": "#ebb5bd",
+    "300": "#d35467",
+    "400": "#ef485d",
+    "500": "#e82030",
+    "600": "#dc0019",
+    "700": "#c00016",
+    "800": "#a00012",
+    "900": "#7a000e",
+  } as const,
 };
 
 export default main_palette;

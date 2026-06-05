@@ -19,6 +19,12 @@ import autolineLogo10B from "@/assets/icons/logos/autoline/10x10-b.png";
 import autolineLogo10W from "@/assets/icons/logos/autoline/10x10-w.png";
 import autolineLogo10G from "@/assets/icons/logos/autoline/10x10-g.png";
 
+// Carrilho
+import carrilhoLogo180 from "@/assets/icons/logos/carrilho/180x180.svg";
+import carrilhoLogoHorizontalB from "@/assets/icons/logos/carrilho/horizontal-b.svg";
+import carrilhoLogoHorizontalW from "@/assets/icons/logos/carrilho/horizontal-w.svg";
+import carrilhoLogo10W from "@/assets/icons/logos/carrilho/10x10-w.svg";
+import carrilhoLogo10B from "@/assets/icons/logos/carrilho/10x10-b.svg";
 /**
  * Tipos de logo disponíveis
  */
@@ -79,6 +85,16 @@ const LOGO_MAP = {
     "10x10-b": autolineLogo10B,
     "10x10-w": autolineLogo10W,
     "10x10-g": autolineLogo10G,
+  },
+  carrilho: {
+    "180x180": carrilhoLogo180,
+    horizontal: carrilhoLogoHorizontalB,
+    "horizontal-b": carrilhoLogoHorizontalB,
+    "horizontal-w": carrilhoLogoHorizontalW,
+    "horizontal-g": carrilhoLogoHorizontalB,
+    "10x10-b": carrilhoLogo10B,
+    "10x10-w": carrilhoLogo10W,
+    "10x10-g": carrilhoLogo10B,
   },
 } as const;
 
