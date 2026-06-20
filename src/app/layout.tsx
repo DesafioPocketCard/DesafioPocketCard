@@ -5,6 +5,7 @@ import React from "react";
 import { QueryClientProvider } from "@/contexts/QueryClientContext";
 import { SessionProvider } from "@/contexts/SessionProvider";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Analytics } from "@vercel/analytics/next";
 import { Toaster } from "sonner";
 import { getServerTenant } from "@/utils/theme-server";
 
@@ -31,6 +32,7 @@ export default async function RootLayout({
             {children}
             <Toaster position="bottom-center" richColors />
             <SpeedInsights />
+            <Analytics />
           </QueryClientProvider>
         </SessionProvider>
       </body>
