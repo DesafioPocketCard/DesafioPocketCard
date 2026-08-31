@@ -59,4 +59,10 @@ export const TENANT_CONFIGS: Record<TenantType, TenantConfig> = {
     displayName: "Carrilho",
     description: "Tema da Carrilho",
   },
+  targa: {
+    name: "targa",
+    domainPatterns: ["targa.pocketcard", "www.targa.local", "targa.com.br"],
+    displayName: "Targa",
+    description: "Tema da Targa",
+  },
 };

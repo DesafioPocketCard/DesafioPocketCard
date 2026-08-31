@@ -25,6 +25,13 @@ import carrilhoLogoHorizontalB from "@/assets/icons/logos/carrilho/horizontal-b.
 import carrilhoLogoHorizontalW from "@/assets/icons/logos/carrilho/horizontal-w.svg";
 import carrilhoLogo10W from "@/assets/icons/logos/carrilho/10x10-w.svg";
 import carrilhoLogo10B from "@/assets/icons/logos/carrilho/10x10-b.svg";
+
+// Targa
+import targaLogo180 from "@/assets/icons/logos/targa/180x180.svg";
+import targaLogoHorizontalB from "@/assets/icons/logos/targa/horizontal-b.svg";
+import targaLogoHorizontalW from "@/assets/icons/logos/targa/horizontal-w.svg";
+import targaLogo10W from "@/assets/icons/logos/targa/10x10-w.svg";
+import targaLogo10B from "@/assets/icons/logos/targa/10x10-b.svg";
 /**
  * Tipos de logo disponíveis
  */
@@ -95,6 +102,16 @@ const LOGO_MAP = {
     "10x10-b": carrilhoLogo10B,
     "10x10-w": carrilhoLogo10W,
     "10x10-g": carrilhoLogo10B,
+  },
+  targa: {
+    "180x180": targaLogo180,
+    horizontal: targaLogoHorizontalB,
+    "horizontal-b": targaLogoHorizontalB,
+    "horizontal-w": targaLogoHorizontalW,
+    "horizontal-g": targaLogoHorizontalB,
+    "10x10-b": targaLogo10B,
+    "10x10-w": targaLogo10W,
+    "10x10-g": targaLogo10B,
   },
 } as const;
 
